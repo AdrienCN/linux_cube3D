@@ -2,12 +2,14 @@ S_DIR		= srcs/
 SRCS	= $(wildcard $(S_DIR)*.c)
 OBJ		= $(SRCS:.c=.o)
 CC		= gcc
+INCL	= -I $(I_DIR)
 I_DIR	= include/
-CFLAGS	= -Wall -Wextra -Werror -I $(I_DIR) -L $(I_DIR) -lft 
+LIBFT	= -L $(I_DIR) -lft 
+CFLAGS	= -Wall -Wextra -Werror $(INCL)
 NAME	= parseur
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -I $(I_DIR) -o $(@) $(OBJ) -L $(I_DIR) -lft
+	$(CC) $(CFLAGS) -o $(@) $(OBJ) $(LIBFT) 
 
 all: $(NAME)
 	

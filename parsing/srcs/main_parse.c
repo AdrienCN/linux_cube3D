@@ -12,7 +12,7 @@ int		ft_check_text_format(char *path);
 int		ft_rb_format(char *line);
 int		ft_rgb_val(t_rgb *ceiloor, char *line);
 int		ft_text_parsing(char *map_file, t_parsing *map_info);
-int		ft_text_val(char *text, char *path);
+int		ft_text_val(char **text, char *path);
 int		ft_try_assigning_value(char *line, t_parsing *map_info);
 void	ft_mapinfo_init(t_parsing *element);
 void	ft_print_mapinfo(t_parsing *element);
@@ -32,17 +32,28 @@ int		main(int argc, char **argv)
 	if (ft_check_filename(map_file, ".cub"))
 		return (-1);
 	ft_mapinfo_init(&map_info);
+	printf("----------------------------------\n");
 	ft_print_mapinfo(&map_info);
-	if (ft_text_parsing(map_file, &map_info) > 0)
-		return(0);
+	printf("----------------------------------\n");
+	if (ft_text_parsing(map_file, &map_info) == -1)
+	{
+		printf("Before quiting. Map_info = \n");
+		ft_print_mapinfo(&map_info);
+		return(1);
+	}
+	printf("--------------after-------------------\n");
+	ft_print_mapinfo(&map_info);
+	printf("----------------------------------\n");
+
 //	ft_free_mapinfo(map_info);
-	return (-1);
+	return (0);
 }
 
 int		ft_assign_resolution(t_parsing *map_info, char *line)
 {
 	if (map_info->r_bol == 1)
 		return (-1);
+	map_info->r_bol = 1;
 	while (*line == ' ')
 		line++;
 	if (!ft_isdigit(*line))
@@ -100,23 +111,24 @@ char 	*ft_analyse_path(char *path)
 		i++;
 	stock = ft_strndup(path, i);
 	i = open(stock, O_RDONLY);
-	if (stock == NULL || ft_check_filename(stock, ".xpm") == -1 
-		|| i < 0 || close(i) < 0 )
+	if (stock == NULL || ft_check_filename(stock, ".xpm") == -1
+			|| i < 0 || close(i) < 0)
 	{
+		printf("Error closing or opening : %s\n", stock);
 		free(stock);
 		return (NULL);
 	}
 	return (stock);
 }
 
-int		ft_text_val(char *text, char *path)
+int		ft_text_val(char **text, char *path)
 {
-	if (text != NULL)
+	if (*text != NULL)
 	{
 		free(path);
 		return (-1);
 	}
-	text = path;
+	*text = path;
 	return (1);
 }
 
@@ -131,15 +143,15 @@ int		ft_assign_text(int arrow, t_parsing *map_info, char *line)
 		return (-1);
 	map_info->info_nbr += 1;
 	if (arrow == 1)
-		return(ft_text_val(map_info->north, path));
+		return(ft_text_val(&map_info->north, path));
 	else if (arrow == 2)
-		return(ft_text_val(map_info->east, path));
+		return(ft_text_val(&map_info->east, path));
 	else if (arrow == 3)
-		return(ft_text_val(map_info->south, path));
+		return(ft_text_val(&map_info->south, path));
 	else if (arrow == 4 )
-		return(ft_text_val(map_info->west, path));
+		return(ft_text_val(&map_info->west, path));
 	else if (arrow == 5)
-		return(ft_text_val(map_info->sprite, path));
+		return(ft_text_val(&map_info->sprite, path));
 	return (-1);
 }
 
@@ -230,6 +242,7 @@ int		ft_rgb_val(t_rgb *ceiloor, char *line)
 	count = 0;
 	if (ceiloor->state == 1)
 		return (-1);
+	ceiloor->state = 1;
 	while (count < 3)
 	{
 		while (*line == ' ' || *line == ',')
@@ -245,8 +258,6 @@ int		ft_rgb_val(t_rgb *ceiloor, char *line)
 	}
 	return (0);
 }	
-
-
 
 int		ft_try_assigning_value(char *line, t_parsing *map_info)
 {
@@ -335,8 +346,15 @@ int		ft_check_filename(char *filename, char *ext_name)
 	unsigned int i;
 
 	i = 0;
-	while (filename[i] !='\0' && filename[i] != '.')
+	while (filename[i] !='\0')
+	{
+		if (filename[i] == '.')
+		{
+			if (filename[i + 1] != '.' && filename[i + 1] != '/')
+				break;
+		}
 		i++;
+	}
 	if (ft_strcmp(&filename[i], ext_name) == 0)
 		return (0);
 	printf("Error: not valid file. Use '%s' file\n", ext_name);
