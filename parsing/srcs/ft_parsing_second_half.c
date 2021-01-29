@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing_second_half.c                           :+:      :+:    :+:   */
+/*   ft_cube_second_half.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "h_parsing.h"
 
-int		ft_second_parsing(int fd, t_parsing *map_info)
+int		ft_second_parsing(int fd, t_cube *map_info)
 {
 	(void)fd;
 	(void)map_info;

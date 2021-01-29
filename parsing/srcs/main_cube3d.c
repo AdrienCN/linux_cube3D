@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/01/29 16:43:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/29 16:48:25 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		main(int argc, char **argv)
 {
 	char		*map_file;
-	t_parsing	map_info;
+	t_cube	map_info;
 	int			fd;
 
 	if (argc != 2)
@@ -47,7 +47,7 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-void	ft_mapinfo_init(t_parsing *element)
+void	ft_mapinfo_init(t_cube *element)
 {
 	element->r_bol = 0;
 	element->r_x = 0;
@@ -69,7 +69,7 @@ void	ft_mapinfo_init(t_parsing *element)
 	element->info_nbr = 0;
 }
 
-void ft_print_mapinfo(t_parsing *element)
+void ft_print_mapinfo(t_cube *element)
 {
 	printf("r_bol = %d\n", element->r_bol);
 	printf("r_x = %d | r_y = %d\n", element->r_x, element->r_y); 

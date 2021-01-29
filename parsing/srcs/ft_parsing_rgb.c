@@ -92,7 +92,7 @@ int		ft_check_rgb_format(char *line)
 	return (0);
 }
 
-int		ft_rgb_assign(int arrow, t_parsing *map_info, char *line)
+int		ft_rgb_assign(int arrow, t_cube *map_info, char *line)
 {
 	if (ft_check_rgb_format(line) == -1)
 		return (-1);

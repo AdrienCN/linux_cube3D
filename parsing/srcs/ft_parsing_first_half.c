@@ -1,6 +1,6 @@
 #include "h_parsing.h"
 
-int		ft_first_parsing(int fd, t_parsing *map_info)
+int		ft_first_parsing(int fd, t_cube *map_info)
 {
 	int		gnl;
 	char	*line;
@@ -18,7 +18,7 @@ int		ft_first_parsing(int fd, t_parsing *map_info)
 	return (0);
 }
 
-int		ft_try_assigning_value(char *line, t_parsing *map_info)
+int		ft_try_assigning_value(char *line, t_cube *map_info)
 {
 	while (*line == ' ' && *line != '\0')
 		 line++;
@@ -43,7 +43,7 @@ int		ft_try_assigning_value(char *line, t_parsing *map_info)
 	 return (-1);
 }
 
-int		ft_assign_resolution(t_parsing *map_info, char *line)
+int		ft_assign_resolution(t_cube *map_info, char *line)
 {
 	if (map_info->r_bol == 1)
 		return (-1);

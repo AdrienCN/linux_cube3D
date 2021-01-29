@@ -32,7 +32,7 @@ typedef struct s_cube
 	int info_nbr;
 }				t_cube;
 		//FIRST PARSING//
-int		ft_first_cube(int fd, t_parsing *map_info);
+int		ft_first_parsing(int fd, t_cube *map_info);
 int		ft_try_assigning_value(char *line, t_cube *map_info);
 int		ft_assign_resolution(t_cube *element, char *line);
 int		ft_check_filename(char *filename, char *ext_name);

@@ -11,7 +11,7 @@ int		ft_text_give_val(char **text, char *path)
 	return (1);
 }
 
-int		ft_text_assign(int arrow, t_parsing *map_info, char *line)
+int		ft_text_assign(int arrow, t_cube *map_info, char *line)
 {
 	char	*path;
 	
