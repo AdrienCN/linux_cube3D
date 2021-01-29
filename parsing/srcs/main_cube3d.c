@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/01/29 16:18:51 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/29 16:43:17 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		main(int argc, char **argv)
 {
 	char		*map_file;
 	t_parsing	map_info;
+	int			fd;
 
 	if (argc != 2)
 	{
@@ -29,10 +30,13 @@ int		main(int argc, char **argv)
 	printf("----------------------------------\n");
 	ft_print_mapinfo(&map_info);
 	printf("----------------------------------\n");
-	if (ft_first_parsing(map_file, &map_info) == -1)
+	fd = open(map_file, O_RDONLY);
+	if (fd < 0 || ft_first_parsing(fd, &map_info) == -1
+			|| ft_second_parsing(fd, &map_info) == -1)
 	{
-		printf("Before quiting. Map_info = \n");
+		printf("...ERROR....Map_info value: \n");
 		ft_print_mapinfo(&map_info);
+		printf("\n...program SHUT DOWN...\n");
 		return(1);
 	}
 	printf("--------------after-------------------\n");
@@ -41,5 +45,42 @@ int		main(int argc, char **argv)
 
 //	ft_free_mapinfo(map_info);
 	return (0);
+}
+
+void	ft_mapinfo_init(t_parsing *element)
+{
+	element->r_bol = 0;
+	element->r_x = 0;
+	element->r_y = 0;
+	element->north = NULL;
+	element->east = NULL;
+	element->south = NULL;
+	element->west = NULL;
+	element->sprite = NULL;
+	element->floor.state = 0;
+	element->floor.r = 0;
+	element->floor.g = 0;
+	element->floor.b = 0;
+	element->ceil.state = 0;
+	element->ceil.r = 0;
+	element->ceil.g = 0;
+	element->ceil.b = 0;
+	element->player = '0';
+	element->info_nbr = 0;
+}
+
+void ft_print_mapinfo(t_parsing *element)
+{
+	printf("r_bol = %d\n", element->r_bol);
+	printf("r_x = %d | r_y = %d\n", element->r_x, element->r_y); 
+	printf("no = %s \n", element->north); 
+	printf("ea = %s \n", element->east);
+	printf("so = %s \n", element->south);
+	printf("we = %s \n", element->west);
+	printf("sprite = %s \n", element->sprite);
+	printf("floor.state = %d\n", element->floor.state);
+	printf("floor RGB [%d,%d,%d] \n", element->floor.r, element->floor.g, element->floor.b);
+	printf("ceiling.state = %d\n", element->ceil.state);
+	printf("ceiling RGB [%d,%d,%d] \n", element->ceil.r, element->ceil.g, element->ceil.b);
 }
 

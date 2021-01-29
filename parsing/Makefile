@@ -10,6 +10,7 @@ NAME	= parseur
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $(@) $(OBJ) $(LIBFT) 
+	rm -rf $(OBJ)
 
 all: $(NAME)
 	
