@@ -1,22 +1,22 @@
 #include "h_parsing.h"
 
+
 char 	*ft_analyse_path(char *path);
 int		ft_assign_resolution(t_parsing *element, char *line);
-int		ft_assign_rgb(int arrow, t_parsing *map_info, char *line);
+int		ft_check_text_format(char *path);
 int		ft_assign_text(int arrow, t_parsing *map_info, char *line);
-int		ft_b_format(char *line);
 int		ft_check_filename(char *filename, char *ext_name);
 int		ft_check_mapname(char *name);
+int		ft_assign_rgb(int arrow, t_parsing *map_info, char *line);
 int		ft_check_rgb_format(char *line);
-int		ft_check_text_format(char *path);
-int		ft_rb_format(char *line);
 int		ft_rgb_val(t_rgb *ceiloor, char *line);
+int		ft_rb_format(char *line);
+int		ft_b_format(char *line);
 int		ft_text_parsing(char *map_file, t_parsing *map_info);
 int		ft_text_val(char **text, char *path);
 int		ft_try_assigning_value(char *line, t_parsing *map_info);
 void	ft_mapinfo_init(t_parsing *element);
 void	ft_print_mapinfo(t_parsing *element);
-
 	/* main -> element_parsing */
 int		main(int argc, char **argv)
 {
