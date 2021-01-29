@@ -1,3 +1,31 @@
+#include "libft.h"
+#include "h_parsing.h"
+#include <stdio.h>
+
+int		ft_rgb_val(t_rgb *ceiloor, char *line)
+{
+	int count;
+
+	count = 0;
+	if (ceiloor->state == 1)
+		return (-1);
+	ceiloor->state = 1;
+	while (count < 3)
+	{
+		while (*line == ' ' || *line == ',')
+			line++;
+		if (count == 0)
+			ceiloor->r = ft_atoi(line);
+		else if (count == 1)
+			ceiloor->g = ft_atoi(line);
+		else if (count == 2)
+			ceiloor->b = ft_atoi(line);
+		line += 3;
+		count++;
+	}
+	return (0);
+}
+
 int		ft_rb_format(char *line)
 {
 	int count;
@@ -76,28 +104,4 @@ int		ft_assign_rgb(int arrow, t_parsing *map_info, char *line)
 	else if (arrow == 2)
 		return(ft_rgb_val(&(map_info->ceil), line));
 	return (-1);
-}
-
-int		ft_rgb_val(t_rgb *ceiloor, char *line)
-{
-	int count;
-
-	count = 0;
-	if (ceiloor->state == 1)
-		return (-1);
-	ceiloor->state = 1;
-	while (count < 3)
-	{
-		while (*line == ' ' || *line == ',')
-			line++;
-		if (count == 0)
-			ceiloor->r = ft_atoi(line);
-		else if (count == 1)
-			ceiloor->g = ft_atoi(line);
-		else if (count == 2)
-			ceiloor->b = ft_atoi(line);
-		line += 3;
-		count++;
-	}
-	return (0);
 }
