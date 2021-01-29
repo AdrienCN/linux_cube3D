@@ -3,7 +3,7 @@ NO ./texture/path_to_north_texture.xpm
 SO ./texture/path_to_south_texture.xpm
 WE ./texture/path_to_west_texture.xpm
 EA ./texture/path_to_east_texture.xpm
-				
+
 S ./texture/path_to_sprite_texture.xpm
 
 F 220,100,0

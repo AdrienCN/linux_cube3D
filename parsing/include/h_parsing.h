@@ -44,10 +44,10 @@ int		ft_rgb_give_val(t_rgb *ceiloor, char *line);
 
 int		ft_text_assign(int arrow, t_parsing *map_info, char *line);
 int		ft_text_check_format(char *path);
-int		ft_text_parsing(char *map_file, t_parsing *map_info);
 int		ft_text_give_val(char **text, char *path);
 char 	*ft_text_check_path(char *path);
 
+int		ft_gnl_parsing(char *map_file, t_parsing *map_info);
 int		ft_try_assigning_value(char *line, t_parsing *map_info);
 void	ft_mapinfo_init(t_parsing *element);
 void	ft_print_mapinfo(t_parsing *element);

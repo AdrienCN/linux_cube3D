@@ -18,7 +18,7 @@ int		main(int argc, char **argv)
 	printf("----------------------------------\n");
 	ft_print_mapinfo(&map_info);
 	printf("----------------------------------\n");
-	if (ft_text_parsing(map_file, &map_info) == -1)
+	if (ft_gnl_parsing(map_file, &map_info) == -1)
 	{
 		printf("Before quiting. Map_info = \n");
 		ft_print_mapinfo(&map_info);
@@ -30,6 +30,52 @@ int		main(int argc, char **argv)
 
 //	ft_free_mapinfo(map_info);
 	return (0);
+}
+
+int		ft_gnl_parsing(char *map_file, t_parsing *map_info)
+{
+	int		fd;
+	int		gnl;
+	char	*line;
+	
+	fd = open(map_file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	gnl = get_next_line(fd, &line);
+	while (gnl > 0 && map_info->info_nbr < 8)
+	{
+		if (ft_try_assigning_value(line, map_info) == -1)
+			return (-1);
+		gnl = get_next_line(fd, &line);
+	}
+	if (map_info->info_nbr < 8)
+		return (-1);
+	return (0);
+}
+
+int		ft_try_assigning_value(char *line, t_parsing *map_info)
+{
+	while (*line == ' ' && *line != '\0')
+		 line++;
+	if (*line == '\0')
+		return (0);
+	if (ft_strncmp("R ", line, 2) == 0)
+		return (ft_assign_resolution(map_info, line + 1));
+	if (ft_strncmp("NO ", line, 3) == 0)
+		return (ft_text_assign(1, map_info, line + 2));
+	if (ft_strncmp("EA ", line, 3) == 0)
+		return (ft_text_assign(2, map_info, line + 2));
+	if (ft_strncmp("SO ", line, 3) == 0)
+		return (ft_text_assign(3, map_info, line + 2));
+	if (ft_strncmp("WE ", line, 3) == 0)
+		return (ft_text_assign(4, map_info, line + 2));
+	if (ft_strncmp("S ", line, 2) == 0)
+		return (ft_text_assign(5, map_info, line + 1));
+	if (ft_strncmp("F ", line, 2) == 0)
+		return (ft_rgb_assign(1, map_info, line + 1));
+	if (ft_strncmp("C ", line, 2) == 0)
+		return (ft_rgb_assign(2, map_info, line + 1));
+	 return (-1);
 }
 
 int		ft_assign_resolution(t_parsing *map_info, char *line)
@@ -59,31 +105,6 @@ int		ft_assign_resolution(t_parsing *map_info, char *line)
 	}
 	map_info->info_nbr += 1; 
 	return (0);
-}
-
-int		ft_try_assigning_value(char *line, t_parsing *map_info)
-{
-	while (*line == ' ' && *line != '\0')
-		 line++;
-	if (*line == '\0')
-		return (0);
-	if (ft_strncmp("R ", line, 2) == 0)
-		return (ft_assign_resolution(map_info, line + 1));
-	if (ft_strncmp("NO ", line, 3) == 0)
-		return (ft_text_assign(1, map_info, line + 2));
-	if (ft_strncmp("EA ", line, 3) == 0)
-		return (ft_text_assign(2, map_info, line + 2));
-	if (ft_strncmp("SO ", line, 3) == 0)
-		return (ft_text_assign(3, map_info, line + 2));
-	if (ft_strncmp("WE ", line, 3) == 0)
-		return (ft_text_assign(4, map_info, line + 2));
-	if (ft_strncmp("S ", line, 2) == 0)
-		return (ft_text_assign(5, map_info, line + 1));
-	if (ft_strncmp("F ", line, 2) == 0)
-		return (ft_rgb_assign(1, map_info, line + 1));
-	if (ft_strncmp("C ", line, 2) == 0)
-		return (ft_rgb_assign(2, map_info, line + 1));
-	 return (-1);
 }
 
 void	ft_mapinfo_init(t_parsing *element)

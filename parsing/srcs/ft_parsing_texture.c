@@ -11,34 +11,15 @@ int		ft_text_give_val(char **text, char *path)
 	return (1);
 }
 
-int		ft_text_parsing(char *map_file, t_parsing *map_info)
-{
-	int		fd;
-	int		gnl;
-	char	*line;
-	
-	fd = open(map_file, O_RDONLY);
-	if (fd < 0)
-		return (-1);
-	gnl = get_next_line(fd, &line);
-	while (gnl > 0 && map_info->info_nbr < 8)
-	{
-		if (ft_try_assigning_value(line, map_info) == -1)
-			return (-1);
-		gnl = get_next_line(fd, &line);
-	}
-	if (map_info->info_nbr < 8)
-		return (-1);
-	return (0);
-}
-
 int		ft_text_assign(int arrow, t_parsing *map_info, char *line)
 {
 	char	*path;
-
+	
+	printf("\nassiging line \t\t--[%s]--\n", line);
 	if (ft_text_check_format(line) == -1)
 		return (-1);
 	path = ft_text_check_path(line);
+	printf("\t||path ==> %s\n", path);
 	if (path == NULL)
 		return (-1);
 	map_info->info_nbr += 1;
