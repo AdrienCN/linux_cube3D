@@ -1,13 +1,13 @@
-DIR		= srcs/
-SRCS	= $(wildcard $(DIR)*.c)
+S_DIR		= srcs/
+SRCS	= $(wildcard $(S_DIR)*.c)
 OBJ		= $(SRCS:.c=.o)
 CC		= gcc
-INCL	= include/
-CFLAGS	= -Wall -Wextra -Werror -L $(INCL) -lft -I $(INCL)
+I_DIR	= include/
+CFLAGS	= -Wall -Wextra -Werror -I $(I_DIR) -L $(I_DIR) -lft 
 NAME	= parseur
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $(@) $(OBJ) 	
+	$(CC) $(CFLAGS) -I $(I_DIR) -o $(@) $(OBJ) -L $(I_DIR) -lft
 
 all: $(NAME)
 	
@@ -18,4 +18,3 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
-
