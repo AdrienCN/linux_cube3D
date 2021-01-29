@@ -15,11 +15,9 @@ int		ft_text_assign(int arrow, t_parsing *map_info, char *line)
 {
 	char	*path;
 	
-	printf("\nassiging line \t\t--[%s]--\n", line);
 	if (ft_text_check_format(line) == -1)
 		return (-1);
 	path = ft_text_check_path(line);
-	printf("\t||path ==> %s\n", path);
 	if (path == NULL)
 		return (-1);
 	map_info->info_nbr += 1;

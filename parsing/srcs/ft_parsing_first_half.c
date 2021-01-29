@@ -1,38 +1,6 @@
 #include "h_parsing.h"
 
-	/* main -> element_parsing */
-int		main(int argc, char **argv)
-{
-	char		*map_file;
-	t_parsing	map_info;
-
-	if (argc != 2)
-	{
-		printf("Usage : 1 argument\n");
-		return (-1);
-	}
-	map_file = argv[1];
-	if (ft_check_filename(map_file, ".cub"))
-		return (-1);
-	ft_mapinfo_init(&map_info);
-	printf("----------------------------------\n");
-	ft_print_mapinfo(&map_info);
-	printf("----------------------------------\n");
-	if (ft_gnl_parsing(map_file, &map_info) == -1)
-	{
-		printf("Before quiting. Map_info = \n");
-		ft_print_mapinfo(&map_info);
-		return(1);
-	}
-	printf("--------------after-------------------\n");
-	ft_print_mapinfo(&map_info);
-	printf("----------------------------------\n");
-
-//	ft_free_mapinfo(map_info);
-	return (0);
-}
-
-int		ft_gnl_parsing(char *map_file, t_parsing *map_info)
+int		ft_first_parsing(char *map_file, t_parsing *map_info)
 {
 	int		fd;
 	int		gnl;
@@ -48,6 +16,7 @@ int		ft_gnl_parsing(char *map_file, t_parsing *map_info)
 			return (-1);
 		gnl = get_next_line(fd, &line);
 	}
+	printf("\t\t**********FIRST HALF||SUCCESS||****************]\n");
 	if (map_info->info_nbr < 8)
 		return (-1);
 	return (0);
