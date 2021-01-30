@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/01/29 16:48:25 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/30 10:14:10 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_mapinfo_init(t_cube *element)
 	element->ceil.g = 0;
 	element->ceil.b = 0;
 	element->player = '0';
+	element->map = NULL;
 	element->info_nbr = 0;
 }
 

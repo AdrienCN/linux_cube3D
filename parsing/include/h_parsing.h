@@ -29,6 +29,7 @@ typedef struct s_cube
 	t_rgb floor;
 	t_rgb ceil;
 	char player;
+	char **map;
 	int info_nbr;
 }				t_cube;
 		//FIRST PARSING//
