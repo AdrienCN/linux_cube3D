@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/29 17:14:42 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/29 18:44:01 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		ft_make_map(int fd, t_cube *map_info)
 			free(map);
 			return (-1);
 		}
-		tmp = line;
-
-
+		tmp = map;
+		map = ft_strjoin()
+	}
+}
