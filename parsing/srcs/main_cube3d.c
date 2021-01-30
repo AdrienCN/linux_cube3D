@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/01/30 10:14:10 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/30 11:15:01 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	ft_mapinfo_init(t_cube *element)
 
 void ft_print_mapinfo(t_cube *element)
 {
+	int i;
+	int y;
+
 	printf("r_bol = %d\n", element->r_bol);
 	printf("r_x = %d | r_y = %d\n", element->r_x, element->r_y); 
 	printf("no = %s \n", element->north); 
@@ -83,5 +86,23 @@ void ft_print_mapinfo(t_cube *element)
 	printf("floor RGB [%d,%d,%d] \n", element->floor.r, element->floor.g, element->floor.b);
 	printf("ceiling.state = %d\n", element->ceil.state);
 	printf("ceiling RGB [%d,%d,%d] \n", element->ceil.r, element->ceil.g, element->ceil.b);
+	if (element->map == NULL)
+		printf("element->map = (null)\n");
+	else
+	{
+		printf("______________MAP_______________:\n");
+		i = 0;
+		while (element->map[i])
+		{
+			y = 0;
+			while (element->map[i][y] != '\0')
+			{
+				printf("%c", element->map[i][y]);
+				y++;
+			}
+			printf("\n");
+			i++;
+		}
+	}
 }
 

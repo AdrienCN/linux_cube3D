@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/30 10:22:37 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/30 10:58:00 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_make_map(int fd, t_cube *map_info)
 
 	line = NULL;
 	tmp = NULL;
-	map = NULL;
+	map = malloc(sizeof(char) * 1);
 	gnl = get_next_line(fd, &line);
 	while (gnl > 0)
 	{
@@ -55,37 +55,34 @@ int		ft_make_map(int fd, t_cube *map_info)
 		}
 		*/
 		tmp = map;
-		map = ft_cube_strjoin(map, line, "@@@");
+		map = ft_cube_strjoin(map, "@", line);
 		free(tmp);
-		free(line);
-		map = NULL;
-		line = NULL;
+		if (map == NULL)
+			return (-1);
+		//free(line);
+		//tmp = NULL;
+		//line = NULL;
 		gnl = get_next_line(fd, &line);
 
 	}
 	free(line);
-	map_info->map = NULL;
+	printf("Full_map_in_one_line:\n%s\n", map);
+	map_info->map = ft_split(map, '@');
 	return (0);
 }
 
-static char	*ft_cube_strjoin(char const *s1, char const *s2, char const *sep)
+static char	*ft_cube_strjoin(char const *s1, char const *sep, char const *s2)
 {
-	char	*str;
-	size_t	l1;
-	size_t	l2;
-	size_t	sep_len;
+	char *tmp;
+	char *new_str;
 
-	if (!s1 || !s2)
+	new_str = ft_strjoin(s1, sep);
+	if (new_str == NULL)
 		return (NULL);
-	l1 = ft_strlen(s1);
-	l2 = ft_strlen(s2);
-	sep_len = ft_strlen(sep);
-	str = malloc(sizeof(char) * (l1 + sep_len + l2 + 1));
-	if (str == NULL)
+	tmp = new_str;
+	new_str = ft_strjoin(new_str, s2);
+	free(tmp);
+	if (new_str == NULL)
 		return (NULL);
-	ft_memmove(str, s1, l1);
-	ft_memmove(str + l1, sep, sep_len);
-	ft_memmove(str + l1 + sep_len, s2, l2);
-	str[l1 + sep_len + l2] = '\0';
-	return (str);
+	return (new_str);
 }
