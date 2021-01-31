@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 18:59:04 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 18:59:53 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int		ft_make_map(char *line, t_cube *map)
 		}
 		i++;
 	}
+	printf("Jusqu'ici tout va bien\n");
 	ft_fill_square(map->map, map->max_row, map->max_col);
 	ft_copy_map_to_square(line, map->map); 
 	return (0);
