@@ -8,6 +8,14 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+# ifndef TRUE
+# define TRUE 1
+# endif
+
+# ifndef FALSE
+# define FALSE 0
+# endif
+
 typedef struct s_rgb
 {
 	int state;

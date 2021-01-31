@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 10:47:21 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 14:06:48 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,95 @@
 static char	*ft_cube_strjoin(char const *s1, char const *s2, char const *sep);
 static int	ft_line_char_check(char *line, char *base, t_cube *map_info);
 int		ft_isbase(char c, char *base);
-
-int		ft_make_map(int fd, t_cube *map_info);
+int		ft_map_shape_check(char **map);
+char	*ft_make_oneline_map(int fd, t_cube *map_info);
+char	**ft_make_map(char *line, t_cube *map_info);
+int		ft_empty_line_hze_check(char **map);
+int		ft_empty_line_vert_check(char **map);
+int		ft_wall_closed_hze_check(char **map);
+int		ft_wall_closed_vert_check(char **map);
+int		ft_zero_in_void_check(char **map);
 
 int		ft_second_parsing(int fd, t_cube *map_info)
 {
+	char *line_map;
 	map_info->map = NULL;
-	if (ft_make_map(fd, map_info) == -1)
+	line_map = ft_make_oneline_map(fd, map_info);
+	if (line_map == NULL)
 		return (-1);
-	/*
-	if (ft_map_shape_check(map) == -1)
+
+	printf("Full_map_in_one_line:\n%s\n", line_map);
+	
+	if (ft_make_map(line_map, map_info) == -1 || 
+			ft_map_shape_check(map_info->map) == -1)
+	{
+		free(map_info->map);
+		free(line_map);
 		return (-1);
-		*/
+	}
+	free(line_map);
 	return (1);
 }
 
-int		ft_make_map(int fd, t_cube *map_info)
+int		ft_empty_line_hze_check(char **map);
+{
+	int row;
+	int col;
+	int only_space;
+
+	row = 0;
+	while (map[row] != '\0')
+	{
+		only_space = TRUE;
+		col = 0;
+		while (map[row][col] != '\0')
+		{
+			if (map[row][col] != ' ')
+				only_space = FALSE;
+			col++;
+		}
+		if (only_space == TRUE)
+			return (1);
+		row++;
+	}
+	return (0);
+}
+
+int		ft_empty_line_vert_check(char **map)
+{
+	int row;
+	int col;
+	int only_space;
+
+	col = 0;
+	while (map[0][col] != '\0')
+	{
+		row = 0;
+		only_space = TRUE;
+		while (map[row][col] != '\0)
+			return (0);
+	}
+}
+
+int		ft_empty_line_vert_check(char **map);
+int		ft_wall_closed_hze_check(char **map);
+int		ft_wall_closed_vert_check(char **map);
+int		ft_zero_in_void_check(char **map);
+
+
+
+int		ft_map_shape_check(char **map)
+{
+	if (ft_emptyline_hze_check(map) || ft_emptyline_vert_check(map))
+		return (-1);
+	if (ft_wall_closed_hze_check(map) || ft_wall_closed_vert_check(map))
+		return (-1);
+	if (ft_zero_in_void_check(map))
+		return (-1);
+	return (1);
+}
+
+char	*ft_make_oneline_map(char *line, t_cube *map_info)
 {
 	char *line;
 	char *map;
@@ -49,22 +122,88 @@ int		ft_make_map(int fd, t_cube *map_info)
 			printf("\t****_____LINE_FORMAT___ERROR___****\n");
 			free(map);
 			free(line);
-			return (-1);
+			return (NULL);
 		}
 		tmp = map;
 		map = ft_cube_strjoin(map, "@", line);
 		free(tmp);
 		if (map == NULL)
-			return (-1);
+			return (NULL);
 		free(line);
 		tmp = NULL;
 		line = NULL;
-
 	}
-	printf("Full_map_in_one_line:\n%s\n", map);
-	map_info->map = ft_split(map, '@');
-	free(map);
 	free(line);
+	return (map);
+}
+
+int		ft_map_maxlinenbr(char *line)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '@')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int		ft_map_maxlinelen(char *line)
+{
+	int i;
+	int cur_len;
+	int max_len;
+
+	max_len = 0;
+	cur_len = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '@')
+		{
+			if (cur_len > max_len)
+				max_len = cur_len;
+			cur_len = 0;
+		}
+		i++;
+		cur_len++;
+	}
+	return (max_len);
+}
+
+void	ft_fill_map(char *line, char **map)
+{
+	int i;
+	int j;
+	int 
+
+int		ft_make_map(char *line, t_cube *map_info)
+{
+	int line_nbr;
+	int line_len;
+	int i;
+
+	line_nbr = ft_map_maxlinenbr(line);
+	line_len = ft_map_maxlinelen(line);
+	map_info->map = malloc(sizeof(*map_info->map) * (line_nbr + 1));
+	if (map_info->map == NULL)
+		return (-1);
+	i = 0;
+	while (i < line_nbr)
+	{
+		map_info->map[i] = malloc(sizeof(**map_info->map) * (line_len + 1));
+		if (map_info->map[i] == NULL)
+		{
+			ft_free_double_map_info->map(map_info->map);
+			return (-1);
+		}
+		i++;
+	}
+	ft_fill_map_info->map(line, map_info->map); 
 	return (0);
 }
 
