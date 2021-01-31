@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 09:15:36 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 09:29:15 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,14 @@ int		ft_second_parsing(int fd, t_cube *map_info)
 
 int		ft_make_map(int fd, t_cube *map_info)
 {
-	int gnl;
 	char *line;
 	char *map;
 	char *tmp;
 
 	line = NULL;
 	tmp = NULL;
-	map = malloc(sizeof(char) * 1);
-	gnl = get_next_line(fd, &line);
-	while (gnl > 0)
+	map = NULL;
+	while (get_next_line(fd, &line) > 0)
 	{
 		// Leaks GNL:
 		// -Free line a chaque appel
@@ -62,7 +60,6 @@ int		ft_make_map(int fd, t_cube *map_info)
 		free(line);
 		tmp = NULL;
 		line = NULL;
-		gnl = get_next_line(fd, &line);
 
 	}
 	free(line);
