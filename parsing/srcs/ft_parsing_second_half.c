@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/30 10:58:00 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 09:15:36 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int		ft_make_map(int fd, t_cube *map_info)
 		free(tmp);
 		if (map == NULL)
 			return (-1);
-		//free(line);
-		//tmp = NULL;
-		//line = NULL;
+		free(line);
+		tmp = NULL;
+		line = NULL;
 		gnl = get_next_line(fd, &line);
 
 	}
