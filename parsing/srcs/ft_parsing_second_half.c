@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 18:59:53 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 19:17:37 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,53 +110,32 @@ int		ft_map_maxlinelen(char *line)
 	return (max_len);
 }
 
-void	ft_fill_square(char **map, int row, int col)
+void	ft_copy_map_to_grid(char *line, char **map)
 {
 	int i;
-	int j;
+	int row;
+	int col;
 
 	i = 0;
-	while (i < row)
-	{
-		j = 0;
-		while (j < col)
-		{
-			map[i][j] = ' ';
-			j++;
-		}
-		map[i][j] = '\0';
-		i++;
-	}
-	j = 0;
-	while (j < col)
-	{
-		map[i][j] = '\0';
-		j++;
-	}
-	map[i][j] = '\0';
-}
-
-void	ft_copy_map_to_square(char *line, char **map)
-{
-	int i;
-	int j;
-	int k;
-
-	i = 0;
-	j = 0;
+	row = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '@')
+		col = 0;
+		while (line[i] != '@')
 		{
-			k = 0;
-			j++;
-		}
-		else
-		{
-			map[j][k] = line[i];
-			k++;
-		}
+			printf("map[%d][%d] = [%c] | line[%d] = %c\n", row, col, map[row][col], i, line[i]);
+			map[row][col] = line[i];
+			col++;
 			i++;
+		}
+		while (map[row][col] != '\0')
+		{
+			map[row][col] = ' ';
+			col++;
+		}
+		printf("line %d:[%s]\n", row, map[row]);
+		row++;
+		i++;
 	}
 }
 	
@@ -169,8 +148,9 @@ int		ft_make_map(char *line, t_cube *map)
 	map->map = malloc(sizeof(char*) * (map->max_row + 1));
 	if (map->map == NULL)
 		return (-1);
+	map->map[map->max_row] = NULL;
 	i = 0;
-	while (i < map->max_row)
+	while (map->map[i] != NULL)
 	{
 		map->map[i] = malloc(sizeof(char) * (map->max_col + 1));
 		if (map->map[i] == NULL)
@@ -178,11 +158,12 @@ int		ft_make_map(char *line, t_cube *map)
 			//ft_free_double_map->map(map->map);
 			return (-1);
 		}
+		map->map[i][map->max_col] = '\0';
 		i++;
 	}
 	printf("Jusqu'ici tout va bien\n");
-	ft_fill_square(map->map, map->max_row, map->max_col);
-	ft_copy_map_to_square(line, map->map); 
+	printf("Le plus important ce n'est pas la chute mais l'atterissage\n");
+	ft_copy_map_to_grid(line + 1, map->map); 
 	return (0);
 }
 
