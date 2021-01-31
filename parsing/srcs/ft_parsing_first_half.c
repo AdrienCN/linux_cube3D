@@ -1,5 +1,6 @@
 #include "h_parsing.h"
 
+
 int		ft_first_parsing(int fd, t_cube *map_info)
 {
 	int		gnl;
