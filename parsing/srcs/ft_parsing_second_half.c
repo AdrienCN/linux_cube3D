@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 15:57:41 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 18:59:04 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_line_char_check(char *line, char *base, t_cube *map_info);
 int		ft_isbase(char c, char *base);
 int		ft_map_shape_check(char **map);
 char	*ft_make_oneline_map(int fd, t_cube *map_info);
-char	**ft_make_map(char *line, t_cube *map_info);
+int		ft_make_map(char *line, t_cube *map_info);
 
 int		ft_second_parsing(int fd, t_cube *map_info)
 {
@@ -28,7 +28,7 @@ int		ft_second_parsing(int fd, t_cube *map_info)
 	if (line_map == NULL)
 		return (-1);
 
-	printf("Full_map_in_one_line:\n%s\n", line_map);
+	printf("Full_map_in_one_line:\n%s\n....Creating the map...\n", line_map);
 	
 	if (ft_make_map(line_map, map_info) == -1)
 	{
@@ -39,7 +39,7 @@ int		ft_second_parsing(int fd, t_cube *map_info)
 	free(line_map);
 	return (1);
 }
-char	*ft_make_oneline_map(char *line, t_cube *map_info)
+char	*ft_make_oneline_map(int fd, t_cube *map_info)
 {
 	char *line;
 	char *map;
@@ -121,7 +121,7 @@ void	ft_fill_square(char **map, int row, int col)
 		j = 0;
 		while (j < col)
 		{
-			map[i][j] == ' ';
+			map[i][j] = ' ';
 			j++;
 		}
 		map[i][j] = '\0';
@@ -136,7 +136,7 @@ void	ft_fill_square(char **map, int row, int col)
 	map[i][j] = '\0';
 }
 
-void	ft_copy_map_to_square(char *line, t_cube *map)
+void	ft_copy_map_to_square(char *line, char **map)
 {
 	int i;
 	int j;
@@ -164,24 +164,24 @@ int		ft_make_map(char *line, t_cube *map)
 {
 	int i;
 	
-	map->m_max_row = ft_map_maxlinenbr(line);
-	map->m_max_col = ft_map_maxlinelen(line);
-	map->map = malloc(sizeof(*char) * (map->m_max_row + 1));
+	map->max_row = ft_map_maxlinenbr(line);
+	map->max_col = ft_map_maxlinelen(line);
+	map->map = malloc(sizeof(char*) * (map->max_row + 1));
 	if (map->map == NULL)
 		return (-1);
 	i = 0;
-	while (i < line_nbr)
+	while (i < map->max_row)
 	{
-		map->map[i] = malloc(sizeof(char) * (map->m_max_col + 1));
+		map->map[i] = malloc(sizeof(char) * (map->max_col + 1));
 		if (map->map[i] == NULL)
 		{
-			ft_free_double_map->map(map->map);
+			//ft_free_double_map->map(map->map);
 			return (-1);
 		}
 		i++;
 	}
-	ft_fill_square(map->map, map->m_max_row, map->m_max_col);
-	ft_copy_map_to_square(line, map); 
+	ft_fill_square(map->map, map->max_row, map->max_col);
+	ft_copy_map_to_square(line, map->map); 
 	return (0);
 }
 

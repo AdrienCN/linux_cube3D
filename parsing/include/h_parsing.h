@@ -37,8 +37,8 @@ typedef struct s_cube
 	t_rgb floor;
 	t_rgb ceil;
 	char player;
-	int	 m_max_row;
-	int  m_max_col;
+	int	 max_row;
+	int  max_col;
 	char **map;
 	int info_nbr;
 }				t_cube;

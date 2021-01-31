@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 15:33:05 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 18:52:14 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	ft_mapinfo_init(t_cube *element)
 	element->ceil.b = 0;
 	element->player = '0';
 	element->map = NULL;
-	element->m_max_r = 0;
-	element->m_max_c = 0;
+	element->max_row = 0;
+	element->max_col = 0;
 	element->info_nbr = 0;
 }
 
@@ -89,8 +89,8 @@ void ft_print_mapinfo(t_cube *element)
 	printf("ceiling.state = %d\n", element->ceil.state);
 	printf("ceiling RGB [%d,%d,%d] \n", element->ceil.r, element->ceil.g, element->ceil.b);
 	printf("Player_Orientation = %c\n", element->player);
-	printf("max_row = %d\n", element->m_max_row);
-	printf("max_col = %d\n", element->m_max_col);
+	printf("max_row = %d\n", element->max_row);
+	printf("max_col = %d\n", element->max_col);
 	if (element->map == NULL)
 		printf("element->map = (null)\n");
 	else
