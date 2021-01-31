@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 19:20:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/01/31 19:37:04 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ int		ft_map_maxlinelen(char *line)
 	int i;
 	int cur_len;
 	int max_len;
-
+	
+	i = 0;
 	max_len = 0;
 	cur_len = 0;
 	while (line[i] != '\0')
@@ -112,12 +113,40 @@ int		ft_map_maxlinelen(char *line)
 
 void	ft_copy_map_to_grid(char *line, char **map)
 {
+	/*
 	int i;
 	int row;
 	int col;
 
 	i = 0;
 	row = 0;
+	*/
+	int a;
+	int b;
+	
+	a = 0;
+	printf("line = ---%s---\n", line);
+	if (map[a] == NULL)
+		printf("(null)\n");
+	for (a = 0; map[a] != NULL; a++)
+	{
+		for (b = 0; map[a][b] != '\0'; b++)
+		{
+			map[a][b] = b + 48;
+		}
+	}
+	for (a = 0; map[a] != NULL; a++)
+	{
+		printf("line%d:[", a);
+		for (b = 0; map[a][b] != '\0'; b++)
+		{
+			printf("%c", map[a][b]);
+		}
+		printf("]\n");
+	}
+	
+/*
+
 	while (line[i] != '\0')
 	{
 		col = 0;
@@ -137,34 +166,35 @@ void	ft_copy_map_to_grid(char *line, char **map)
 		row++;
 		i++;
 	}
+	*/
 }
 	
 int		ft_make_map(char *line, t_cube *map)
 {
 	int i;
+	char **tab;
 	
 	map->max_row = ft_map_maxlinenbr(line);
 	map->max_col = ft_map_maxlinelen(line);
-	printf("row = %d | col = %d\n", map->max_row, map->max_col);
-	map->map = malloc(sizeof(char*) * (map->max_row + 1));
-	if (map->map == NULL)
+	tab = malloc(sizeof(char*) * (map->max_row + 1));
+	if (tab == NULL)
 		return (-1);
-	map->map[map->max_row] = NULL;
+	tab[map->max_row] = NULL;
 	i = 0;
-	while (map->map[i] != NULL)
+	while (tab[i] != NULL)
 	{
-		map->map[i] = malloc(sizeof(char) * (map->max_col + 1));
-		if (map->map[i] == NULL)
+		tab[i] = malloc(sizeof(char) * (map->max_col + 1));
+		if (tab[i] == NULL)
 		{
-			//ft_free_double_map->map(map->map);
+			//ft_free_double_tab(tab);
 			return (-1);
 		}
-		map->map[i][map->max_col] = '\0';
+		tab[i][map->max_col] = '\0';
 		i++;
 	}
 	printf("Jusqu'ici tout va bien\n");
 	printf("Le plus important ce n'est pas la chute mais l'atterissage\n");
-	ft_copy_map_to_grid(line + 1, map->map); 
+	ft_copy_map_to_grid(line, tab); 
 	return (0);
 }
 
