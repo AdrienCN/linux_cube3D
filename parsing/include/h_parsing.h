@@ -36,6 +36,8 @@ typedef struct s_cube
 	char *sprite;
 	t_rgb floor;
 	t_rgb ceil;
+	char *gnl_line;
+	char *m_line;
 	char player;
 	int	 max_row;
 	int  max_col;

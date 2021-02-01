@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 12:09:29 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 15:35:22 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	ft_mapinfo_init(t_cube *element)
 	element->ceil.b = 0;
 	element->player = '0';
 	element->map = NULL;
+	element->gnl_line = NULL;
+	element->m_line = NULL;
 	element->map_start = TRUE;
 	element->map_end = FALSE;
 	element->max_row = 0;
@@ -93,6 +95,7 @@ void ft_print_mapinfo(t_cube *element)
 	printf("Player_Orientation = %c\n", element->player);
 	printf("max_row = %d\n", element->max_row);
 	printf("max_col = %d\n", element->max_col);
+	printf("m_line = {%s}\n", element->m_line);
 	if (element->map == NULL)
 		printf("element->map = (null)\n");
 	else

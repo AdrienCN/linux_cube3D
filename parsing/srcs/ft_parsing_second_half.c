@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 12:12:57 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 15:40:53 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,29 @@ static char	*ft_cube_strjoin(char const *s1, char const *s2, char const *sep);
 static int	ft_line_char_check(char *line, char *base, t_cube *map_info);
 int		ft_isbase(char c, char *base);
 int		ft_map_shape_check(char **map);
-char	*ft_make_oneline_map(int fd, t_cube *map_info);
+int		ft_make_oneline_map(int fd, t_cube *map_info);
 int		ft_make_map(char *line, t_cube *map_info);
 
 int		ft_second_parsing(int fd, t_cube *map_info)
 {
-	char *line_map;
-	map_info->map = NULL;
-	line_map = ft_make_oneline_map(fd, map_info);
-	if (line_map == NULL)
-		return (-1);
+	int bol;
+
+	bol = 1;
+	if (ft_make_oneline_map(fd, map_info) == -1)
+		bol = 0;	
 
 	printf("....Creating the map...\n");
 	
-	if (ft_make_map(line_map, map_info) == -1)
+	if (bol == 1 && ft_make_map(map_info->m_line, map_info) == -1)
+		bol = 0;
+	if (bol == 1)
+		return (1);
+	else
 	{
-		free(map_info->map);
-		free(line_map);
+		//free toute la structure 
+		//free(map_info->map);
 		return (-1);
 	}
-	free(line_map);
-	return (1);
 }
 
 void	ft_set_row_col(char *line, t_cube *map)
@@ -57,60 +59,62 @@ static int		ft_empty_line(char *str)
 	while (str[i])
 	{
 		if (str[i] != ' ')
+		{
+			printf("empty = false\n");
 			return (0);
+		}
 		i++;
 	}
+	printf("empty = TRUE\n");
 	return (1);
 }
 
-char	*ft_make_oneline_map(int fd, t_cube *map_info)
+int	ft_make_oneline_map_two(char *gnl_line, t_cube *map)
 {
-	char *line;
-	char *map;
 	char *tmp;
 
-	line = NULL;
-	tmp = NULL;
-	map = NULL;
+	if (ft_line_char_check(gnl_line, MAP_CHAR, map) == -1)
+	{
+		printf("\t****_____LINE_FORMAT___ERROR___****\n");
+		return (-1);
+	}
+	ft_set_row_col(gnl_line, map);
+	tmp = map->m_line;
+	map->m_line = ft_cube_strjoin(map->m_line, "@", gnl_line);
+	free(tmp);
+	if (map == NULL)
+		return (-1);
+	return (1);
+}
+
+
+int		ft_make_oneline_map(int fd, t_cube *map_info)
+{
+	char *line;
+
+	line = map_info->gnl_line;
 	while (get_next_line(fd, &line) > 0)
 	{
 		// Leaks GNL:
 		// -Free storage DANS GNL au dernier appel de GNL ....?
-		if (map_info->map_end == TRUE && ft_empty_line(line) == FALSE)
-		{
-			free(map);
-			free(line);
-			return (NULL);
-		}
-		if (map_info->map_start == TRUE && ft_empty_line(line) == TRUE)
-			map_info->map_start = TRUE;
-		else
-		{
+		if (map_info->map_start == TRUE && ft_empty_line(line) == FALSE)
 			map_info->map_start = FALSE;
+		if (map_info->map_start == FALSE && map_info->map_end == FALSE)
+		{
 			if (ft_empty_line(line) == TRUE)
 				map_info->map_end = TRUE;
-			else if (ft_line_char_check(line, MAP_CHAR, map_info) == -1)
-			{
-				printf("\t****_____LINE_FORMAT___ERROR___****\n");
-				free(map);
-				free(line);
-				return (NULL);
-			}
-			ft_set_row_col(line, map_info);
-			tmp = map;
-			map = ft_cube_strjoin(map, "@", line);
-			free(tmp);
-			if (map == NULL)
-				return (NULL);
-			free(line);
-			tmp = NULL;
-			line = NULL;
+			else if (ft_make_oneline_map_two(line, map_info) == -1)
+					return (-1);
 		}
+		else if (map_info->map_end == TRUE && ft_empty_line(line) == FALSE)
+			return (-1);
+		free(line);
 	}
-	free(line);
 	if (map_info->max_col == 0 || map_info->max_row == 0)
-		return (NULL);
-	return (map);
+		return (-1);
+	free(map_info->gnl_line);
+	map_info->gnl_line = NULL;
+	return (1);
 }
 
 void	ft_copy_map_to_grid(char *line, char **map, int max_col)
@@ -138,7 +142,7 @@ void	ft_copy_map_to_grid(char *line, char **map, int max_col)
 			map[row][col] = 'x';
 			col++;
 		}
-		printf("line %.2d:[%s]\t len = %ld\n", row, map[row], ft_strlen(map[row]));
+	//	printf("line %.2d:[%s]\t len = %ld\n", row, map[row], ft_strlen(map[row]));
 		row++;
 		i++;
 	}
