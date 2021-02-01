@@ -16,6 +16,11 @@
 # define FALSE 0
 # endif
 
+# ifndef MAP_CHAR
+# define MAP_CHAR "012 WSNE"
+# endif
+
+
 typedef struct s_rgb
 {
 	int state;
@@ -66,6 +71,8 @@ char 	*ft_text_check_path(char *path);
 
 		//SECOND PARSING//
 int		ft_second_parsing(int fd, t_cube *map_info);
+int		ft_isbase(char c, char *base);
+int		ft_empty_line(char *str);
 
 
 		//MAIN_PARSING//
