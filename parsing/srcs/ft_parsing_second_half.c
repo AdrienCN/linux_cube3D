@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 10:37:49 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 10:55:41 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_second_parsing(int fd, t_cube *map_info)
 	if (line_map == NULL)
 		return (-1);
 
-	printf("Full_map_in_one_line:\n{%s}\n....Creating the map...\n", line_map);
+	printf("....Creating the map...\n");
 	
 	if (ft_make_map(line_map, map_info) == -1)
 	{
@@ -86,7 +86,7 @@ char	*ft_make_oneline_map(int fd, t_cube *map_info)
 	return (map);
 }
 
-void	ft_copy_map_to_grid(char *line, char **map)
+void	ft_copy_map_to_grid(char *line, char **map, int max_col)
 {
 	int i;
 	int row;
@@ -105,12 +105,13 @@ void	ft_copy_map_to_grid(char *line, char **map)
 			col++;
 			i++;
 		}
-		while (map[row][col] != '\0')
+		// Options A : while (map[row][col] != '\0')
+		// Options B:
+		while (col < max_col)
 		{
 			map[row][col] = 'x';
 			col++;
 		}
-		printf("line %.2d:[%s]\ti = %.3d\n", row, map[row], i);
 		row++;
 		i++;
 	}
@@ -141,7 +142,7 @@ int		ft_make_map(char *line, t_cube *map)
 	printf("\n___i___ = %d\n\n", i);
 	//printf("Jusqu'ici tout va bien\n");
 	//printf("Le plus important ce n'est pas la chute mais l'atterissage\n");
-	ft_copy_map_to_grid(line, tab);
+	ft_copy_map_to_grid(line, tab, map->max_col);
 	map->map = tab;
 	return (0);
 }
