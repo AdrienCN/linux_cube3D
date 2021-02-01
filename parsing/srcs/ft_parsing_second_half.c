@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/01/31 19:37:04 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 10:37:49 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_second_parsing(int fd, t_cube *map_info)
 	if (line_map == NULL)
 		return (-1);
 
-	printf("Full_map_in_one_line:\n%s\n....Creating the map...\n", line_map);
+	printf("Full_map_in_one_line:\n{%s}\n....Creating the map...\n", line_map);
 	
 	if (ft_make_map(line_map, map_info) == -1)
 	{
@@ -39,6 +39,17 @@ int		ft_second_parsing(int fd, t_cube *map_info)
 	free(line_map);
 	return (1);
 }
+
+void	ft_set_row_col(char *line, t_cube *map)
+{
+	int max_len;
+	
+	max_len = ft_strlen(line);
+	if (max_len > map->max_col)
+		map->max_col = max_len;
+	map->max_row += 1;
+}
+
 char	*ft_make_oneline_map(int fd, t_cube *map_info)
 {
 	char *line;
@@ -59,6 +70,7 @@ char	*ft_make_oneline_map(int fd, t_cube *map_info)
 			free(line);
 			return (NULL);
 		}
+		ft_set_row_col(line, map_info);
 		tmp = map;
 		map = ft_cube_strjoin(map, "@", line);
 		free(tmp);
@@ -69,104 +81,39 @@ char	*ft_make_oneline_map(int fd, t_cube *map_info)
 		line = NULL;
 	}
 	free(line);
+	if (map_info->max_col == 0 || map_info->max_row == 0)
+		return (NULL);
 	return (map);
-}
-
-int		ft_map_maxlinenbr(char *line)
-{
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '@')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int		ft_map_maxlinelen(char *line)
-{
-	int i;
-	int cur_len;
-	int max_len;
-	
-	i = 0;
-	max_len = 0;
-	cur_len = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '@')
-		{
-			if (cur_len > max_len)
-				max_len = cur_len;
-			cur_len = 0;
-		}
-		i++;
-		cur_len++;
-	}
-	return (max_len);
 }
 
 void	ft_copy_map_to_grid(char *line, char **map)
 {
-	/*
 	int i;
 	int row;
 	int col;
 
 	i = 0;
 	row = 0;
-	*/
-	int a;
-	int b;
-	
-	a = 0;
-	printf("line = ---%s---\n", line);
-	if (map[a] == NULL)
-		printf("(null)\n");
-	for (a = 0; map[a] != NULL; a++)
-	{
-		for (b = 0; map[a][b] != '\0'; b++)
-		{
-			map[a][b] = b + 48;
-		}
-	}
-	for (a = 0; map[a] != NULL; a++)
-	{
-		printf("line%d:[", a);
-		for (b = 0; map[a][b] != '\0'; b++)
-		{
-			printf("%c", map[a][b]);
-		}
-		printf("]\n");
-	}
-	
-/*
-
+	printf("ft_strlen(line)= %ld\n", ft_strlen(line));
 	while (line[i] != '\0')
 	{
 		col = 0;
-		while (line[i] != '@')
+		while (line[i] != '@' && line[i] != '\0')
 		{
-			printf("map[%d][%d] = [%c] | line[%d] = %c\n", row, col, map[row][col], i, line[i]);
+			//printf("map[%d][%d] = [%c] | line[%d] = %c\n", row, col, map[row][col], i, line[i]);
 			map[row][col] = line[i];
 			col++;
 			i++;
 		}
 		while (map[row][col] != '\0')
 		{
-			map[row][col] = ' ';
+			map[row][col] = 'x';
 			col++;
 		}
-		printf("line %d:[%s]\n", row, map[row]);
+		printf("line %.2d:[%s]\ti = %.3d\n", row, map[row], i);
 		row++;
 		i++;
 	}
-	*/
 }
 	
 int		ft_make_map(char *line, t_cube *map)
@@ -174,16 +121,15 @@ int		ft_make_map(char *line, t_cube *map)
 	int i;
 	char **tab;
 	
-	map->max_row = ft_map_maxlinenbr(line);
-	map->max_col = ft_map_maxlinelen(line);
-	tab = malloc(sizeof(char*) * (map->max_row + 1));
+	tab = malloc(sizeof(*tab) * (map->max_row + 1));
 	if (tab == NULL)
 		return (-1);
+	printf("row = %d | col = %d\n", map->max_row, map->max_col);
 	tab[map->max_row] = NULL;
 	i = 0;
-	while (tab[i] != NULL)
+	while (i < map->max_row)
 	{
-		tab[i] = malloc(sizeof(char) * (map->max_col + 1));
+		tab[i] = malloc(sizeof(**tab) * (map->max_col));
 		if (tab[i] == NULL)
 		{
 			//ft_free_double_tab(tab);
@@ -192,9 +138,11 @@ int		ft_make_map(char *line, t_cube *map)
 		tab[i][map->max_col] = '\0';
 		i++;
 	}
-	printf("Jusqu'ici tout va bien\n");
-	printf("Le plus important ce n'est pas la chute mais l'atterissage\n");
-	ft_copy_map_to_grid(line, tab); 
+	printf("\n___i___ = %d\n\n", i);
+	//printf("Jusqu'ici tout va bien\n");
+	//printf("Le plus important ce n'est pas la chute mais l'atterissage\n");
+	ft_copy_map_to_grid(line, tab);
+	map->map = tab;
 	return (0);
 }
 
@@ -240,7 +188,7 @@ static char	*ft_cube_strjoin(char const *s1, char const *sep, char const *s2)
 	char *new_str;
 	
 	if (s1 == NULL)	
-		new_str = ft_strjoin("", sep);
+		return (ft_strdup(s2));
 	else
 		new_str = ft_strjoin(s1, sep);
 	if (new_str == NULL)
