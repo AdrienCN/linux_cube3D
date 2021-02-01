@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 15:35:22 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 16:44:54 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void ft_print_mapinfo(t_cube *element)
 	printf("max_row = %d\n", element->max_row);
 	printf("max_col = %d\n", element->max_col);
 	printf("m_line = {%s}\n", element->m_line);
+	printf("gnl_line = [%s]\n", element->gnl_line);
 	if (element->map == NULL)
 		printf("element->map = (null)\n");
 	else
@@ -105,13 +106,13 @@ void ft_print_mapinfo(t_cube *element)
 		while (element->map[i])
 		{
 			y = 0;
-			printf("{");
+			printf("%.2d --  |", i);
 			while (element->map[i][y] != '\0')
 			{
 				printf("%c", element->map[i][y]);
 				y++;
 			}
-			printf("}\n");
+			printf("|\n");
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 16:08:40 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 16:36:42 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int		ft_make_oneline_map(int fd, t_cube *map_info)
 {
 	char *line;
 
-	line = map_info->gnl_line;
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &map_info->gnl_line) > 0)
 	{
 		// Leaks GNL:
 		// -Free storage DANS GNL au dernier appel de GNL ....?
+		line = map_info->gnl_line;
 		if (map_info->map_start == TRUE && ft_empty_line(line) == FALSE)
 			map_info->map_start = FALSE;
 		if (map_info->map_start == FALSE && map_info->map_end == FALSE)
@@ -41,8 +41,6 @@ int		ft_make_oneline_map(int fd, t_cube *map_info)
 	}
 	if (map_info->max_col == 0 || map_info->max_row == 0)
 		return (-1);
-	free(map_info->gnl_line);
-	map_info->gnl_line = NULL;
 	return (1);
 }
 
