@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 10:55:41 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 12:12:57 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ void	ft_set_row_col(char *line, t_cube *map)
 		map->max_col = max_len;
 	map->max_row += 1;
 }
+static int		ft_empty_line(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 char	*ft_make_oneline_map(int fd, t_cube *map_info)
 {
@@ -63,22 +76,36 @@ char	*ft_make_oneline_map(int fd, t_cube *map_info)
 	{
 		// Leaks GNL:
 		// -Free storage DANS GNL au dernier appel de GNL ....?
-		if (ft_line_char_check(line, MAP_CHAR, map_info) == -1)
+		if (map_info->map_end == TRUE && ft_empty_line(line) == FALSE)
 		{
-			printf("\t****_____LINE_FORMAT___ERROR___****\n");
 			free(map);
 			free(line);
 			return (NULL);
 		}
-		ft_set_row_col(line, map_info);
-		tmp = map;
-		map = ft_cube_strjoin(map, "@", line);
-		free(tmp);
-		if (map == NULL)
-			return (NULL);
-		free(line);
-		tmp = NULL;
-		line = NULL;
+		if (map_info->map_start == TRUE && ft_empty_line(line) == TRUE)
+			map_info->map_start = TRUE;
+		else
+		{
+			map_info->map_start = FALSE;
+			if (ft_empty_line(line) == TRUE)
+				map_info->map_end = TRUE;
+			else if (ft_line_char_check(line, MAP_CHAR, map_info) == -1)
+			{
+				printf("\t****_____LINE_FORMAT___ERROR___****\n");
+				free(map);
+				free(line);
+				return (NULL);
+			}
+			ft_set_row_col(line, map_info);
+			tmp = map;
+			map = ft_cube_strjoin(map, "@", line);
+			free(tmp);
+			if (map == NULL)
+				return (NULL);
+			free(line);
+			tmp = NULL;
+			line = NULL;
+		}
 	}
 	free(line);
 	if (map_info->max_col == 0 || map_info->max_row == 0)
@@ -106,12 +133,12 @@ void	ft_copy_map_to_grid(char *line, char **map, int max_col)
 			i++;
 		}
 		// Options A : while (map[row][col] != '\0')
-		// Options B:
 		while (col < max_col)
 		{
 			map[row][col] = 'x';
 			col++;
 		}
+		printf("line %.2d:[%s]\t len = %ld\n", row, map[row], ft_strlen(map[row]));
 		row++;
 		i++;
 	}
@@ -130,7 +157,7 @@ int		ft_make_map(char *line, t_cube *map)
 	i = 0;
 	while (i < map->max_row)
 	{
-		tab[i] = malloc(sizeof(**tab) * (map->max_col));
+		tab[i] = malloc(sizeof(**tab) * (map->max_col + 1));
 		if (tab[i] == NULL)
 		{
 			//ft_free_double_tab(tab);

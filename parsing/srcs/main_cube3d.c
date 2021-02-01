@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 10:42:50 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/01 12:09:29 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	ft_mapinfo_init(t_cube *element)
 	element->ceil.b = 0;
 	element->player = '0';
 	element->map = NULL;
+	element->map_start = TRUE;
+	element->map_end = FALSE;
 	element->max_row = 0;
 	element->max_col = 0;
 	element->info_nbr = 0;

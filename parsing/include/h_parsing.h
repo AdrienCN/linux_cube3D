@@ -39,6 +39,8 @@ typedef struct s_cube
 	char player;
 	int	 max_row;
 	int  max_col;
+	int	 map_start;
+	int  map_end;
 	char **map;
 	int info_nbr;
 }				t_cube;
