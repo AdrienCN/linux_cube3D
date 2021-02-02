@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 16:36:42 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/02 11:43:00 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ static int	ft_make_oneline_map_two(char *gnl_line, t_cube *map)
 	char *tmp;
 
 	if (ft_line_char_check(gnl_line, MAP_CHAR, map) == -1)
-	{
-		printf("\t****_____LINE_FORMAT___ERROR___****\n");
 		return (-1);
-	}
 	ft_set_row_col(gnl_line, map);
 	tmp = map->m_line;
 	map->m_line = ft_cube_strjoin(map->m_line, "@", gnl_line);

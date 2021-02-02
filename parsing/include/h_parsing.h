@@ -73,6 +73,8 @@ char 	*ft_text_check_path(char *path);
 int		ft_second_parsing(int fd, t_cube *map_info);
 int		ft_isbase(char c, char *base);
 int		ft_empty_line(char *str);
+int		ft_check_fullmap_format(char **map, int max_col, int max_row);
+int		ft_make_oneline_map(int fd, t_cube *map_info);
 
 
 		//MAIN_PARSING//
