@@ -14,10 +14,7 @@ int		ft_check_fullmap_format(char **map, int max_col, int max_row)
 			|| ft_wall_closed_vert_check(map, max_row))
 		return (-1);
 	if (ft_zero_in_void_check(map))
-	{
-		printf("\t***ZERO_IN_VOID***\n");
 		return (-1);
-	}
 	return (1);
 }
 

@@ -6,48 +6,45 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/02/02 11:49:15 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/02 11:53:11 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_parsing.h"
 
-static int		ft_make_map(t_cube *map);
+static int		ft_make_map(t_cube *cube);
 static void	ft_copy_line_to_map(char *line, char **map, int max_col);
 
-int		ft_second_parsing(int fd, t_cube *map_info)
+int		ft_second_parsing(int fd, t_cube *cube)
 {
-	if (ft_make_oneline_map(fd, map_info) == -1)
+	if (ft_make_oneline_map(fd, cube) == -1)
 		return (-1);
-	printf("making map....\n");
-	if (ft_make_map(map_info) == -1)
+	if (ft_make_map(cube) == -1)
 		return (-1);
-	printf("copying line to map...\n");
-	ft_copy_line_to_map(map_info->m_line, map_info->map, map_info->max_col);
-	printf("checking edges & void ...\n");
-	if (ft_check_fullmap_format(map_info->map, map_info->max_col, map_info->max_row) == -1)
+	ft_copy_line_to_map(cube->m_line, cube->map, cube->max_col);
+	if (ft_check_fullmap_format(cube->map, cube->max_col, cube->max_row) == -1)
 		return (-1);
 	return (1);
 }
 
-static int		ft_make_map(t_cube *map)
+static int		ft_make_map(t_cube *cube)
 {
 	int i;
 
-	map->map = malloc(sizeof(*map->map) * (map->max_row + 1));
-	if (map->map == NULL)
+	cube->map = malloc(sizeof(*cube->map) * (cube->max_row + 1));
+	if (cube->map == NULL)
 		return (-1);
-	map->map[map->max_row] = NULL;
+	cube->map[cube->max_row] = NULL;
 	i = 0;
-	while (i < map->max_row)
+	while (i < cube->max_row)
 	{
-		map->map[i] = malloc(sizeof(**map->map) * (map->max_col + 1));
-		if (map->map[i] == NULL)
+		cube->map[i] = malloc(sizeof(**cube->map) * (cube->max_col + 1));
+		if (cube->map[i] == NULL)
 			return (-1);
-		map->map[i][map->max_col] = '\0';
+		cube->map[i][cube->max_col] = '\0';
 		i++;
 	}
-	printf("m_row = %d | m_col = %d\n", map->max_row, map->max_col);
+	printf("m_row = %d | m_col = %d\n", cube->max_row, cube->max_col);
 	return (1);
 }
 
