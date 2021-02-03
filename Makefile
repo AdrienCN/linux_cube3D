@@ -7,7 +7,7 @@ I_DIR	= include/
 LIB_FT	= -L $(I_DIR) -lft 
 CFLAGS	= -Wall -Wextra -Werror $(INCL)
 NAME	= parseur
-LIB_X	= -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
+LIB_X	= -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx_linux -lXext -lX11 -lm
 
 %.o:%.c
 	$(CC) $(CFLAGS) -I/usr/Include -Imlx_linux $(LIB_FT) -c $< -o $@
