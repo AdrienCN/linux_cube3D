@@ -6,11 +6,14 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 16:44:54 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/03 12:19:05 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "h_parsing.h"
+#include "h_cube.h"
+
+void	ft_free_mapinfo(t_cube *element);
+void	ft_free_doublearray(char **tab);
 
 int		main(int argc, char **argv)
 {
@@ -27,9 +30,6 @@ int		main(int argc, char **argv)
 	if (ft_check_filename(map_file, ".cub"))
 		return (-1);
 	ft_mapinfo_init(&map_info);
-	printf("----------------------------------\n");
-	ft_print_mapinfo(&map_info);
-	printf("----------------------------------\n");
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0 || ft_first_parsing(fd, &map_info) == -1
 			|| ft_second_parsing(fd, &map_info) == -1)
@@ -43,8 +43,47 @@ int		main(int argc, char **argv)
 	ft_print_mapinfo(&map_info);
 	printf("----------------------------------\n");
 
-//	ft_free_mapinfo(map_info);
+	ft_free_mapinfo(&map_info);
 	return (0);
+}
+
+void	ft_free_doublearray(char **tab)
+{
+	while (*tab)
+	{
+		free(*tab);
+		tab++;
+	}
+}
+
+void	ft_free_mapinfo(t_cube *element)
+{
+	element->r_bol = 0;
+	element->r_x = 0;
+	element->r_y = 0;
+	free(element->north);
+	free(element->east);
+	free(element->south);
+	free(element->west);
+	free(element->sprite);
+	element->floor.state = 0;
+	element->floor.r = 0;
+	element->floor.g = 0;
+	element->floor.b = 0;
+	element->ceil.state = 0;
+	element->ceil.r = 0;
+	element->ceil.g = 0;
+	element->ceil.b = 0;
+	element->player = '0';
+	ft_free_doublearray(element->map);
+	free(element->map);
+	free(element->gnl_line);
+	free(element->m_line);
+	element->map_start = TRUE;
+	element->map_end = FALSE;
+	element->max_row = 0;
+	element->max_col = 0;
+	element->info_nbr = 0;
 }
 
 void	ft_mapinfo_init(t_cube *element)

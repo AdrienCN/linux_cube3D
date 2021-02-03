@@ -6,11 +6,11 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/02/02 11:43:00 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/03 12:20:21 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "h_parsing.h"
+#include "h_cube.h"
 
 static void		ft_set_row_col(char *line, t_cube *map);
 static int	ft_make_oneline_map_two(char *gnl_line, t_cube *map);
@@ -23,8 +23,6 @@ int		ft_make_oneline_map(int fd, t_cube *map_info)
 
 	while (get_next_line(fd, &map_info->gnl_line) > 0)
 	{
-		// Leaks GNL:
-		// -Free storage DANS GNL au dernier appel de GNL ....?
 		line = map_info->gnl_line;
 		if (map_info->map_start == TRUE && ft_empty_line(line) == FALSE)
 			map_info->map_start = FALSE;
@@ -64,7 +62,6 @@ static int	ft_line_char_check(char *line, char *base, t_cube *map_info)
 	unsigned int i;
 
 	i = 0;
-	printf("line :[%s]\n", line);
 	while (line[i] != '\0')
 	{
 		if (!ft_isbase(line[i], base))

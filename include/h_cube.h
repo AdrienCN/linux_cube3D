@@ -1,5 +1,5 @@
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef H_CUBE_H
+# define H_PARSING_H
 
 # include "libft.h"
 # include <mlx.h>

@@ -6,11 +6,11 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/02/02 11:53:11 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/03 12:20:05 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "h_parsing.h"
+#include "h_cube.h"
 
 static int		ft_make_map(t_cube *cube);
 static void	ft_copy_line_to_map(char *line, char **map, int max_col);
@@ -44,7 +44,6 @@ static int		ft_make_map(t_cube *cube)
 		cube->map[i][cube->max_col] = '\0';
 		i++;
 	}
-	printf("m_row = %d | m_col = %d\n", cube->max_row, cube->max_col);
 	return (1);
 }
 

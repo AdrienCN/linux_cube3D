@@ -1,4 +1,4 @@
-#include "h_parsing.h"
+#include "h_cube.h"
 
 static int		ft_emptyline_vert_check(char **map);
 static int		ft_wall_closed_hze_check(char **map, int max_col);
