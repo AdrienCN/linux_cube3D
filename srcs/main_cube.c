@@ -9,6 +9,12 @@ typedef		struct s_data
 	int		endian;
 }					t_data;
 
+typedef		struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}					t_vars;
+
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
     char    *dst;
@@ -22,17 +28,25 @@ int		create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
+int		key_hook(int keycode, t_vars *vars)
+{
+	if (keycode == 65307)
+		mlx_destroy_window(vars->mlx, vars->win);
+	else
+		printf("key_pressed = %d|\n", keycode);
+}
+
 int             main(int argc, char **argv)
 {
 	t_cube		cube;
-    void    *mlx;
-    void    *mlx_win;
+	t_vars		vars;
+    /*
+	t_data		img;
 	int		x;
 	int		y;
 	int		start;
 	int		end;
-    t_data  img;
-
+	*/
 	if (argc != 2)
 		return (printf("Usage : 1 argument\n"));	
 	if (ft_parsing_main(argv[1], &cube))
@@ -41,9 +55,10 @@ int             main(int argc, char **argv)
 	cube.floor.rgb = create_trgb(0, cube.floor.r, cube.floor.g, cube.floor.b);
 	cube.ceil.rgb = create_trgb(0, cube.ceil.r, cube.ceil.g, cube.ceil.b);
 
-    mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-    img.img = mlx_new_image(mlx, 1920, 1080);
+    vars.mlx = mlx_init();
+    vars.win = mlx_new_window(vars.mlx, 1920 / 2,  1080 / 2, argv[1]);
+    /*
+	img.img = mlx_new_image(vars.mlx, 1920, 1080);
     img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len,
                                  &img.endian);
 	y = 1080;
@@ -61,8 +76,10 @@ int             main(int argc, char **argv)
 		end--;
 		y--;
 	}
-    mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-    mlx_loop(mlx);
+    mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+    */
+	mlx_hook(vars.win, 02, 1L<<0, key_hook,  &vars);
+	mlx_loop(vars.mlx);
 	ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");
 	return (0);
