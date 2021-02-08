@@ -53,6 +53,7 @@ typedef struct s_cube
 	char **map;
 	int info_nbr;
 }				t_cube;
+
 		//FIRST PARSING//
 int		ft_first_parsing(int fd, t_cube *map_info);
 int		ft_try_assigning_value(char *line, t_cube *map_info);
@@ -80,7 +81,10 @@ int		ft_make_oneline_map(int fd, t_cube *map_info);
 
 
 		//MAIN_PARSING//
+int		ft_parsing_main(char *map_file, t_cube *map_info);
 void	ft_mapinfo_init(t_cube *element);
 void	ft_print_mapinfo(t_cube *element);
+void	ft_free_mapinfo(t_cube *element);
+void	ft_free_doublearray(char **tab);
 
 #endif
