@@ -36,17 +36,36 @@ int		key_hook(int keycode, t_vars *vars)
 		printf("key_pressed = %d|\n", keycode);
 }
 
+int		button_press(int keycode, t_vars *vars)
+{
+
+	printf("a button:%d is pressed\n", keycode);
+}
+int		resize(int keycode, t_vars *vars)
+{
+	printf("resizing\n");
+}
+
+int	enter(void)
+{
+	printf("Entering window....\n");
+}
+
+int	leave(void)
+{
+	printf("Bye boss!\n");
+}
+
 int             main(int argc, char **argv)
 {
 	t_cube		cube;
 	t_vars		vars;
-    /*
 	t_data		img;
 	int		x;
 	int		y;
 	int		start;
 	int		end;
-	*/
+	
 	if (argc != 2)
 		return (printf("Usage : 1 argument\n"));	
 	if (ft_parsing_main(argv[1], &cube))
@@ -56,14 +75,13 @@ int             main(int argc, char **argv)
 	cube.ceil.rgb = create_trgb(0, cube.ceil.r, cube.ceil.g, cube.ceil.b);
 
     vars.mlx = mlx_init();
-    vars.win = mlx_new_window(vars.mlx, 1920 / 2,  1080 / 2, argv[1]);
-    /*
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
+    vars.win = mlx_new_window(vars.mlx, 1920/2,  1080, argv[1]);
+	img.img = mlx_new_image(vars.mlx, 1920/2, 1080);
     img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len,
                                  &img.endian);
 	y = 1080;
 	start = 0;
-	end = 1920;
+	end = 1920/2;
 	while (y > 0)
 	{
 		x = 0;
@@ -72,13 +90,14 @@ int             main(int argc, char **argv)
 			my_mlx_pixel_put(&img, x + start, y, 0x00FF00FF);
 			x++;
 		}
-		start ++;
+		start++;
 		end--;
 		y--;
 	}
-    mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-    */
-	mlx_hook(vars.win, 02, 1L<<0, key_hook,  &vars);
+    //mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_hook(vars.win, 2, 1L<<0, key_hook,  &vars);
+	mlx_hook(vars.win, 7, 1L<<4, enter, &vars);
+	mlx_hook(vars.win, 8, 1L<<5, leave, &vars);
 	mlx_loop(vars.mlx);
 	ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");
