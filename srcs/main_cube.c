@@ -13,6 +13,7 @@ typedef		struct s_vars
 {
 	void	*mlx;
 	void	*win;
+	int		bol;
 }					t_vars;
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -55,7 +56,12 @@ int	leave(void)
 {
 	printf("Bye boss!\n");
 }
-
+int		croix_rouge(t_vars *vars)
+{
+	vars->bol = 0;
+	//mlx_loop_end(vars->mlx);
+	mlx_destroy_window(vars->mlx, vars->win);
+}
 int             main(int argc, char **argv)
 {
 	t_cube		cube;
@@ -75,6 +81,7 @@ int             main(int argc, char **argv)
 	cube.ceil.rgb = create_trgb(0, cube.ceil.r, cube.ceil.g, cube.ceil.b);
 
     vars.mlx = mlx_init();
+	vars.bol = 1;
     vars.win = mlx_new_window(vars.mlx, 1920/2,  1080, argv[1]);
 	img.img = mlx_new_image(vars.mlx, 1920/2, 1080);
     img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len,
@@ -94,12 +101,15 @@ int             main(int argc, char **argv)
 		end--;
 		y--;
 	}
-    //mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+    mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, key_hook,  &vars);
 	mlx_hook(vars.win, 7, 1L<<4, enter, &vars);
 	mlx_hook(vars.win, 8, 1L<<5, leave, &vars);
+	mlx_hook(vars.win, 33, 1L<<17, croix_rouge, &vars);
+	if (vars.bol == 0)
+		mlx_loop_end(vars.mlx);
 	mlx_loop(vars.mlx);
-	ft_free_mapinfo(&cube);
+		ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");
 	return (0);
 }
