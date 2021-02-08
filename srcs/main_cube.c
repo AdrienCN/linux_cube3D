@@ -41,10 +41,10 @@ int             main(int argc, char **argv)
 	end = 1920;
 	while (y > 0)
 	{
-		while (start + x < end)
+		while (start < end)
 		{
 			x = start;
-			my_mlx_pixel_put(&img, x + start, y, 0x00FF0000);
+			my_mlx_pixel_put(&img, x + start, y, 0x55FF0000);
 			x++;
 		}
 		start += 2;
