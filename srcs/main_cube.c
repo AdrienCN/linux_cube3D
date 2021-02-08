@@ -1,4 +1,5 @@
 #include "h_cube.h"
+
 typedef		struct s_data
 {
 	void	*img;
@@ -16,6 +17,11 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
+int		create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
 int             main(int argc, char **argv)
 {
 	t_cube		cube;
@@ -31,6 +37,10 @@ int             main(int argc, char **argv)
 		return (printf("Usage : 1 argument\n"));	
 	if (ft_parsing_main(argv[1], &cube))
 		return (-1);
+	
+	cube.floor.rgb = create_trgb(0, cube.floor.r, cube.floor.g, cube.floor.b);
+	cube.ceil.rgb = create_trgb(0, cube.ceil.r, cube.ceil.g, cube.ceil.b);
+
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
     img.img = mlx_new_image(mlx, 1920, 1080);
@@ -41,13 +51,14 @@ int             main(int argc, char **argv)
 	end = 1920;
 	while (y > 0)
 	{
-		while (start < end)
+		x = 0;
+		while (start + x < end)
 		{
-			x = start;
-			my_mlx_pixel_put(&img, x + start, y, 0x55FF0000);
+			my_mlx_pixel_put(&img, x + start, y, 0x00FF00FF);
 			x++;
 		}
-		start += 2;
+		start ++;
+		end--;
 		y--;
 	}
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);

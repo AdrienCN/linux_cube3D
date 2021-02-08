@@ -26,6 +26,7 @@
 typedef struct s_rgb
 {
 	int state;
+	int rgb;
 	int r;
 	int g;
 	int b;
