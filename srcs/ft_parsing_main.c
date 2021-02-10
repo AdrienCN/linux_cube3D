@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/10 15:11:03 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/10 18:36:39 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,15 @@ void ft_print_mapinfo(t_cube *element)
 	else
 	{
 		printf("______________MAP_______________:\n");
-		ft_print_tab(element->map);
 		i = 0;
+		printf("col:--|");
 		while (i < element->max_col)
 		{
-			printf("%2d|", i);
+			printf("%d|", i);
 			i++;
 		}
-		printf("\n");
+		printf("\n____________________________:\n");
+		ft_print_tab(element->map);
 	}
 }
 

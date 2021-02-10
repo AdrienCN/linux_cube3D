@@ -43,32 +43,46 @@ void			ft_fill_pixel(int x, int y, char c, t_vars *vars)
 	else if (c == '2')
 		my_mlx_pixel_put(vars, x, y, vars->spr_color);
 	else
-		printf("char not recognized...\n");
+	{
+		my_mlx_pixel_put(vars, x, y, vars->void_color);
+		//printf("c = %d | x = %d | y = %d c not recognized...\n", c, x , y);
+	}
 }
 
 void			ft_print_grid(t_cube *cube, t_vars *vars)
 {
-	int y;
-	int x;
+	int col;
+	int row;
+	int	case_row;
+	int case_col;
 	int	map_col;
 	int map_row;
 	char **map;
 
 	map = cube->map;
-	x = 0;
-	while (x < vars->win_width)
+	row = 0;
+	case_row = 0;
+	while ( case_row < cube->max_row && row < vars->win_height )
 	{
-		y = 0;
-		while (y < vars->win_height)
+		case_col = 0;
+		col = 0;
+		while (case_col < cube->max_col && col < vars->win_width)
 		{
-			map_col = x / vars->tile_x;
-			map_row = y / vars->tile_y;
-			printf("checking map[%d][%d] = %c" ,map_row, map_col, map[map_row][map_col]);
-			printf("y = %d | x = %d \n", y, x);
-			ft_fill_pixel(x, y, (map[map_row][map_col]), vars);
-			y++;
+			map_row = row / vars->tile_y;
+			map_col = col / vars->tile_x;
+			//printf("checking map[%d][%d] = [%c]" ,map_row, map_col, map[map_row][map_col]);
+			//printf(" p_row = %d | p_col = %d || ", row, col);
+			//printf(" p_row = %d | p_col = %d || ", row, col);
+			//printf("map[%d][%d]\n", map_row, map_col);
+			ft_fill_pixel(col, row, (map[map_row][map_col]), vars);
+			col++;
+			if (col % vars->tile_y == 0)
+				case_col++;
 		}
-		x++;
+		row++;
+		if (row % vars->tile_y == 0)
+			case_row++;
+
 	}
 }
 int             main(int argc, char **argv)
@@ -84,7 +98,8 @@ int             main(int argc, char **argv)
 
 	ft_init_game(&cube, &vars);	
 	ft_print_grid(&cube, &vars);
-	mlx_put_image_to_window(vars.mlx, vars.img, vars.win, 0, 0);
+	write(1, "grid ok\n", 7);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	mlx_loop(vars.mlx);
 	ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");
@@ -214,7 +229,8 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
 	vars->tile_x = vars->win_width / cube->max_col; 
-	vars->tile_y = vars->win_height / cube->max_row ;
+	vars->tile_y = vars->win_height / cube->max_row;
+	printf("vars->width = %d | vars->height = %d\n", vars->win_width, vars->win_height);
 
 	// Init mlx_instances
 	vars->mlx = mlx_init();
@@ -222,7 +238,7 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len,
                                &vars->endian);
     vars->win = mlx_new_window(vars->mlx, vars->win_width, vars->win_height, "Adrien_cube");
-	printf("vars->h = %d | vars->w = %d\n", vars->win_height, vars->win_width);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	printf("X_tile = %d | Y_tile = %d\n", vars->tile_x, vars->tile_y);
 }
 
