@@ -6,7 +6,7 @@ INCL	= -I $(I_DIR)
 I_DIR	= include/
 LIB_FT	= -L $(I_DIR) -lft 
 CFLAGS	= -Wall -Wextra -Werror 
-NAME	= maze 
+NAME	= wolf3D 
 LIB_X	= -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx_linux -lXext -lX11 -lm
 
 %.o: %.c
