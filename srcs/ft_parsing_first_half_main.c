@@ -1,18 +1,18 @@
 #include "h_cube.h"
 
 
-int		ft_first_parsing(int fd, t_cube *map_info)
+int		ft_first_parsing(int fd, t_cube *cube)
 {
 	char	*line;
 
-	while (get_next_line(fd, &line) > 0 && map_info->info_nbr < 8)
+	while (get_next_line(fd, &line) > 0 && cube->info_nbr < 8)
 	{
-		if (ft_try_assigning_value(line, map_info) == -1)
+		if (ft_try_assigning_value(line, cube) == -1)
 			return (-1);
 		free(line);
 	}
 	free(line);
-	if (map_info->info_nbr < 8)
+	if (cube->info_nbr < 8)
 		return (-1);
 	return (0);
 }

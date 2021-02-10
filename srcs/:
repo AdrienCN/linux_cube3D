@@ -63,8 +63,8 @@ void			ft_print_grid(t_cube *cube, t_vars *vars)
 		{
 			map_col = x / vars->tile_x;
 			map_row = y / vars->tile_y;
-			printf("checking map[%d][%d] = %c" ,map_row, map_col, map[map_row][map_col]);
-			printf("y = %d | x = %d \n", y, x);
+			//printf("checking map[%d][%d] = %c" ,map_row, map_col, map[map_row][map_col]);
+			//printf("y = %d | x = %d \n", y, x);
 			ft_fill_pixel(x, y, (map[map_row][map_col]), vars);
 			y++;
 		}
@@ -84,7 +84,7 @@ int             main(int argc, char **argv)
 
 	ft_init_game(&cube, &vars);	
 	ft_print_grid(&cube, &vars);
-	mlx_put_image_to_window(vars.mlx, vars.img, vars.win, 0, 0);
+	//mlx_put_image_to_window(vars.mlx, vars.img, vars.win, 0, 0);
 	mlx_loop(vars.mlx);
 	ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");

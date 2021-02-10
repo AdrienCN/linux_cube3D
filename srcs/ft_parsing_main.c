@@ -6,31 +6,31 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/10 12:17:07 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/10 15:11:03 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-int		ft_parsing_main(char *map_file, t_cube *map_info)
+int		ft_parsing_main(char *map_file, t_cube *cube)
 {
 	int			fd;
 
-	ft_mapinfo_init(map_info);
+	ft_mapinfo_init(cube);
 	if (ft_check_filename(map_file, ".cub")
 			|| (fd = open(map_file, O_RDONLY)) < 0 
-			|| ft_first_parsing(fd, map_info) == -1
-			|| ft_second_parsing(fd, map_info) == -1
+			|| ft_first_parsing(fd, cube) == -1
+			|| ft_second_parsing(fd, cube) == -1
 		   	|| close(fd) < 0)
 	{
 		printf("...ERROR....Map_info value: \n");
-		ft_print_mapinfo(map_info);
-		ft_free_mapinfo(map_info);
+		ft_print_mapinfo(cube);
+		ft_free_mapinfo(cube);
 		printf("\n...program SHUT DOWN...\n");
 		return(1);
 	}
 	printf("--------------after-------------------\n");
-	ft_print_mapinfo(map_info);
+	ft_print_mapinfo(cube);
 	printf("----------------------------------\n");
 	return (0);
 }
@@ -123,19 +123,14 @@ void ft_print_mapinfo(t_cube *element)
 	else
 	{
 		printf("______________MAP_______________:\n");
+		ft_print_tab(element->map);
 		i = 0;
-		while (element->map[i])
+		while (i < element->max_col)
 		{
-			y = 0;
-			printf("%.2d --  |", i);
-			while (element->map[i][y] != '\0')
-			{
-				printf("%c", element->map[i][y]);
-				y++;
-			}
-			printf("|\n");
+			printf("%2d|", i);
 			i++;
 		}
+		printf("\n");
 	}
 }
 

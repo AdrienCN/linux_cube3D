@@ -88,4 +88,7 @@ void	ft_print_mapinfo(t_cube *element);
 void	ft_free_mapinfo(t_cube *element);
 void	ft_free_doublearray(char **tab);
 
+		//UTILS
+void	ft_print_tab(char **tab);
+
 #endif
