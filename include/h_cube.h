@@ -62,6 +62,7 @@ typedef struct s_cube
 	int  map_end;
 	char **map;
 	int info_nbr;
+	void *cpy_vars;
 }				t_cube;
 
 		//FIRST PARSING//

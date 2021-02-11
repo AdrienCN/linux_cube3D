@@ -23,14 +23,13 @@ typedef		struct s_vars
 	int		void_color;
 }					t_vars;
 
-int				draw_triangle(t_vars *vars, int x, int y, int color);
-int				key_hook(int keycode, t_vars *vars);
-void			event_algo(t_vars *vars);
+int				key_hook(int keycode, t_cube *cube);
 void			ft_init_game(t_cube * cube, t_vars *vars);
 void			ft_init_color(t_cube *cube, t_vars *vars);
 void            my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 int				create_trgb(int t, int r, int g, int b);
 void			ft_print_tab(char **tab);
+int				ft_update_map(int keycode, t_cube *cube);
 
 void			ft_fill_pixel(int x, int y, char c, t_vars *vars)
 {
@@ -129,7 +128,6 @@ int             main(int argc, char **argv)
 {
 	t_cube		cube;
 	t_vars		vars;
-	char		**problem;
 	
 	if (argc != 2)
 		return (printf("Usage : 1 argument\n"));	
@@ -139,76 +137,52 @@ int             main(int argc, char **argv)
 	ft_init_game(&cube, &vars);	
 	ft_print_grid(&cube, &vars);
 	ft_print_player(&cube, &vars);
-	write(1, "grid ok\n", 7);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
+	mlx_hook(vars.win, 2, 1L<<0 , key_hook, &cube);
+	mlx_hook(vars.win, 3, 1L<<1 , ft_update_map, &cube);
+	ft_print_grid(&cube, &vars);
+	ft_print_player(&cube, &vars);
 	mlx_loop(vars.mlx);
 	ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");
 	return (0);
 }
 
-void			event_algo(t_vars *vars)
-{
-	mlx_hook(vars->win, 33, 1L<<17, mlx_loop_end, vars->mlx);	
-	write(1, "rentre\n", 8);
-	mlx_hook(vars->win, 2, 1L<<0, key_hook,  vars);
-	write(1, "sortir\n", 7);
-}	
-
-
-int		key_hook(int keycode, t_vars *vars)
+int		key_hook(int keycode, t_cube *cube)
 {
 	char c;
 	int color;
 
 	c = keycode;
-	if (keycode == 65307)
-		mlx_loop_end(vars->mlx);
-	else if (c == 'a' || c == 'd')
-	{
-		color = create_trgb(0, keycode, keycode, keycode);
-		draw_triangle(vars, vars->win_width, vars->win_height, color);
-	}
-	else if (c == 'w' || c == 's')
-	{
-		color = 0x00000FF;
-		draw_triangle(vars, vars->win_width / 2, vars->win_height / 2, color);
-	}
+	if (c == 'a')
+		cube->player.a_d -= 10;
+	else if (c == 'd')
+		cube->player.a_d += 10;
+	else if (c == 'w')
+		cube->player.w_s -= 10;
+	else if (c == 's')
+		cube->player.w_s += 10;
 	else
 		printf("key_pressed = %d|\n", keycode);
+	cube->player.x += cube->player.a_d;
+	cube->player.y += cube->player.w_s;
+	printf("player x = %d | player y = %d\n", cube->player.x, cube->player.y);
+	return (0);
+}
+
+int		ft_update_map(int keycode, t_cube *cube)
+{
+	t_vars *vars;
+	vars = cube->cpy_vars;
+	ft_print_grid(cube, cube->cpy_vars);
+	ft_print_player(cube, cube->cpy_vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	cube->player.a_d = 0;
+	cube->player.w_s = 0;
 	return (0);
 }
 
 
-int				draw_triangle(t_vars *vars, int x, int y, int color)
-{
-	int i;
-	int mid;
-	int offset;
-
-	offset = 0;
-	mid = x / 2;
-	while (y > 0)
-	{
-		i = 0;
-		printf("h = %d | wi = %d\n", y, x);
-		if (x < 0)
-			my_mlx_pixel_put(vars, mid, y, 0x000000FF);
-		else
-		{
-			while (i < x)
-			{
-				my_mlx_pixel_put(vars, i + offset, y, color);
-				i++;
-			}
-			offset++;
-			x -= 2;
-		}
-		y--;
-	}
-    mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	return (1);
-}
 
 void            my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 {
@@ -278,7 +252,9 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	//donne les coord de la TILE du joueur en pixel. 0.0
 	cube->player.x = vars->tile_width * cube->player.x;
 	cube->player.y = vars->tile_height * cube->player.y;
-
+	cube->player.a_d = 0;
+	cube->player.w_s = 0;
+	cube->cpy_vars = vars;
 
 	// Init mlx_instances
 	vars->mlx = mlx_init();
