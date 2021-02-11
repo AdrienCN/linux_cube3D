@@ -2,7 +2,7 @@
 
 #define BLACK 0x00000000
 #define RED	  0x00FF0000
-#define STEP_LEN 1
+#define STEP_LEN 5
 typedef		struct s_vars
 {
 	void	*mlx;
@@ -82,7 +82,7 @@ void			ft_print_grid(t_cube *cube, t_vars *vars)
 		pixel_y++;
 		map_row = pixel_y / vars->tile_height;
 	}
-	printf("max_pixel_Y = %d | max_pixel_X = %d\n", pixel_y, pixel_x);
+	printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
 }
 
 void			ft_print_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
@@ -116,6 +116,11 @@ void			ft_print_player(t_cube *cube, t_vars *vars)
 	ft_print_square(vars, middle_y, middle_x, square_h, square_w);
 }
 
+int			ras(t_cube *cube)
+{
+	printf("nothing to do here\n");
+	return (0);	
+}
 
 int             main(int argc, char **argv)
 {
@@ -150,6 +155,7 @@ int		key_hook(int keycode, t_cube *cube)
 	int z;
 	int row;
 	int col;
+	int diag;
 	t_vars *vars;
 	vars = cube->cpy_vars;
 
@@ -164,40 +170,51 @@ int		key_hook(int keycode, t_cube *cube)
 		cube->player.w_s += STEP_LEN;
 	else
 		printf("key_pressed = %d|\n", keycode);
-	
 	x = cube->player.x + cube->player.a_d;
 	y = cube->player.y + cube->player.w_s;
 	row = y / vars->tile_height;
 	col = x / vars->tile_width;
 	if ((y > vars->win_height || y < 0) 
 			|| (x > vars->win_width || x < 0)) 
-			 //*cube->map[row][col] != '0')
 	{
 		printf("***BOUNDARIES LIMIT***\n");
 		return (1);
 	}
-	w = x + vars->tile_width;
-	z = y + vars->tile_height;
-	printf("player x = %d | player y = %d\n", x, y);
-	printf("player w = %d | player z = %d\n", w, z);
-
-
-	row = y / vars->tile_height;
-	col = x / vars->tile_width;
-	if ((z < vars->win_height || y < 0) 
-			|| (w < vars->win_width || x < 0)) 
-			//|| cube->map[row][col] != '0')
+	if (cube->map[row][col] != '0')
 	{
 
-		printf("__***BOUNDARIES LIMIT***__:\n");
-		printf("map[%d][%d] = [%c]\n", row, col, cube->map[row][col]);
-
+		printf("CANNOT PASS LAH - map[%d][%d] is :** ", row, col);
+		if (cube->map[row][col] == '1')
+			printf("WALL**\n");
+		else
+			printf("SPRITE**\n");
 		return (1);
 	}
+	w = x + vars->tile_width;
+	z = y + vars->tile_height;
+	row = z / vars->tile_height;
+	col = w / vars->tile_width;
+	if ((z > vars->win_height || z < 0) 
+			|| (w > vars->win_width || w < 0)) 
+	{
+		printf("***BOUNDARIES LIMIT***\n");
+		return (1);
+	}
+	if (cube->map[row][col] != '0')
+	{
+
+		printf("CANNOT PASS LAH - map[%d][%d] is :** ", row, col);
+		if (cube->map[row][col] == '1')
+			printf("WALL**\n");
+		else
+			printf("SPRITE**\n");
+		return (1);
+	}
+
+	printf("\n*Player new postion = \n");
 	cube->player.x += cube->player.a_d;
 	cube->player.y += cube->player.w_s;
-	printf("player x = %d | player y = %d\n", cube->player.x, cube->player.y);
-	printf("player w = %d | player z = %d\n", w, z);
+	printf("x = %d | y = %d*\n\n", cube->player.x, cube->player.y);
 	return (0);
 }
 
