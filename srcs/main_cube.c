@@ -174,8 +174,8 @@ int		key_hook(int keycode, t_cube *cube)
 	y = cube->player.y + cube->player.w_s;
 	row = y / vars->tile_height;
 	col = x / vars->tile_width;
-	if ((y > vars->win_height || y < 0) 
-			|| (x > vars->win_width || x < 0)) 
+	if ((y >= vars->win_height || y < 0) 
+			|| (x >= vars->win_width || x < 0)) 
 	{
 		printf("***BOUNDARIES LIMIT***\n");
 		return (1);
@@ -194,8 +194,8 @@ int		key_hook(int keycode, t_cube *cube)
 	z = y + vars->tile_height;
 	row = z / vars->tile_height;
 	col = w / vars->tile_width;
-	if ((z > vars->win_height || z < 0) 
-			|| (w > vars->win_width || w < 0)) 
+	if ((z >= vars->win_height || z < 0) 
+			|| (w >= vars->win_width || w < 0)) 
 	{
 		printf("***BOUNDARIES LIMIT***\n");
 		return (1);
@@ -210,7 +210,6 @@ int		key_hook(int keycode, t_cube *cube)
 			printf("SPRITE**\n");
 		return (1);
 	}
-
 	printf("\n*Player new postion = \n");
 	cube->player.x += cube->player.a_d;
 	cube->player.y += cube->player.w_s;
