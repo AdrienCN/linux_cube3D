@@ -32,6 +32,15 @@ typedef struct s_rgb
 	int b;
 }			t_rgb;
 
+typedef struct s_perso
+{
+	char cardinal;
+	int		x;
+	int		y;
+	int		w_s; // si w y + 1 | si  s  y - 1
+	int		a_d; // pareil avec x
+}				t_perso;
+
 typedef struct s_cube
 {
 	int r_bol;
@@ -46,7 +55,7 @@ typedef struct s_cube
 	t_rgb ceil;
 	char *gnl_line;
 	char *m_line;
-	char player;
+	t_perso player;
 	int	 max_row;
 	int  max_col;
 	int	 map_start;

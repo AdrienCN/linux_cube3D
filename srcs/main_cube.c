@@ -1,6 +1,7 @@
 #include "h_cube.h"
 
 #define BLACK 0x00000000
+#define RED	  0x00FF0000
 typedef		struct s_vars
 {
 	void	*mlx;
@@ -91,6 +92,39 @@ void			ft_print_grid(t_cube *cube, t_vars *vars)
 
 	}
 }
+
+void			ft_print_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < hei)
+	{
+		j = 0;
+		while (j < wid)
+		{
+			my_mlx_pixel_put(vars, p_x + j, p_y + i, RED);
+			j++;
+		}
+		i++;
+	}
+}
+
+void			ft_print_player(t_cube *cube, t_vars *vars)
+{
+	int square_h;
+	int square_w;
+	int middle_y;
+	int middle_x;
+	square_h = vars->tile_height / 2;
+	square_w = vars->tile_width / 2;
+	middle_y = cube->player.y + (square_h / 2);
+	middle_x = cube->player.x + (square_w / 2);
+	ft_print_square(vars, middle_y, middle_x, square_h, square_w);
+}
+
+
 int             main(int argc, char **argv)
 {
 	t_cube		cube;
@@ -104,6 +138,7 @@ int             main(int argc, char **argv)
 
 	ft_init_game(&cube, &vars);	
 	ft_print_grid(&cube, &vars);
+	ft_print_player(&cube, &vars);
 	write(1, "grid ok\n", 7);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	mlx_loop(vars.mlx);
@@ -236,7 +271,14 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	vars->win_width = cube->r_x ;
 	vars->tile_width = vars->win_width / cube->max_col; 
 	vars->tile_height = vars->win_height / cube->max_row;
+	
 	printf("vars->width = %d | vars->height = %d\n", vars->win_width, vars->win_height);
+	//efface le player de la carte
+	cube->map[cube->player.y][cube->player.x] = '0';
+	//donne les coord de la TILE du joueur en pixel. 0.0
+	cube->player.x = vars->tile_width * cube->player.x;
+	cube->player.y = vars->tile_height * cube->player.y;
+
 
 	// Init mlx_instances
 	vars->mlx = mlx_init();
