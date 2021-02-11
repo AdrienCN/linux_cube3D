@@ -2,6 +2,8 @@
 
 #define BLACK 0x00000000
 #define RED	  0x00FF0000
+#define STEP_LEN 5
+
 typedef		struct s_vars
 {
 	void	*mlx;
@@ -137,11 +139,10 @@ int             main(int argc, char **argv)
 	ft_init_game(&cube, &vars);	
 	ft_print_grid(&cube, &vars);
 	ft_print_player(&cube, &vars);
+
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0 , key_hook, &cube);
 	mlx_hook(vars.win, 3, 1L<<1 , ft_update_map, &cube);
-	ft_print_grid(&cube, &vars);
-	ft_print_player(&cube, &vars);
 	mlx_loop(vars.mlx);
 	ft_free_mapinfo(&cube);
 	printf("\nmain --> return (0);\n");
@@ -152,18 +153,36 @@ int		key_hook(int keycode, t_cube *cube)
 {
 	char c;
 	int color;
+	int x;
+	int y;
+	int row;
+	int col;
+	t_vars *vars;
+	vars = cube->cpy_vars;
 
 	c = keycode;
 	if (c == 'a')
-		cube->player.a_d -= 10;
+		cube->player.a_d -= STEP_LEN;
 	else if (c == 'd')
-		cube->player.a_d += 10;
+		cube->player.a_d += STEP_LEN;
 	else if (c == 'w')
-		cube->player.w_s -= 10;
+		cube->player.w_s -= STEP_LEN;
 	else if (c == 's')
-		cube->player.w_s += 10;
+		cube->player.w_s += STEP_LEN;
 	else
 		printf("key_pressed = %d|\n", keycode);
+	
+	x = cube->player.x + cube->player.a_d;
+	y = cube->player.y + cube->player.w_s;
+	row = y / vars->tile_height;
+	col = x / vars->tile_width;
+	if ((y > vars->win_height || y < 0) 
+			|| (x > vars->win_width || x < 0) 
+			|| cube->map[row][col] != '0')
+	{
+		printf("***BOUNDARIES LIMIT***\n");
+		return (1);
+	}
 	cube->player.x += cube->player.a_d;
 	cube->player.y += cube->player.w_s;
 	printf("player x = %d | player y = %d\n", cube->player.x, cube->player.y);
@@ -181,8 +200,6 @@ int		ft_update_map(int keycode, t_cube *cube)
 	cube->player.w_s = 0;
 	return (0);
 }
-
-
 
 void            my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 {
