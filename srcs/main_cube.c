@@ -1,5 +1,6 @@
 #include "h_cube.h"
 
+#define BLACK 0x00000000
 typedef		struct s_vars
 {
 	void	*mlx;
@@ -11,8 +12,8 @@ typedef		struct s_vars
 	int		endian;
 	int		win_height;
 	int		win_width;
-	int		tile_x;
-	int		tile_y;
+	int		tile_width;
+	int		tile_height;
 	int		play_color;
 	int		wall_color;
 	int		floor_color;
@@ -32,6 +33,11 @@ void			ft_print_tab(char **tab);
 
 void			ft_fill_pixel(int x, int y, char c, t_vars *vars)
 {
+	if (y % vars->tile_height == 0 || x % vars->tile_width == 0)
+	{
+		my_mlx_pixel_put(vars, x, y, BLACK);
+		return;
+	}
 	if (c == ' ')
 		my_mlx_pixel_put(vars, x, y, vars->void_color);
 	else if (c == '0')
@@ -51,8 +57,8 @@ void			ft_fill_pixel(int x, int y, char c, t_vars *vars)
 
 void			ft_print_grid(t_cube *cube, t_vars *vars)
 {
-	int col;
-	int row;
+	int pixel_x;
+	int pixel_y;
 	int	case_row;
 	int case_col;
 	int	map_col;
@@ -60,27 +66,27 @@ void			ft_print_grid(t_cube *cube, t_vars *vars)
 	char **map;
 
 	map = cube->map;
-	row = 0;
+	pixel_y = 0;
 	case_row = 0;
-	while ( case_row < cube->max_row && row < vars->win_height )
+	while (case_row < cube->max_row && pixel_y < vars->win_height )
 	{
 		case_col = 0;
-		col = 0;
-		while (case_col < cube->max_col && col < vars->win_width)
+		pixel_x = 0;
+		while (case_col < cube->max_col && pixel_x < vars->win_width)
 		{
-			map_row = row / vars->tile_y;
-			map_col = col / vars->tile_x;
+			map_row = pixel_y / vars->tile_height;
+			map_col = pixel_x / vars->tile_width;
 			//printf("checking map[%d][%d] = [%c]" ,map_row, map_col, map[map_row][map_col]);
 			//printf(" p_row = %d | p_col = %d || ", row, col);
 			//printf(" p_row = %d | p_col = %d || ", row, col);
 			//printf("map[%d][%d]\n", map_row, map_col);
-			ft_fill_pixel(col, row, (map[map_row][map_col]), vars);
-			col++;
-			if (col % vars->tile_y == 0)
+			ft_fill_pixel(pixel_x, pixel_y, (map[map_row][map_col]), vars);
+			pixel_x++;
+			if (pixel_x % vars->tile_width == 0)
 				case_col++;
 		}
-		row++;
-		if (row % vars->tile_y == 0)
+		pixel_y++;
+		if (pixel_y % vars->tile_height == 0)
 			case_row++;
 
 	}
@@ -198,7 +204,7 @@ void			ft_print_tab(char **tab)
 		while (tab[row])
 		{
 			col = 0;
-			printf("row:%d-", row);
+			printf("row:%3d", row);
 			while (tab[row][col])
 			{
 				printf("|%c", tab[row][col]);
@@ -215,7 +221,7 @@ void			ft_init_color(t_cube *cube, t_vars *vars)
 	vars->play_color = create_trgb(0, 255, 0, 0);
 	vars->wall_color = create_trgb(0, 0, 204, 0);
 	vars->spr_color = create_trgb(0, 102, 255, 178);
-	vars->void_color = create_trgb(0, 255, 255, 255);
+	vars->void_color = create_trgb(0, 0, 0, 0);
 	vars->ceil_color = create_trgb(0, cube->ceil.r, cube->ceil.g,
 									cube->ceil.b);
 }
@@ -228,8 +234,8 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	//Get grid proportions
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
-	vars->tile_x = vars->win_width / cube->max_col; 
-	vars->tile_y = vars->win_height / cube->max_row;
+	vars->tile_width = vars->win_width / cube->max_col; 
+	vars->tile_height = vars->win_height / cube->max_row;
 	printf("vars->width = %d | vars->height = %d\n", vars->win_width, vars->win_height);
 
 	// Init mlx_instances
@@ -239,7 +245,7 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
                                &vars->endian);
     vars->win = mlx_new_window(vars->mlx, vars->win_width, vars->win_height, "Adrien_cube");
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	printf("X_tile = %d | Y_tile = %d\n", vars->tile_x, vars->tile_y);
+	printf("X_tile = %d | Y_tile = %d\n", vars->tile_width, vars->tile_height);
 }
 
 
