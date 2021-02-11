@@ -2,8 +2,7 @@
 
 #define BLACK 0x00000000
 #define RED	  0x00FF0000
-#define STEP_LEN 5
-
+#define STEP_LEN 1
 typedef		struct s_vars
 {
 	void	*mlx;
@@ -61,37 +60,29 @@ void			ft_print_grid(t_cube *cube, t_vars *vars)
 {
 	int pixel_x;
 	int pixel_y;
-	int	case_row;
-	int case_col;
 	int	map_col;
 	int map_row;
 	char **map;
 
 	map = cube->map;
 	pixel_y = 0;
-	case_row = 0;
-	while (case_row < cube->max_row && pixel_y < vars->win_height )
+	map_row = 0;
+	map_col = 0;
+	while (map_row < cube->max_row && pixel_y < vars->win_height )
 	{
-		case_col = 0;
 		pixel_x = 0;
-		while (case_col < cube->max_col && pixel_x < vars->win_width)
+		map_col = 0;
+		while (map_col < cube->max_col && pixel_x < vars->win_width)
 		{
-			map_row = pixel_y / vars->tile_height;
-			map_col = pixel_x / vars->tile_width;
-			//printf("checking map[%d][%d] = [%c]" ,map_row, map_col, map[map_row][map_col]);
-			//printf(" p_row = %d | p_col = %d || ", row, col);
-			//printf(" p_row = %d | p_col = %d || ", row, col);
-			//printf("map[%d][%d]\n", map_row, map_col);
 			ft_fill_pixel(pixel_x, pixel_y, (map[map_row][map_col]), vars);
+			map_col = pixel_x / vars->tile_width;
 			pixel_x++;
-			if (pixel_x % vars->tile_width == 0)
-				case_col++;
 		}
+	//	printf("map[%d][%d]\n", map_row, map_col);
 		pixel_y++;
-		if (pixel_y % vars->tile_height == 0)
-			case_row++;
-
+		map_row = pixel_y / vars->tile_height;
 	}
+	printf("max_pixel_Y = %d | max_pixel_X = %d\n", pixel_y, pixel_x);
 }
 
 void			ft_print_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
@@ -118,10 +109,10 @@ void			ft_print_player(t_cube *cube, t_vars *vars)
 	int square_w;
 	int middle_y;
 	int middle_x;
-	square_h = vars->tile_height / 2;
-	square_w = vars->tile_width / 2;
-	middle_y = cube->player.y + (square_h / 2);
-	middle_x = cube->player.x + (square_w / 2);
+	square_h = vars->tile_height;
+	square_w = vars->tile_width;
+	middle_y = cube->player.y;
+	middle_x = cube->player.x;
 	ft_print_square(vars, middle_y, middle_x, square_h, square_w);
 }
 
@@ -155,6 +146,8 @@ int		key_hook(int keycode, t_cube *cube)
 	int color;
 	int x;
 	int y;
+	int w;
+	int z;
 	int row;
 	int col;
 	t_vars *vars;
@@ -177,15 +170,34 @@ int		key_hook(int keycode, t_cube *cube)
 	row = y / vars->tile_height;
 	col = x / vars->tile_width;
 	if ((y > vars->win_height || y < 0) 
-			|| (x > vars->win_width || x < 0) 
-			|| cube->map[row][col] != '0')
+			|| (x > vars->win_width || x < 0)) 
+			 //*cube->map[row][col] != '0')
 	{
 		printf("***BOUNDARIES LIMIT***\n");
+		return (1);
+	}
+	w = x + vars->tile_width;
+	z = y + vars->tile_height;
+	printf("player x = %d | player y = %d\n", x, y);
+	printf("player w = %d | player z = %d\n", w, z);
+
+
+	row = y / vars->tile_height;
+	col = x / vars->tile_width;
+	if ((z < vars->win_height || y < 0) 
+			|| (w < vars->win_width || x < 0)) 
+			//|| cube->map[row][col] != '0')
+	{
+
+		printf("__***BOUNDARIES LIMIT***__:\n");
+		printf("map[%d][%d] = [%c]\n", row, col, cube->map[row][col]);
+
 		return (1);
 	}
 	cube->player.x += cube->player.a_d;
 	cube->player.y += cube->player.w_s;
 	printf("player x = %d | player y = %d\n", cube->player.x, cube->player.y);
+	printf("player w = %d | player z = %d\n", w, z);
 	return (0);
 }
 
