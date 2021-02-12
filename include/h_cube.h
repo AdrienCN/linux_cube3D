@@ -22,6 +22,30 @@
 # define MAP_CHAR "012 WSNE"
 # endif
 
+#define BLACK 0x00000000
+#define RED	  0x00FF0000
+#define STEP_LEN 5
+
+typedef		struct s_vars
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		win_height;
+	int		win_width;
+	int		tile_width;
+	int		tile_height;
+	int		play_color;
+	int		wall_color;
+	int		floor_color;
+	int		ceil_color;
+	int		spr_color;
+	int		void_color;
+}					t_vars;
 
 typedef struct s_rgb
 {
@@ -97,6 +121,26 @@ void	ft_mapinfo_init(t_cube *element);
 void	ft_print_mapinfo(t_cube *element);
 void	ft_free_mapinfo(t_cube *element);
 void	ft_free_doublearray(char **tab);
+
+		//Mini_MAP
+				//Minimap_MAKER
+
+				//PRINT_UTILS	
+void			ft_choose_tile_color(int x, int y, char c, t_vars *vars);
+void			ft_print_player(t_cube *cube, t_vars *vars);
+void			ft_print_minimap(t_cube *cube, t_vars *vars);
+		
+		//MLX_UTILS
+int		create_trgb(int t, int r, int g, int b);
+void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
+
+
+		//SHAPE_PRINT
+void			ft_print_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
+
+		//TMP_UTILS
+void			ft_print_tab(char **tab);
+
 
 		//UTILS
 void	ft_print_tab(char **tab);
