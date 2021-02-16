@@ -41,6 +41,8 @@ typedef struct s_perso
 	float		y;
 	int		vert_walk; // si w y + 1 | si  s  y - 1
 	int		hze_walk; // pareil avec x
+	int		turn;
+	float	rot_ang;
 }				t_perso;
 
 typedef struct s_cube
