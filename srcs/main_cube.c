@@ -32,6 +32,7 @@ float		ft_convert_to_rad(float rad)
 
 int			ras(t_cube *cube)
 {
+	(void)cube;
 	printf("nothing to do here\n");
 	return (0);	
 }
@@ -125,6 +126,9 @@ int		ft_update_player(int keycode, t_vars *vars)
 {
 	float x;
 	float y;
+
+	x = 0;
+	y = 0;
 	if (!ft_update_move(keycode, vars))
 			return (0);
 	if (vars->cube.player.turn)
@@ -153,8 +157,8 @@ void	ft_draw_line(t_vars *vars)
 {
 	int start_x;
 	int start_y;
-	int end_x;
-	int end_y;
+	//int end_x;
+	//int end_y;
 	int i;
 	int j;
 
@@ -177,6 +181,7 @@ void	ft_draw_line(t_vars *vars)
 
 int		ft_update_map(int keycode, t_vars *vars)
 {
+	(void)keycode;
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_line(vars);
 	ft_draw_player(&vars->cube, vars);

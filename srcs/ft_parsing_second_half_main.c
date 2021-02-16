@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/02/10 16:03:11 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 17:52:07 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ static char	**ft_copy_line_to_map(char *line, int max_row, int max_col);
 
 int		ft_second_parsing(int fd, t_cube *cube)
 {
-	int row;
-	int col;
-
 	if (ft_make_oneline_map(fd, cube) == -1)
 		return (-1);
 	if ((cube->map = ft_copy_line_to_map(cube->m_line, cube->max_row,

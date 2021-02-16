@@ -10,10 +10,10 @@ NAME	= wolf3D
 LIB_X	= -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx_linux -lXext -lX11 -lm
 
 %.o: %.c
-	$(CC) $(INCL) -I/usr/Include -Imlx_linux $(LIB_FT) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCL) -I/usr/Include -Imlx_linux $(LIB_FT) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(INCL) -o $(@) $(OBJ) $(LIB_FT) $(LIB_X)
+	$(CC) $(CFLAGS) $(INCL) -o $(@) $(OBJ) $(LIB_FT) $(LIB_X)
 	rm -rf $(OBJ)
 
 all: $(NAME)

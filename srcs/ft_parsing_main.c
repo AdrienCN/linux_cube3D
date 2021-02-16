@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 14:17:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 17:47:53 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	ft_mapinfo_init(t_cube *element)
 void ft_print_mapinfo(t_cube *element)
 {
 	int i;
-	int y;
 
 	printf("r_bol = %d\n", element->r_bol);
 	printf("r_x = %d | r_y = %d\n", element->r_x, element->r_y); 
