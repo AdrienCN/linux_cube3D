@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:57:39 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 17:03:15 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 22:12:07 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
 		j = 0;
 		while (j < wid)
 		{
-			my_mlx_pixel_put(vars, p_x + j, p_y + i, 0x000000FF);
+			if (!ft_is_maplimit(p_x + j, p_y + i, vars)
+					&& !ft_is_wall(p_x + j, p_y + i, vars))
+				my_mlx_pixel_put(vars, p_x + j, p_y + i, 0x000000FF);
 			j++;
 		}
 		i++;

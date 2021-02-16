@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 19:11:05 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 22:00:23 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void		ft_draw_ray_projection(t_vars *vars, int ray_len)
 	square_w = vars->tile_width;
 	start_x = vars->cube.player.x + cos(vars->cube.player.rot_ang) * ray_len - vars->tile_height / 2;
 	start_y = vars->cube.player.y + sin(vars->cube.player.rot_ang) * ray_len - vars->tile_width / 2;
+	/*
 	if (ft_is_maplimit(start_x + square_w, start_y + square_h, vars))
 	{
 		printf("Projection beyond limit\n");
 		return;
 	}
+	*/
 	ft_draw_square(vars, start_y, start_x, square_h, square_w);
 }
 	

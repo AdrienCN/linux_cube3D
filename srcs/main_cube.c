@@ -1,8 +1,8 @@
 #include "h_cube.h"
 
-#define RAY_LEN 70 
+#define RAY_LEN 100 
 #define MOVE_SPEED 10
-#define ROT_SPEED 40 * (M_PI / 180)
+#define ROT_SPEED 90 * (M_PI / 180)
 #define LEFT_ARROW 65361
 #define RIGHT_ARROW 65363
 #define W 119
@@ -110,9 +110,9 @@ float ft_calculate_new_y(float y, t_vars *vars)
 	y_ref = vars->cube.player.y;
 	angle = vars->cube.player.rot_ang;
 
-	if (vars->cube.player.vert_walk == 1)
+	if (vars->cube.player.vert_walk == -1)
 		y = y_ref - sin(angle) * MOVE_SPEED;
-	else if (vars->cube.player.vert_walk == -1)
+	else if (vars->cube.player.vert_walk == 1)
 		y = y_ref + sin(angle) * MOVE_SPEED;
 	else if (vars->cube.player.hze_walk == 1)
 		y = y_ref - sin(ft_convert_to_rad(angle + (M_PI / 2)))
@@ -173,7 +173,8 @@ void	ft_draw_line(t_vars *vars)
 		i = 0;
 		while (i < RAY_LEN)
 		{
-			if (ft_is_maplimit(start_x - 1 + j, start_y - i, vars) == 0)
+			if (!ft_is_maplimit(start_x - 1 + j, start_y - i, vars)
+					&& !ft_is_wall(start_x - 1 + j, start_y - i, vars))
 				my_mlx_pixel_put(vars, start_x - 1 + j, start_y - i, RED);
 			i++;
 		}
@@ -271,7 +272,6 @@ int		ft_is_wall(float x, float y, t_vars *vars)
 	return (0);
 }
 
-
 int		ft_is_maplimit(float x, float y, t_vars *vars)
 {
 	if (y >= vars->win_height || y <= 0)
@@ -286,5 +286,3 @@ int		ft_is_maplimit(float x, float y, t_vars *vars)
 	}
 	return (0);
 }
-
-

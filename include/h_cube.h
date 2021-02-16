@@ -136,7 +136,8 @@ void			ft_draw_ray_projection(t_vars *vars, int ray_len);
 int		create_trgb(int t, int r, int g, int b);
 void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 int		ft_is_maplimit(float x, float y, t_vars *vars);
-
+int		ft_is_wall(float x, float y, t_vars *vars);
+int		ft_is_maplimit(float x, float y, t_vars *vars);
 		//SHAPE_PRINT
 void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
 
