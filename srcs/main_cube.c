@@ -1,8 +1,8 @@
 #include "h_cube.h"
 
-#define RAY_LEN 50
+#define RAY_LEN 70 
 #define MOVE_SPEED 10
-#define ROT_SPEED 90 * (M_PI / 180)
+#define ROT_SPEED 40 * (M_PI / 180)
 #define LEFT_ARROW 65361
 #define RIGHT_ARROW 65363
 #define W 119
@@ -17,6 +17,7 @@ int				ft_update_map(int keycode, t_vars *vars);
 int				ft_is_maplimit(float x, float y, t_vars *vars);
 float			ft_calculate_new_x(float x, t_vars *vars);
 float			ft_calculate_new_y(float y, t_vars *vars);
+int				ft_is_wall(float x, float y, t_vars *vars);
 
 float		ft_convert_to_rad(float rad)
 {
@@ -68,9 +69,9 @@ int		ft_update_move(int keycode, t_vars *vars)
 	else if (c == S)
 		vars->cube.player.vert_walk -= 1;
 	else if (c == LEFT_ARROW)
-		vars->cube.player.turn += 1;
-	else if (c == RIGHT_ARROW)
 		vars->cube.player.turn -= 1;
+	else if (c == RIGHT_ARROW)
+		vars->cube.player.turn += 1;
 	else
 	{
 		printf("key_pressed = %d|\n", keycode);
@@ -143,7 +144,7 @@ int		ft_update_player(int keycode, t_vars *vars)
 	x = ft_calculate_new_x(x, vars);
 	y = ft_calculate_new_y(y, vars);
 	// check if wall
-	if (ft_is_maplimit(x, y, vars))
+	if (ft_is_maplimit(x, y, vars) || ft_is_wall(x, y, vars))
 			return (1);
 	printf("\n*Player new postion = \n");
 	vars->cube.player.x = x;
@@ -172,8 +173,9 @@ void	ft_draw_line(t_vars *vars)
 		i = 0;
 		while (i < RAY_LEN)
 		{
-			my_mlx_pixel_put(vars, start_x - 1 + j, start_y - i, RED);
-		i++;
+			if (ft_is_maplimit(start_x - 1 + j, start_y - i, vars) == 0)
+				my_mlx_pixel_put(vars, start_x - 1 + j, start_y - i, RED);
+			i++;
 		}
 		j++;
 	}
@@ -185,6 +187,7 @@ int		ft_update_map(int keycode, t_vars *vars)
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_line(vars);
 	ft_draw_player(&vars->cube, vars);
+	ft_draw_ray_projection(vars, RAY_LEN);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	vars->cube.player.hze_walk = 0;
 	vars->cube.player.vert_walk = 0;
@@ -245,8 +248,7 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	printf("X_tile = %d | Y_tile = %d\n", vars->tile_width, vars->tile_height);
 }
 
-
-int		ft_is_maplimit(float x, float y, t_vars *vars)
+int		ft_is_wall(float x, float y, t_vars *vars)
 {
 	int row;
 	int col;
@@ -254,16 +256,7 @@ int		ft_is_maplimit(float x, float y, t_vars *vars)
 
 	row =  y / vars->tile_height;
 	col = x / vars->tile_width;
-	if (y >= vars->win_height || y <= 0)
-	{
-		printf("Y limit is reached\n");
-		return (1);
-	}
-	if (x >= vars->win_width || x <= 0)
-	{
-		printf("X limit is reached x = %f\n", x);
-			return (1);
-	}
+
 	item = vars->cube.map[row][col];
 	if (item != '0')
 	{
@@ -274,6 +267,22 @@ int		ft_is_maplimit(float x, float y, t_vars *vars)
 		else
 			printf("WTF did I touch? look in main line 64\n");
 		return (1);
+	}
+	return (0);
+}
+
+
+int		ft_is_maplimit(float x, float y, t_vars *vars)
+{
+	if (y >= vars->win_height || y <= 0)
+	{
+		printf("Y limit is reached\n");
+		return (1);
+	}
+	if (x >= vars->win_width || x <= 0)
+	{
+		printf("X limit is reached x = %f\n", x);
+			return (1);
 	}
 	return (0);
 }
