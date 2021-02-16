@@ -25,28 +25,6 @@
 #define BLACK 0x00000000
 #define RED	  0x00FF0000
 #define STEP_LEN 5
-
-typedef		struct s_vars
-{
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		win_height;
-	int		win_width;
-	int		tile_width;
-	int		tile_height;
-	int		play_color;
-	int		wall_color;
-	int		floor_color;
-	int		ceil_color;
-	int		spr_color;
-	int		void_color;
-}					t_vars;
-
 typedef struct s_rgb
 {
 	int state;
@@ -86,8 +64,29 @@ typedef struct s_cube
 	int  map_end;
 	char **map;
 	int info_nbr;
-	void *cpy_vars;
 }				t_cube;
+
+typedef		struct s_vars
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	t_cube	cube;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		win_height;
+	int		win_width;
+	int		tile_width;
+	int		tile_height;
+	int		play_color;
+	int		wall_color;
+	int		floor_color;
+	int		ceil_color;
+	int		spr_color;
+	int		void_color;
+}					t_vars;
 
 		//FIRST PARSING//
 int		ft_first_parsing(int fd, t_cube *map_info);
