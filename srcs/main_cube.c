@@ -35,17 +35,45 @@ int             main(int argc, char **argv)
 	return (0);
 }
 
+
+int		ft_is_maplimit(int x, int y, t_vars *vars)
+{
+	int row;
+	int col;
+	char item;
+
+	row =  y / vars->tile_height;
+	col = x / vars->tile_width;
+	if (y >= vars->win_height || y <= 0)
+	{
+		printf("Y limit is reached\n");
+		return (1);
+	}
+	if (x >= vars->win_width || x <= 0)
+	{
+		printf("X limit is reached\n");
+			return (1);
+	}
+	item = vars->cube.map[row][col];
+	if (item != '0')
+	{
+		if (item == '1')
+			printf("Wall touched\n");
+		else if (item == '2')
+			printf("Sprite touched\n");
+		else
+			printf("WTF did I touch? look in main line 64\n");
+		return (1);
+	}
+	return (0);
+}
+
 int		key_hook(int keycode, t_vars *vars)
 {
 	char c;
 	int color;
 	int x;
 	int y;
-	int w;
-	int z;
-	int row;
-	int col;
-	int diag;
 
 	c = keycode;
 	if (c == 'a')
@@ -60,44 +88,12 @@ int		key_hook(int keycode, t_vars *vars)
 		printf("key_pressed = %d|\n", keycode);
 	x = vars->cube.player.x + vars->cube.player.a_d;
 	y = vars->cube.player.y + vars->cube.player.w_s;
-	row = y / vars->tile_height;
-	col = x / vars->tile_width;
-	if ((y >= vars->win_height || y < 0) 
-			|| (x >= vars->win_width || x < 0)) 
-	{
-		printf("***BOUNDARIES LIMIT***\n");
-		return (1);
-	}
-	if (vars->cube.map[row][col] != '0')
-	{
-
-		printf("CANNOT PASS LAH - map[%d][%d] is :** ", row, col);
-		if (vars->cube.map[row][col] == '1')
-			printf("WALL**\n");
-		else
-			printf("SPRITE**\n");
-		return (1);
-	}
-	w = x + vars->tile_width;
-	z = y + vars->tile_height;
-	row = z / vars->tile_height;
-	col = w / vars->tile_width;
-	if ((z >= vars->win_height || z < 0) 
-			|| (w >= vars->win_width || w < 0)) 
-	{
-		printf("***BOUNDARIES LIMIT***\n");
-		return (1);
-	}
-	if (vars->cube.map[row][col] != '0')
-	{
-
-		printf("CANNOT PASS LAH - map[%d][%d] is :** ", row, col);
-		if (vars->cube.map[row][col] == '1')
-			printf("WALL**\n");
-		else
-			printf("SPRITE**\n");
-		return (1);
-	}
+	if (ft_is_maplimit(x, y, vars))
+			return (1);
+	x = x + vars->tile_width;
+	y = y + vars->tile_height;
+	if (ft_is_maplimit(x, y, vars))
+			return (1);
 	printf("\n*Player new postion = \n");
 	vars->cube.player.x += vars->cube.player.a_d;
 	vars->cube.player.y += vars->cube.player.w_s;
