@@ -23,8 +23,8 @@ int             main(int argc, char **argv)
 		return (-1);
 
 	ft_init_game(&vars.cube, &vars);	
-	ft_print_minimap(&vars.cube, &vars);
-	ft_print_player(&vars.cube, &vars);
+	ft_draw_minimap(&vars.cube, &vars);
+	ft_draw_player(&vars.cube, &vars);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0 , key_hook, &vars);
@@ -103,8 +103,8 @@ int		key_hook(int keycode, t_vars *vars)
 
 int		ft_update_map(int keycode, t_vars *vars)
 {
-	ft_print_minimap(&vars->cube, vars);
-	ft_print_player(&vars->cube, vars);
+	ft_draw_minimap(&vars->cube, vars);
+	ft_draw_player(&vars->cube, vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	vars->cube.player.a_d = 0;
 	vars->cube.player.w_s = 0;

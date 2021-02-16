@@ -126,8 +126,8 @@ void	ft_free_doublearray(char **tab);
 
 				//PRINT_UTILS	
 void			ft_choose_tile_color(int x, int y, char c, t_vars *vars);
-void			ft_print_player(t_cube *cube, t_vars *vars);
-void			ft_print_minimap(t_cube *cube, t_vars *vars);
+void			ft_draw_player(t_cube *cube, t_vars *vars);
+void			ft_draw_minimap(t_cube *cube, t_vars *vars);
 		
 		//MLX_UTILS
 int		create_trgb(int t, int r, int g, int b);
@@ -135,7 +135,7 @@ void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 
 
 		//SHAPE_PRINT
-void			ft_print_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
+void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
 
 		//TMP_UTILS
 void			ft_print_tab(char **tab);
