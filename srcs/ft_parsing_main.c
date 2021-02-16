@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/11 14:39:00 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 14:17:17 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void ft_print_mapinfo(t_cube *element)
 	printf("ceiling.state = %d\n", element->ceil.state);
 	printf("ceiling RGB [%d,%d,%d] \n", element->ceil.r, element->ceil.g, element->ceil.b);
 	printf("_____Player___:\n");
-	printf("Orientation = %c | X = %d | Y = %d\n",
+	printf("Orientation = %c | X = %f | Y = %f\n",
 		   	element->player.cardinal, element->player.x, element->player.y);
 	printf("max_row = %d\n", element->max_row);
 	printf("max_col = %d\n", element->max_col);

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 12:01:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 14:16:45 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void			ft_choose_tile_color(int x, int y, char c, t_vars *vars)
 	else if (c == '1')
 		my_mlx_pixel_put(vars, x, y, vars->wall_color);
 	else if (ft_isbase(c, "NESW"))
-		my_mlx_pixel_put(vars, x, y, vars->play_color);
+		my_mlx_pixel_put(vars, x, y, vars->player_color);
 	else if (c == '2')
-		my_mlx_pixel_put(vars, x, y, vars->spr_color);
+		my_mlx_pixel_put(vars, x, y, vars->sprite_color);
 	else
 		my_mlx_pixel_put(vars, x, y, vars->void_color);
 }

@@ -37,10 +37,10 @@ typedef struct s_rgb
 typedef struct s_perso
 {
 	char cardinal;
-	int		x;
-	int		y;
-	int		w_s; // si w y + 1 | si  s  y - 1
-	int		a_d; // pareil avec x
+	float		x;
+	float		y;
+	int		vert_walk; // si w y + 1 | si  s  y - 1
+	int		hze_walk; // pareil avec x
 }				t_perso;
 
 typedef struct s_cube
@@ -80,11 +80,11 @@ typedef		struct s_vars
 	int		win_width;
 	int		tile_width;
 	int		tile_height;
-	int		play_color;
+	int		player_color;
 	int		wall_color;
 	int		floor_color;
 	int		ceil_color;
-	int		spr_color;
+	int		sprite_color;
 	int		void_color;
 }					t_vars;
 
