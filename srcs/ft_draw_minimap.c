@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_minimap.c                                 :+:      :+:    :+:   */
+/*   ft_draw_minimap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/02/12 18:00:47 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:01:17 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-void			ft_print_minimap(t_cube *cube, t_vars *vars)
+void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 {
 	int pixel_x;
 	int pixel_y;
@@ -41,7 +41,7 @@ void			ft_print_minimap(t_cube *cube, t_vars *vars)
 	printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
 }
 
-void			ft_print_player(t_cube *cube, t_vars *vars)
+void			ft_draw_player(t_cube *cube, t_vars *vars)
 {
 	int square_h;
 	int square_w;
@@ -51,7 +51,7 @@ void			ft_print_player(t_cube *cube, t_vars *vars)
 	square_w = vars->tile_width;
 	middle_y = cube->player.y;
 	middle_x = cube->player.x;
-	ft_print_square(vars, middle_y, middle_x, square_h, square_w);
+	ft_draw_square(vars, middle_y, middle_x, square_h, square_w);
 }
 
 void			ft_choose_tile_color(int x, int y, char c, t_vars *vars)

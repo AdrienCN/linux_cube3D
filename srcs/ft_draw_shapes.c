@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_shapes.c                                  :+:      :+:    :+:   */
+/*   ft_draw_shapes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:57:39 by calao             #+#    #+#             */
-/*   Updated: 2021/02/12 17:57:52 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 12:01:06 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-void			ft_print_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
+void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
 {
 	int i;
 	int j;
