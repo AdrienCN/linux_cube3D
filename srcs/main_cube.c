@@ -1,10 +1,14 @@
 #include "h_cube.h"
 
 #define RAY_LEN 50
-#define TURN_LEN 5
-#define MOVE_SPEED 5
-#define ROT_SPEED 5 * (M_PI / 180)
-
+#define MOVE_SPEED 10
+#define ROT_SPEED 90 * (M_PI / 180)
+#define LEFT_ARROW 65361
+#define RIGHT_ARROW 65363
+#define W 119
+#define A 97
+#define S 115
+#define D 100
 
 int				ft_update_player(int keycode, t_vars *vars);
 void			ft_init_game(t_cube * cube, t_vars *vars);
@@ -49,25 +53,29 @@ int             main(int argc, char **argv)
 	printf("\nmain --> return (0);\n");
 	return (0);
 }
-void	ft_update_move(int keycode, t_vars *vars)
+int		ft_update_move(int keycode, t_vars *vars)
 {
-	char c;
+	int c;
 
 	c = keycode;
-	if (c == 'a')
+	if (c == A)
 		vars->cube.player.hze_walk += 1;
-	else if (c == 'd')
+	else if (c == D)
 		vars->cube.player.hze_walk -= 1;
-	else if (c == 'w')
+	else if (c == W)
 		vars->cube.player.vert_walk += 1;
-	else if (c == 's')
+	else if (c == S)
 		vars->cube.player.vert_walk -= 1;
-	else if (c == 65363)
-		vars->cube.player.turn -= 1;
-	else if (c == 65361)
+	else if (c == LEFT_ARROW)
 		vars->cube.player.turn += 1;
+	else if (c == RIGHT_ARROW)
+		vars->cube.player.turn -= 1;
 	else
-		printf("key_pressed = %d|\n", keycode); 
+	{
+		printf("key_pressed = %d|\n", keycode);
+		return (0);
+	}
+	return (1);	
 }
 
 
@@ -117,22 +125,26 @@ int		ft_update_player(int keycode, t_vars *vars)
 {
 	float x;
 	float y;
-	ft_update_move(keycode, vars);
-
-	vars->cube.player.rot_ang = ft_convert_to_rad(vars->cube.player.rot_ang
-			+ vars->cube.player.turn * ROT_SPEED);
-	printf("tmp rot_angle = %f | rot_speed =%f\n", vars->cube.player.rot_ang, ROT_SPEED);
+	if (!ft_update_move(keycode, vars))
+			return (0);
+	if (vars->cube.player.turn)
+	{
+		
+		vars->cube.player.rot_ang = ft_convert_to_rad(vars->cube.player.rot_ang
+				+ vars->cube.player.turn * ROT_SPEED);
+	printf("NEW ANGLE = %f\n", vars->cube.player.rot_ang);
+		return (0);
+	}
 	// get new coord
 	x = ft_calculate_new_x(x, vars);
 	y = ft_calculate_new_y(y, vars);
-	printf("tmp : x = %f | y = %f*\n\n", x, y);
 	// check if wall
 	if (ft_is_maplimit(x, y, vars))
 			return (1);
 	printf("\n*Player new postion = \n");
 	vars->cube.player.x = x;
 	vars->cube.player.y = y;
-	printf("x = %f | y = %f*\n\n", x, y);
+	printf("x = %f | y = %f* | ", x, y);
 	printf("rot_angle = %f\n", vars->cube.player.rot_ang);
 	return (0);
 }
@@ -166,8 +178,8 @@ void	ft_draw_line(t_vars *vars)
 int		ft_update_map(int keycode, t_vars *vars)
 {
 	ft_draw_minimap(&vars->cube, vars);
-	ft_draw_player(&vars->cube, vars);
 	ft_draw_line(vars);
+	ft_draw_player(&vars->cube, vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	vars->cube.player.hze_walk = 0;
 	vars->cube.player.vert_walk = 0;
@@ -222,8 +234,8 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
                                &vars->endian);
     vars->win = mlx_new_window(vars->mlx, vars->win_width, vars->win_height, "Adrien_cube");
 	ft_draw_minimap(&vars->cube, vars);
-	ft_draw_player(&vars->cube, vars);
 	ft_draw_line(vars);
+	ft_draw_player(&vars->cube, vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	printf("X_tile = %d | Y_tile = %d\n", vars->tile_width, vars->tile_height);
 }
@@ -244,7 +256,7 @@ int		ft_is_maplimit(float x, float y, t_vars *vars)
 	}
 	if (x >= vars->win_width || x <= 0)
 	{
-		printf("X limit is reached\n");
+		printf("X limit is reached x = %f\n", x);
 			return (1);
 	}
 	item = vars->cube.map[row][col];

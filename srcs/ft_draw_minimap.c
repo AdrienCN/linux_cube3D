@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 17:10:40 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/16 17:38:05 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 		pixel_y++;
 		map_row = pixel_y / vars->tile_height;
 	}
-	printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
+//	printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
 }
 
 void			ft_draw_player(t_cube *cube, t_vars *vars)
@@ -47,10 +47,10 @@ void			ft_draw_player(t_cube *cube, t_vars *vars)
 	int square_w;
 	int middle_y;
 	int middle_x;
-	square_h = vars->tile_height / 2;
-	square_w = vars->tile_width / 2;
-	middle_y = (cube->player.y - vars->tile_height / 4);
-	middle_x = (cube->player.x - vars->tile_width / 4);
+	square_h = vars->tile_height;
+	square_w = vars->tile_width;
+	middle_y = (cube->player.y - vars->tile_height / 2);
+	middle_x = (cube->player.x - vars->tile_width / 2);
 	ft_draw_square(vars, middle_y, middle_x, square_h, square_w);
 }
 
