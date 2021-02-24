@@ -7,7 +7,8 @@ int             main(int argc, char **argv)
 	t_vars		vars;
 	
 	if (argc != 2)
-		return (printf("Usage : 1 argument\n"));	
+		return (printf("Usage : 1 argument\n"));
+
 	if (ft_parsing_main(argv[1], &vars.cube))
 		return (-1);
 	

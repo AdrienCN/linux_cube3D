@@ -30,16 +30,26 @@
 #define STEP_LEN	5
 
 #define RAY_THICK	0.2
-#define RAY_NUMBER	0.05
+#define RAY_NUMBER	0.009
 #define MOVE_SPEED	10
 #define ROT_SPEED	10 * (M_PI / 180)
 
+/* for MAC
 #define LEFT_ARROW	123
 #define RIGHT_ARROW 124
 #define W			13
 #define A			0
 #define S			1
 #define D			2
+*/
+
+// FOR LINUX
+#define LEFT_ARROW	65361
+#define RIGHT_ARROW 65363
+#define W			119
+#define A			97
+#define S			115
+#define D			100
 
 typedef struct s_rgb
 {
