@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 22:00:23 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/18 14:23:10 by adconsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 {
 	int pixel_x;
 	int pixel_y;
-	int	map_col;
-	int map_row;
+	float map_col;
+	float  map_row;
 	char **map;
 
 	map = cube->map;
@@ -30,55 +30,59 @@ void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 		map_col = 0;
 		while (map_col < cube->max_col && pixel_x < vars->win_width)
 		{
-			ft_choose_tile_color(pixel_x, pixel_y, (map[map_row][map_col]), vars);
-			map_col = pixel_x / vars->tile_width;
+			ft_choose_tile_color(pixel_x, pixel_y, (map[(int)map_row][(int)map_col]), vars);
+			map_col = (float)pixel_x / (float)vars->tile_width;
 			pixel_x++;
 		}
 	//	printf("map[%d][%d]\n", map_row, map_col);
 		pixel_y++;
-		map_row = pixel_y / vars->tile_height;
+		map_row = (float)pixel_y / (float)vars->tile_height;
 	}
-//	printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
+	//printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
 }
 
-void			ft_draw_player(t_cube *cube, t_vars *vars)
+void			ft_draw_player(t_vars *vars)
 {
 	int square_h;
 	int square_w;
 	int start_y;
 	int start_x;
-	square_h = vars->tile_height;
-	square_w = vars->tile_width;
-	start_y = (cube->player.y - vars->tile_height / 2);
-	start_x = (cube->player.x - vars->tile_width / 2);
+	square_h = vars->tile_height / 2;
+	square_w = vars->tile_width / 2;
+	start_y = (vars->player.y - vars->tile_height / 4);
+	start_x = (vars->player.x - vars->tile_width / 4);
 	ft_draw_square(vars, start_y, start_x, square_h, square_w);
 }
 
-void		ft_draw_ray_projection(t_vars *vars, int ray_len)
+void		ft_draw_ray_projection(t_vars *vars)
 {	
-	int square_h;	
-	int start_x;
-	int start_y;
-	int square_w;
+	float x;
+	float y;
+	float r;
+	float fov_start;
+	float fov_end;
 
-	square_h = vars->tile_height;
-	square_w = vars->tile_width;
-	start_x = vars->cube.player.x + cos(vars->cube.player.rot_ang) * ray_len - vars->tile_height / 2;
-	start_y = vars->cube.player.y + sin(vars->cube.player.rot_ang) * ray_len - vars->tile_width / 2;
-	/*
-	if (ft_is_maplimit(start_x + square_w, start_y + square_h, vars))
+	fov_end = ft_degree_to_rad(FOV) / 2;
+	fov_start = -fov_end;
+	while  (fov_start <= fov_end)
 	{
-		printf("Projection beyond limit\n");
-		return;
+		r = 0;
+		x = vars->player.x;
+		y = vars->player.y;
+		while (!ft_is_maplimit(x, y, vars) && !ft_is_collision(x, y, vars))
+		{
+			my_mlx_pixel_put(vars, x, y, RED);
+			x = vars->player.x + cos(vars->player.angle + fov_start) * r;
+			y = vars->player.y - sin(vars->player.angle + fov_start) * r;
+			r += RAY_THICK;
+		}
+		fov_start += RAY_NUMBER;
 	}
-	*/
-	ft_draw_square(vars, start_y, start_x, square_h, square_w);
 }
-	
 
-void			ft_choose_tile_color(int x, int y, char c, t_vars *vars)
+void			ft_choose_tile_color(float x, float y, char c, t_vars *vars)
 {
-	if (y % vars->tile_height == 0 || x % vars->tile_width == 0)
+	if ((int)y % (int)vars->tile_height == 0 || (int)x % (int)vars->tile_width == 0)
 	{
 		my_mlx_pixel_put(vars, x, y, BLACK);
 		return;

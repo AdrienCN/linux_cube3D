@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/02/11 14:38:46 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/17 17:14:15 by adconsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ static int	ft_line_char_check(char *line, char *base, t_cube *map_info)
 			return (-1);
 		if (ft_isbase(line[i], "NESW"))
 		{
-			if (map_info->player.cardinal == '0')
+			if (map_info->player_tmp.cardinal == '0')
 			{
-				map_info->player.cardinal = line[i];
-				map_info->player.x = i;
-				map_info->player.y = map_info->max_row;
+				map_info->player_tmp.cardinal = line[i];
+				map_info->player_tmp.x = i;
+				map_info->player_tmp.y = map_info->max_row;
 			}
 			else
 				return (-1);

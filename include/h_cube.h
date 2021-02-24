@@ -1,7 +1,7 @@
 #ifndef H_CUBE_H
 # define H_PARSING_H
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <mlx.h>
 # include <math.h>
 # include "get_next_line.h"
@@ -22,9 +22,25 @@
 # define MAP_CHAR "012 WSNE"
 # endif
 
-#define BLACK 0x00000000
-#define RED	  0x00FF0000
-#define STEP_LEN 5
+#define BLACK		0x00000000
+#define BLUE		0x000000FF
+#define RED			0x00FF0000
+
+#define FOV			66
+#define STEP_LEN	5
+
+#define RAY_THICK	0.2
+#define RAY_NUMBER	0.05
+#define MOVE_SPEED	10
+#define ROT_SPEED	10 * (M_PI / 180)
+
+#define LEFT_ARROW	123
+#define RIGHT_ARROW 124
+#define W			13
+#define A			0
+#define S			1
+#define D			2
+
 typedef struct s_rgb
 {
 	int state;
@@ -42,7 +58,7 @@ typedef struct s_perso
 	int		vert_walk; // si w y + 1 | si  s  y - 1
 	int		hze_walk; // pareil avec x
 	int		turn;
-	float	rot_ang;
+	float	angle;
 }				t_perso;
 
 typedef struct s_cube
@@ -57,9 +73,9 @@ typedef struct s_cube
 	char *sprite;
 	t_rgb floor;
 	t_rgb ceil;
+	t_perso player_tmp;
 	char *gnl_line;
 	char *m_line;
-	t_perso player;
 	int	 max_row;
 	int  max_col;
 	int	 map_start;
@@ -75,13 +91,14 @@ typedef		struct s_vars
 	void	*img;
 	char	*addr;
 	t_cube	cube;
+	t_perso player;
 	int		bpp;
 	int		line_len;
 	int		endian;
-	int		win_height;
-	int		win_width;
-	int		tile_width;
-	int		tile_height;
+	float		win_height;
+	float		win_width;
+	float		tile_width;
+	float		tile_height;
 	int		player_color;
 	int		wall_color;
 	int		floor_color;
@@ -117,35 +134,60 @@ int		ft_make_oneline_map(int fd, t_cube *map_info);
 
 
 		//MAIN_PARSING//
-int		ft_parsing_main(char *map_file, t_cube *map_info);
+int		ft_parsing_main(char *map_file, t_cube *vars);
 void	ft_mapinfo_init(t_cube *element);
 void	ft_print_mapinfo(t_cube *element);
 void	ft_free_mapinfo(t_cube *element);
 void	ft_free_doublearray(char **tab);
 
-		//Mini_MAP
+
+
+		//***Mini_MAP****
+				
 				//Minimap_MAKER
+int				ft_update_map(t_vars *vars);
 
-				//PRINT_UTILS	
-void			ft_choose_tile_color(int x, int y, char c, t_vars *vars);
-void			ft_draw_player(t_cube *cube, t_vars *vars);
-void			ft_draw_minimap(t_cube *cube, t_vars *vars);
-void			ft_draw_ray_projection(t_vars *vars, int ray_len);
+				//MINI_MAP_INIT
+void	ft_init_color(t_cube *cube, t_vars *vars);
+void	ft_perso_init(t_vars *vars);
+void	ft_init_game(t_cube *cube, t_vars *vars);
+				
+				//Player_Movement_algo
+int		ft_reset_player(int keycode, t_vars *vars);
+int		ft_update_player(t_vars *vars);
+int		ft_update_move(int keycode, t_vars *vars);
+float	ft_calculate_new_x(float x, t_vars *vars);	
+float	ft_calculate_new_y(float y, t_vars *vars);
 
-		//MLX_UTILS
-int		create_trgb(int t, int r, int g, int b);
-void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
-int		ft_is_maplimit(float x, float y, t_vars *vars);
-int		ft_is_wall(float x, float y, t_vars *vars);
-int		ft_is_maplimit(float x, float y, t_vars *vars);
-		//SHAPE_PRINT
-void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
+		//*****UTILS************
+void	ft_print_tab(char **tab);
+
+		//CONVERSION UTILS
+float			ft_degree_to_rad(float degree);
+float			ft_within_twopi(float rad);
 
 		//TMP_UTILS
 void			ft_print_tab(char **tab);
 
+		//MLX_UTILS
+int		create_trgb(int t, int r, int g, int b);
+void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 
-		//UTILS
-void	ft_print_tab(char **tab);
+		//PRINT_UTILS	
+void			ft_choose_tile_color(float x, float y, char c, t_vars *vars);
+void			ft_draw_player(t_vars *vars);
+void			ft_draw_minimap(t_cube *cube, t_vars *vars);
+void			ft_draw_ray_projection(t_vars *vars);
+
+		//SHAPE_PRINT
+void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
+
+
+		// COLLISION_UTILS
+int		ft_is_collision(float x, float y, t_vars *vars);
+int		ft_is_wall(float x, float y, t_vars *vars);
+int		ft_is_maplimit(float x, float y, t_vars *vars);
+int		ft_is_sprite(float x, float y, t_vars *vars);
+	
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/16 17:47:53 by calao            ###   ########.fr       */
+/*   Updated: 2021/02/17 17:12:32 by adconsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,13 @@ void	ft_mapinfo_init(t_cube *element)
 	element->floor.r = 0;
 	element->floor.g = 0;
 	element->floor.b = 0;
+	element->player_tmp.cardinal = '0';
+	element->player_tmp.x = 0;
+	element->player_tmp.y = 0;
 	element->ceil.state = 0;
 	element->ceil.r = 0;
 	element->ceil.g = 0;
 	element->ceil.b = 0;
-	element->player.cardinal = '0';
 	element->map = NULL;
 	element->gnl_line = NULL;
 	element->m_line = NULL;
@@ -114,7 +116,7 @@ void ft_print_mapinfo(t_cube *element)
 	printf("ceiling RGB [%d,%d,%d] \n", element->ceil.r, element->ceil.g, element->ceil.b);
 	printf("_____Player___:\n");
 	printf("Orientation = %c | X = %f | Y = %f\n",
-		   	element->player.cardinal, element->player.x, element->player.y);
+		   	element->player_tmp.cardinal, element->player_tmp.x, element->player_tmp.y);
 	printf("max_row = %d\n", element->max_row);
 	printf("max_col = %d\n", element->max_col);
 	printf("m_line = {%s}\n", element->m_line);
