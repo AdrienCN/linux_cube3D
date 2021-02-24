@@ -1,0 +1,14 @@
+R 1920 1080
+NO ./texture/path_to_north_texture.xpm
+SO ./texture/path_to_south_texture.xpm
+WE ./texture/path_to_west_texture.xpm
+EA ./texture/path_to_east_texture.xpm
+
+S ./texture/path_to_sprite_texture.xpm
+
+F 220,100,0
+C 225,30,0
+
+1111111
+1000N21
+1111111
