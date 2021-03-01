@@ -1,10 +1,12 @@
 #include "h_cube.h"
 
 
-int		ft_is_collision(float x, float y, t_vars *vars)
+int		ft_collision_content(float x, float y, t_vars *vars)
 {
-	if (ft_is_wall(x, y, vars) || ft_is_sprite(x, y, vars))
+	if (ft_is_wall(x, y, vars))
 		return (1);
+	else if (ft_is_sprite(x, y, vars))
+		return (2);
 	else
 		return (0);
 }

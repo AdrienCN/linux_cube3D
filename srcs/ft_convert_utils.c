@@ -12,7 +12,7 @@ float		ft_within_twopi(float rad)
 	return (rad2);
 }
 
-float	ft_degree_to_rad(float degree)
+float	ft_radconvert(float degree)
 {
 	float rad;
 

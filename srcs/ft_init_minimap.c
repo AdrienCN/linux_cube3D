@@ -33,6 +33,27 @@ void	ft_perso_init(t_vars *vars)
 	vars->player.y = vars->tile_height * vars->cube.player_tmp.y + vars->tile_height / 2;
 }
 
+void			ft_rays_init(t_vars *vars)
+{
+	int i;
+
+	i = 0;
+	while (i < (int)RAY_NUMBER)
+	{	
+		vars->rays[i].angle = 0;
+		vars->rays[i].wallHitX = 0;
+		vars->rays[i].wallHitY = 0;
+		vars->rays[i].distance = 0;
+		vars->rays[i].HitIsVertical = 0;
+		vars->rays[i].RayIsUP = 0;
+		vars->rays[i].RayIsDown = 0;
+		vars->rays[i].RayIsLeft = 0;
+		vars->rays[i].RayisRight = 0;
+		vars->rays[i].HitContent = 0;
+		i++;
+	}
+}
+
 void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
@@ -43,6 +64,7 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	// Get color
 	ft_init_color(cube, vars);
 	ft_perso_init(vars);
+	ft_rays_init(vars);
 	
 	//Get grid proportions
 	printf("vars->width = %f | vars->height = %f\n", vars->win_width, vars->win_height);

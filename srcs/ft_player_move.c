@@ -54,7 +54,7 @@ int		ft_update_player(t_vars *vars)
 	//printf("NEW ANGLE = %f\n", vars->player.angle);
 	x = ft_calculate_new_x(x, vars);
 	y = ft_calculate_new_y(y, vars);
-	if (ft_is_maplimit(x, y, vars) || ft_is_collision(x, y, vars))
+	if (ft_is_maplimit(x, y, vars) || ft_collision_content(x, y, vars))
 			return (1);
 	vars->player.x = x;
 	vars->player.y = y;

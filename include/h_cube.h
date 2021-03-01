@@ -10,31 +10,30 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# ifndef TRUE
 # define TRUE 1
-# endif
 
-# ifndef FALSE
 # define FALSE 0
-# endif
 
-# ifndef MAP_CHAR
 # define MAP_CHAR "012 WSNE"
-# endif
 
 #define BLACK		0x00000000
 #define BLUE		0x000000FF
 #define RED			0x00FF0000
+#define ORANGE		0x006424536
+#define GREEN		0x002459836	
+#define WHITE		0x00FFFFFF
 
-#define FOV			66
 #define STEP_LEN	5
 
-#define RAY_THICK	0.2
-#define RAY_NUMBER	0.009
+#define FOV			60.0
+#define RAY_NUMBER	60.0	
+#define RAY_ANGLE	FOV / RAY_NUMBER
+#define RAY_STEP	1
 #define MOVE_SPEED	10
-#define ROT_SPEED	10 * (M_PI / 180)
+#define ROT_SPEED	45 * (M_PI / 180)
 
-/* for MAC
+// for MAC
+/*
 #define LEFT_ARROW	123
 #define RIGHT_ARROW 124
 #define W			13
@@ -59,6 +58,20 @@ typedef struct s_rgb
 	int g;
 	int b;
 }			t_rgb;
+
+typedef struct s_rays
+{
+	float angle;
+	float wallHitX;
+	float wallHitY;
+	float distance;
+	int HitIsVertical;
+	int RayIsUP;
+	int	RayIsDown;
+	int RayIsLeft;
+	int RayisRight;
+	int HitContent;
+}				t_rays;
 
 typedef struct s_perso
 {
@@ -100,6 +113,7 @@ typedef		struct s_vars
 	void	*win;
 	void	*img;
 	char	*addr;
+	t_rays	rays[(int)RAY_NUMBER];
 	t_cube	cube;
 	t_perso player;
 	int		bpp;
@@ -173,7 +187,7 @@ float	ft_calculate_new_y(float y, t_vars *vars);
 void	ft_print_tab(char **tab);
 
 		//CONVERSION UTILS
-float			ft_degree_to_rad(float degree);
+float			ft_radconvert(float degree);
 float			ft_within_twopi(float rad);
 
 		//TMP_UTILS
@@ -189,12 +203,14 @@ void			ft_draw_player(t_vars *vars);
 void			ft_draw_minimap(t_cube *cube, t_vars *vars);
 void			ft_draw_ray_projection(t_vars *vars);
 
+		//RAY_CASTING
+void			ft_cast_all_rays(t_vars *vars);
 		//SHAPE_PRINT
 void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
 
 
 		// COLLISION_UTILS
-int		ft_is_collision(float x, float y, t_vars *vars);
+int		ft_collision_content(float x, float y, t_vars *vars);
 int		ft_is_wall(float x, float y, t_vars *vars);
 int		ft_is_maplimit(float x, float y, t_vars *vars);
 int		ft_is_sprite(float x, float y, t_vars *vars);

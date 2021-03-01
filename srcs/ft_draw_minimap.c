@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/02/18 14:23:10 by adconsta         ###   ########.fr       */
+/*   Updated: 2021/03/01 13:54:00 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void			ft_draw_player(t_vars *vars)
 	square_w = vars->tile_width / 2;
 	start_y = (vars->player.y - vars->tile_height / 4);
 	start_x = (vars->player.x - vars->tile_width / 4);
+	/*
+	start_y = vars->player.y;
+	start_x = vars->player.x;
+	*/
 	ft_draw_square(vars, start_y, start_x, square_h, square_w);
 }
 
@@ -60,23 +64,27 @@ void		ft_draw_ray_projection(t_vars *vars)
 	float y;
 	float r;
 	float fov_start;
-	float fov_end;
+	int i;
 
-	fov_end = ft_degree_to_rad(FOV) / 2;
-	fov_start = -fov_end;
-	while  (fov_start <= fov_end)
+	fov_start = ft_radconvert(vars->player.angle) - ft_radconvert(FOV) / 2;
+	// fov_start = pikuma RayAngle ? 
+	i = 0;
+	while  (i < RAY_NUMBER)
 	{
 		r = 0;
 		x = vars->player.x;
 		y = vars->player.y;
-		while (!ft_is_maplimit(x, y, vars) && !ft_is_collision(x, y, vars))
+		//Draw line if RAY_HIT is IN maplimit AND NOT in WALL
+		while (!ft_is_maplimit(x, y, vars) && !ft_collision_content(x, y, vars))
 		{
 			my_mlx_pixel_put(vars, x, y, RED);
 			x = vars->player.x + cos(vars->player.angle + fov_start) * r;
 			y = vars->player.y - sin(vars->player.angle + fov_start) * r;
-			r += RAY_THICK;
+			r += RAY_STEP;
 		}
-		fov_start += RAY_NUMBER;
+		i++;
+		// RAY_NUMBER = decalage d'angle entre chaque rayon
+		fov_start += ft_radconvert(RAY_ANGLE);
 	}
 }
 
