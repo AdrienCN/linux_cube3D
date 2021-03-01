@@ -26,7 +26,7 @@
 #define STEP_LEN	5
 
 #define FOV			60.0
-#define RAY_NUMBER	1.0	
+#define RAY_NUMBER	60.0	
 #define RAY_ANGLE	FOV / RAY_NUMBER
 #define RAY_STEP	1
 #define MOVE_SPEED	10
@@ -208,7 +208,7 @@ void			ft_draw_ray_projection(t_vars *vars);
 		//RAY_CASTING
 void			ft_cast_all_rays(t_vars *vars);
 		//SHAPE_PRINT
-void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
+void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid, int color);
 
 
 		// COLLISION_UTILS

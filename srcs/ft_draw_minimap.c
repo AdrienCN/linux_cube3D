@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/01 13:54:00 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/01 17:03:54 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			ft_draw_player(t_vars *vars)
 	start_y = vars->player.y;
 	start_x = vars->player.x;
 	*/
-	ft_draw_square(vars, start_y, start_x, square_h, square_w);
+	ft_draw_square(vars, start_y, start_x, square_h, square_w, BLUE);
 }
 
 void		ft_draw_ray_projection(t_vars *vars)

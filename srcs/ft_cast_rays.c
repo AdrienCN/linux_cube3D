@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/01 16:35:23 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/01 17:19:51 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,20 @@ void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle)
 	int r;
 	
 	r = 0;
-	while (!ft_is_maplimit(x, y, vars) && !ft_map_content(x, y, vars))
+	while (ft_is_maplimit(x, y, vars) == 0 && ft_map_content(x, y, vars) == 0)
 		{
 			my_mlx_pixel_put(vars, x, y, ORANGE);
 			x = vars->player.x + cos(ray_angle) * r;
 			y = vars->player.y - sin(ray_angle) * r;
 			r += RAY_STEP;
 		}
+	/*
+		my_mlx_pixel_put(vars, x - 1, y, RED);
+		my_mlx_pixel_put(vars, x, y, RED);
+		my_mlx_pixel_put(vars, x + 1, y, RED);
+		my_mlx_pixel_put(vars, x, y + 1, RED);
+		my_mlx_pixel_put(vars, x, y - 1, RED);
+	*/
 }
 
 float	ft_distance(float x1, float y1, float x2, float y2)
@@ -62,24 +69,23 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars, float ray_angle)
 	float x;
 	float y;
 	int r;
-	int content;
 
 	r = 0;
 	x = vars->player.x;
 	y = vars->player.y;
-	ray_angle += vars->player.angle;
-	content = 0;
-	while (!ft_is_maplimit(x, y, vars) && content == 0)
+	while (!ft_is_maplimit(x, y, vars) && !ft_map_content(x, y, vars))
 		{
 			x = vars->player.x + cos(ray_angle) * r;
 			y = vars->player.y - sin(ray_angle) * r;
 			r += RAY_STEP;
-			content = ft_map_content(x, y, vars);
 		}
+	if (!ft_is_maplimit(x, y, vars))
+		ray->HitContent = -1;
+	else
+		ray->HitContent = ft_map_content(x, y, vars);
 	ray->distance = ft_distance(vars->player.x, vars->player.y, x, y);
 	ray->wallHitX = x;
 	ray->wallHitY = y;
-	ray->HitContent = ft_map_content(x, y, vars);
 }
 
 void	ft_cast_all_rays(t_vars *vars)
@@ -110,6 +116,7 @@ void	ft_cast_all_rays(t_vars *vars)
 void	print_ray_info(t_rays *ray)
 {
 	printf("ray_distance = %f\n", ray->distance);
+	printf("X_hit = %f || Y_hit = %f \n", ray->wallHitX, ray->wallHitY);
 	ray->RayIsUp ? printf("Ray is *UP*\n") : printf("Ray is *DOWN*\n");
 	ray->RayIsLeft ? printf("Ray is *LEFT*\n") : printf ("Ray is *RIGHT*\n");
 	printf("Ray HIT CONTENT = %d\n", ray->HitContent);
