@@ -24,7 +24,7 @@ void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid)
 		while (j < wid)
 		{
 			if (!ft_is_maplimit(p_x + j, p_y + i, vars)
-					&& !ft_collision_content(p_x + j, p_y + i, vars))
+					&& !ft_map_content(p_x + j, p_y + i, vars))
 				my_mlx_pixel_put(vars, p_x + j, p_y + i, 0x000000FF);
 			j++;
 		}

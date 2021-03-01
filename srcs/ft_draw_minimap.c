@@ -75,7 +75,7 @@ void		ft_draw_ray_projection(t_vars *vars)
 		x = vars->player.x;
 		y = vars->player.y;
 		//Draw line if RAY_HIT is IN maplimit AND NOT in WALL
-		while (!ft_is_maplimit(x, y, vars) && !ft_collision_content(x, y, vars))
+		while (!ft_is_maplimit(x, y, vars) && !ft_map_content(x, y, vars))
 		{
 			my_mlx_pixel_put(vars, x, y, RED);
 			x = vars->player.x + cos(vars->player.angle + fov_start) * r;

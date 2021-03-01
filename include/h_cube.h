@@ -19,18 +19,20 @@
 #define BLACK		0x00000000
 #define BLUE		0x000000FF
 #define RED			0x00FF0000
-#define ORANGE		0x006424536
-#define GREEN		0x002459836	
+#define ORANGE		0x00FF8900
+#define GREEN		0x0000FF00	
 #define WHITE		0x00FFFFFF
 
 #define STEP_LEN	5
 
 #define FOV			60.0
-#define RAY_NUMBER	60.0	
+#define RAY_NUMBER	1.0	
 #define RAY_ANGLE	FOV / RAY_NUMBER
 #define RAY_STEP	1
 #define MOVE_SPEED	10
 #define ROT_SPEED	45 * (M_PI / 180)
+#define PI			M_PI
+#define TWO_PO		M_PI * 2
 
 // for MAC
 /*
@@ -66,10 +68,10 @@ typedef struct s_rays
 	float wallHitY;
 	float distance;
 	int HitIsVertical;
-	int RayIsUP;
+	int RayIsUp;
 	int	RayIsDown;
 	int RayIsLeft;
-	int RayisRight;
+	int RayIsRight;
 	int HitContent;
 }				t_rays;
 
@@ -210,7 +212,7 @@ void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid);
 
 
 		// COLLISION_UTILS
-int		ft_collision_content(float x, float y, t_vars *vars);
+int		ft_map_content(float x, float y, t_vars *vars);
 int		ft_is_wall(float x, float y, t_vars *vars);
 int		ft_is_maplimit(float x, float y, t_vars *vars);
 int		ft_is_sprite(float x, float y, t_vars *vars);

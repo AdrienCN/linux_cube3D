@@ -1,12 +1,18 @@
 #include "h_cube.h"
 
 
-int		ft_collision_content(float x, float y, t_vars *vars)
+int		ft_map_content(float x, float y, t_vars *vars)
 {
-	if (ft_is_wall(x, y, vars))
+	if (ft_is_wall(x, y, vars) == 1)
+	{
+		printf("hit is a wall\n");
 		return (1);
+	}
 	else if (ft_is_sprite(x, y, vars))
+	{
+		printf("hit a sprite\n");
 		return (2);
+	}
 	else
 		return (0);
 }
