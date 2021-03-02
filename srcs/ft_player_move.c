@@ -51,7 +51,6 @@ int		ft_update_player(t_vars *vars)
 	y = 0;
 	vars->player.angle = ft_within_twopi(vars->player.angle
 			+ vars->player.turn * ROT_SPEED);
-	//printf("NEW ANGLE = %f\n", vars->player.angle);
 	x = ft_calculate_new_x(x, vars);
 	y = ft_calculate_new_y(y, vars);
 	if (ft_is_maplimit(x, y, vars) || ft_map_content(x, y, vars))
@@ -59,7 +58,7 @@ int		ft_update_player(t_vars *vars)
 	vars->player.x = x;
 	vars->player.y = y;
 	printf("x = %f | y = %f* | ", x, y);
-	printf("rot_angle = %f\n", vars->player.angle);
+	printf("player_angle = %f\n", vars->player.angle);
 	return (0);
 }
 

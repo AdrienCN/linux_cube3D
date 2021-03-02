@@ -45,14 +45,8 @@ int		ft_is_sprite(float x, float y, t_vars *vars)
 int		ft_is_maplimit(float x, float y, t_vars *vars)
 {
 	if (y >= vars->win_height || y <= 0)
-	{
-		printf("Y limit is reached\n");
 		return (1);
-	}
 	if (x >= vars->win_width || x <= 0)
-	{
-		printf("X limit is reached x = %f\n", x);
-			return (1);
-	}
+		return (1);
 	return (0);
 }

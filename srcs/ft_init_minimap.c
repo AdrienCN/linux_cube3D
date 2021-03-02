@@ -58,6 +58,8 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
+	//vars->tile_width = TILE_SIZE;
+	//vars->tile_height = TILE_SIZE;
 	vars->tile_width = vars->win_width / cube->max_col;
 	vars->tile_height = vars->win_height / cube->max_row;
 
