@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/02 15:32:04 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/02 17:46:26 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_ray_info(t_rays *ray);
 
 void	ft_set_ray_angle(t_rays *ray, float ray_angle)
 {
-	// attention valeur 0 pi exactes and co
 	ray->angle = ray_angle;
 	if (ray_angle > 0 && ray_angle < PI)
 		ray->rayisup = TRUE;
@@ -31,6 +30,7 @@ void	ft_set_ray_angle(t_rays *ray, float ray_angle)
 	ray->rayisleft = !ray->rayisright;
 }
 
+//Fonction a supprimer plus tard. Permet de visualiser les rayons mais coute cher en calcul
 void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle)
 {
 	float r;
@@ -43,13 +43,6 @@ void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle)
 			y = vars->player.y - sin(ray_angle) * r;
 			r += RAY_STEP;
 		}
-	/*
-		my_mlx_pixel_put(vars, x - 1, y, RED);
-		my_mlx_pixel_put(vars, x, y, RED);
-		my_mlx_pixel_put(vars, x + 1, y, RED);
-		my_mlx_pixel_put(vars, x, y + 1, RED);
-		my_mlx_pixel_put(vars, x, y - 1, RED);
-	*/
 }
 
 float	ft_get_distance(float x1, float y1, float x2, float y2)
@@ -72,6 +65,7 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 
 	x = vars->player.x;
 	y = vars->player.y;
+	// Trouver une parade a INT_MAX
 	vert->distance = INT_MAX;
 	vert->found_wall = -1;
 	vert->content = -1;
@@ -94,12 +88,12 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 
 void	ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray)
 {
-	// avec ou sans le vars.player.angle ?
 	float x;
 	float y;
 
 	x = vars->player.x;
 	y = vars->player.y;
+	// Trouver une parade a INT_MAX
 	horz->distance = INT_MAX;
 	horz->found_wall = -1;
 	horz->content = -1;
@@ -135,7 +129,6 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 			tmp_y = horz->next_y - 1;
 		else
 			tmp_y = horz->next_y;
-		//SEGV cause de ft_is_wall et ft_map_content
 		if (ft_is_wall(tmp_x, tmp_y, vars))
 		{
 			horz->wallhitx = horz->next_x;
@@ -143,14 +136,11 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 			horz->content = ft_map_content(horz->next_x, horz->next_y, vars);
 			horz->distance = ft_get_distance(x1, y1, horz->next_x, horz->next_y);
 			horz->found_wall = 1;
-			printf("FOUND INTERSECTION\n");
 			return;
 		}
-		//
 		horz->next_x += horz->x_step;
 		horz->next_y += horz->y_step;
 	}
-	printf("no intersection found\n");
 }
 void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 {
@@ -225,8 +215,7 @@ void	ft_cast_all_rays(t_vars *vars)
 	float ray_angle;
 	int i;
 
-	//ray_angle = vars->player.angle - ft_radconvert(FOV / 2);
-	ray_angle = vars->player.angle;
+	ray_angle = vars->player.angle - ft_radconvert(FOV / 2);
 	ray_angle = ft_within_twopi(ray_angle);
 	
 	i = 0;
@@ -235,11 +224,10 @@ void	ft_cast_all_rays(t_vars *vars)
 		x = vars->player.x;
 		y = vars->player.y;
 
-		printf("ray_angle = %f\n", ray_angle);
 
 		ft_set_ray_angle(vars->rays + i, ray_angle);
 		ft_set_ray_wallhit(vars->rays + i, vars);
-		print_ray_info(vars->rays + i);
+		//print_ray_info(vars->rays + i);
 		ft_cast_single_ray(x, y, vars, ray_angle);
 		i++;
 		// RAY_NUMBER = decalage d'angle entre chaque rayon
