@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/01 19:16:38 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/02 16:58:54 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,19 @@ void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 	pixel_y = 0.0;
 	map_row = 0.0;
 	map_col = 0.0;
-	while (map_row < cube->max_row && pixel_y < vars->win_height )
+	while (map_row < cube->max_row && pixel_y < vars->win_height)
 	{
 		pixel_x = 0.0;
 		map_col = 0.0;
 		while (map_col < cube->max_col && pixel_x < vars->win_width)
 		{
 			ft_choose_tile_color(pixel_x, pixel_y, (map[(int)map_row][(int)map_col]), vars);
-			map_col = (float)pixel_x / (float)vars->tile_width;
+			map_col = pixel_x / vars->tile_width;
 			pixel_x++;
 		}
-	//	printf("map[%d][%d]\n", map_row, map_col);
 		pixel_y++;
-		map_row = (float)pixel_y / (float)vars->tile_height;
+		map_row = pixel_y / vars->tile_height;
 	}
-	//printf("max_pixel_X = %d | max_pixel_Y = %d\n", pixel_x, pixel_y);
 }
 
 void			ft_draw_player(t_vars *vars)

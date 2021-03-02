@@ -3,8 +3,8 @@
 -Creer messages d'erreur personnalise
 -Verifier que READ de mes paths sont > 0
 -Utilite de la var 'found_wall' dans les calcul de vert et horz hit ?
-
-
+-Utiite d'initialiser l'arrray de ray[NUM_RAY] ?
+-Proteger contre le fait de trouver un espace ?
 
 PROBLEME: demarre sans signaler faute -> absence de joueur.
 

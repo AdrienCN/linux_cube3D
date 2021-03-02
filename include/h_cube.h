@@ -24,14 +24,14 @@
 #define WHITE		0x00FFFFFF
 
 #define STEP_LEN	5
-#define TILE_SIZE	64
+#define TILE_SIZE	64.0
 
 #define FOV			66.0
-#define RAY_NUMBER	1.0	
+#define RAY_NUMBER	100.0	
 #define RAY_ANGLE	FOV / RAY_NUMBER
 #define RAY_STEP	0.5	
 #define MOVE_SPEED	10
-#define ROT_SPEED	10 * (M_PI / 180)
+#define ROT_SPEED	45 * (M_PI / 180)
 #define PI			M_PI
 #define TWO_PO		M_PI * 2
 

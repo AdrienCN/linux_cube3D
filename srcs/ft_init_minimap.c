@@ -44,7 +44,7 @@ void			ft_rays_init(t_vars *vars)
 		vars->rays[i].wallhitx = 0;
 		vars->rays[i].wallhity = 0;
 		vars->rays[i].distance = 0;
-		vars->rays[i].hitisvertical = -1;
+		vars->rays[i].hitisvertical = 0;
 		vars->rays[i].rayisup = 0;
 		vars->rays[i].rayisdown = 0;
 		vars->rays[i].rayisleft = 0;
@@ -58,18 +58,15 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
-	//vars->tile_width = TILE_SIZE;
-	//vars->tile_height = TILE_SIZE;
-	vars->tile_width = vars->win_width / cube->max_col;
-	vars->tile_height = vars->win_height / cube->max_row;
+	vars->tile_width = TILE_SIZE;
+	vars->tile_height = TILE_SIZE;
+	//vars->tile_width = vars->win_width / cube->max_col;
+	//vars->tile_height = vars->win_height / cube->max_row;
 
 	// Get color
 	ft_init_color(cube, vars);
 	ft_perso_init(vars);
 	ft_rays_init(vars);
-	
-	//Get grid proportions
-	printf("vars->width = %f | vars->height = %f\n", vars->win_width, vars->win_height);
 	//efface le player de la carte
 	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
 	// Init mlx_instances
@@ -77,6 +74,6 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len,
                                &vars->endian);
-    vars->win = mlx_new_window(vars->mlx, vars->win_width, vars->win_height, "Adrien_cube");
-	printf("X_tile = %f | Y_tile = %f\n", vars->tile_width, vars->tile_height);
+    vars->win = mlx_new_window(vars->mlx, vars->win_width, 
+			vars->win_height, "Adrien_cube");
 }
