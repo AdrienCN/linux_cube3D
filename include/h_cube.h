@@ -24,9 +24,10 @@
 #define WHITE		0x00FFFFFF
 
 #define STEP_LEN	5
+#define TILE_SIZE	64
 
 #define FOV			60.0
-#define RAY_NUMBER	60.0	
+#define RAY_NUMBER	1.0	
 #define RAY_ANGLE	FOV / RAY_NUMBER
 #define RAY_STEP	0.5	
 #define MOVE_SPEED	10
@@ -54,10 +55,10 @@
 
 typedef struct s_inter
 {
-	float	xstep;
-	float	ystep;
-	float	xinter;
-	float	yinter;
+	float	x_step;
+	float	y_step;
+	float	x_inter;
+	float	y_inter;
 	float	next_x;
 	float	next_y;
 	int		found_wall;

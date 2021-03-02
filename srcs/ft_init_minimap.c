@@ -41,15 +41,15 @@ void			ft_rays_init(t_vars *vars)
 	while (i < (int)RAY_NUMBER)
 	{	
 		vars->rays[i].angle = 0;
-		vars->rays[i].wallHitX = 0;
-		vars->rays[i].wallHitY = 0;
+		vars->rays[i].wallhitx = 0;
+		vars->rays[i].wallhity = 0;
 		vars->rays[i].distance = 0;
-		vars->rays[i].HitIsVertical = -1;
-		vars->rays[i].RayIsUp = 0;
-		vars->rays[i].RayIsDown = 0;
-		vars->rays[i].RayIsLeft = 0;
-		vars->rays[i].RayIsRight = 0;
-		vars->rays[i].HitContent = 0;
+		vars->rays[i].hitisvertical = -1;
+		vars->rays[i].rayisup = 0;
+		vars->rays[i].rayisdown = 0;
+		vars->rays[i].rayisleft = 0;
+		vars->rays[i].rayisright = 0;
+		vars->rays[i].hitcontent = 0;
 		i++;
 	}
 }
