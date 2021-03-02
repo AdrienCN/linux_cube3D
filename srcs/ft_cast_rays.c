@@ -6,11 +6,12 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/02 15:05:34 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/02 15:32:04 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
+#include <limits.h>
 
 void	print_ray_info(t_rays *ray);
 
@@ -71,18 +72,18 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 
 	x = vars->player.x;
 	y = vars->player.y;
-	vert->distance = -1;
+	vert->distance = INT_MAX;
 	vert->found_wall = -1;
 	vert->content = -1;
 	
 	vert->x_inter = ((int)(x / TILE_SIZE)) * TILE_SIZE ;
 	if (ray->rayisright)
 		vert->x_inter += TILE_SIZE;
-	vert->y_inter = y + (vert->x_inter - x) / tan(ray->angle);
+	vert->y_inter = y + (vert->x_inter - x) * tan(ray->angle);
 	vert->x_step = TILE_SIZE;
 	if (ray->rayisleft)
 		vert->x_step *= -1;
-	vert->y_step = TILE_SIZE / tan(ray->angle);
+	vert->y_step = TILE_SIZE * tan(ray->angle);
 	if (ray->rayisup && vert->y_step > 0)
 		vert->y_step *= -1;
 	else if (ray->rayisdown && vert->y_step < 0)
@@ -99,7 +100,7 @@ void	ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray)
 
 	x = vars->player.x;
 	y = vars->player.y;
-	horz->distance = -1;
+	horz->distance = INT_MAX;
 	horz->found_wall = -1;
 	horz->content = -1;
 	horz->y_inter = ((int)(y / TILE_SIZE)) * TILE_SIZE ;
