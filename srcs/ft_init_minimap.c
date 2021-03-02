@@ -44,7 +44,7 @@ void			ft_rays_init(t_vars *vars)
 		vars->rays[i].wallHitX = 0;
 		vars->rays[i].wallHitY = 0;
 		vars->rays[i].distance = 0;
-		vars->rays[i].HitIsVertical = 0;
+		vars->rays[i].HitIsVertical = -1;
 		vars->rays[i].RayIsUp = 0;
 		vars->rays[i].RayIsDown = 0;
 		vars->rays[i].RayIsLeft = 0;

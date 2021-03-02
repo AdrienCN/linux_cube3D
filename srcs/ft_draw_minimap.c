@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/01 17:03:54 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/01 19:16:38 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 {
-	int pixel_x;
-	int pixel_y;
+	float pixel_x;
+	float pixel_y;
 	float map_col;
 	float  map_row;
 	char **map;
 
 	map = cube->map;
-	pixel_y = 0;
-	map_row = 0;
-	map_col = 0;
+	pixel_y = 0.0;
+	map_row = 0.0;
+	map_col = 0.0;
 	while (map_row < cube->max_row && pixel_y < vars->win_height )
 	{
-		pixel_x = 0;
-		map_col = 0;
+		pixel_x = 0.0;
+		map_col = 0.0;
 		while (map_col < cube->max_col && pixel_x < vars->win_width)
 		{
 			ft_choose_tile_color(pixel_x, pixel_y, (map[(int)map_row][(int)map_col]), vars);
@@ -90,12 +90,11 @@ void		ft_draw_ray_projection(t_vars *vars)
 
 void			ft_choose_tile_color(float x, float y, char c, t_vars *vars)
 {
-	if ((int)y % (int)vars->tile_height == 0 || (int)x % (int)vars->tile_width == 0)
-	{
+	if ((int)y % (int)vars->tile_height == 0)
 		my_mlx_pixel_put(vars, x, y, BLACK);
-		return;
-	}
-	if (c == ' ')
+	else if ((int)x % (int)vars->tile_width == 0)
+		my_mlx_pixel_put(vars, x, y, BLACK);
+	else if (c == ' ')
 		my_mlx_pixel_put(vars, x, y, vars->void_color);
 	else if (c == '0')
 		my_mlx_pixel_put(vars, x, y, vars->floor_color);

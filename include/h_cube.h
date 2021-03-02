@@ -28,7 +28,7 @@
 #define FOV			60.0
 #define RAY_NUMBER	60.0	
 #define RAY_ANGLE	FOV / RAY_NUMBER
-#define RAY_STEP	1
+#define RAY_STEP	0.5	
 #define MOVE_SPEED	10
 #define ROT_SPEED	45 * (M_PI / 180)
 #define PI			M_PI
@@ -52,6 +52,21 @@
 #define S			115
 #define D			100
 
+typedef struct s_inter
+{
+	float	xstep;
+	float	ystep;
+	float	xinter;
+	float	yinter;
+	float	next_x;
+	float	next_y;
+	int		found_wall;
+	float	wallhitx;
+	float	wallhity;
+	float	distance;
+	float	content;
+}			t_inter;
+
 typedef struct s_rgb
 {
 	int state;
@@ -64,15 +79,15 @@ typedef struct s_rgb
 typedef struct s_rays
 {
 	float angle;
-	float wallHitX;
-	float wallHitY;
+	float wallhitx;
+	float wallhity;
 	float distance;
-	int HitIsVertical;
-	int RayIsUp;
-	int	RayIsDown;
-	int RayIsLeft;
-	int RayIsRight;
-	int HitContent;
+	int hitisvertical;
+	int rayisup;
+	int	rayisdown;
+	int rayisleft;
+	int rayisright;
+	int hitcontent;
 }				t_rays;
 
 typedef struct s_perso

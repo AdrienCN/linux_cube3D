@@ -2,3 +2,4 @@
 -Gerer les return 0 ou -1  en cas d'erreur dans le parsing.
 -Creer messages d'erreur personnalise
 -Verifier que READ de mes paths sont > 0
+-Utilite de la var 'found_wall' dans les calcul de vert et horz hit ?
