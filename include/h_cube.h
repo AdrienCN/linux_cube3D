@@ -23,7 +23,7 @@
 #define GREEN			0x0000FF00	
 #define WHITE			0x00FFFFFF
 
-#define MINIMAP_SCALE	1
+#define MINIMAP_SCALE	1	
 #define STEP_LEN		5
 #define TILE_SIZE		64.0
 

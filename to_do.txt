@@ -5,6 +5,7 @@
 -Utilite de la var 'found_wall' dans les calcul de vert et horz hit ?
 -Utiite d'initialiser l'arrray de ray[NUM_RAY] ?
 -Proteger contre le fait de trouver un espace ?
+-Fix -> relinker si modif de h_cub.h
 
 PROBLEME: demarre sans signaler faute -> absence de joueur.
 
