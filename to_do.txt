@@ -6,6 +6,7 @@
 -Utiite d'initialiser l'arrray de ray[NUM_RAY] ?
 -Proteger contre le fait de trouver un espace ?
 -Fix -> relinker si modif de h_cub.h
+-Supprimer le INT_MAX dans le calcul de ray_vert/horz_hit distance (ft_cast_allrays)
 
 PROBLEME: demarre sans signaler faute -> absence de joueur.
 

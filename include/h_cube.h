@@ -10,31 +10,34 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+// to delete in final
+#include <limits.h>
+
 # define TRUE			1
 
 # define FALSE			0
 
 # define MAP_CHAR		"012 WSNE"
 
-#define BLACK			0x00000000
-#define BLUE			0x000000FF
-#define RED				0x00FF0000
-#define ORANGE			0x00FF8900
-#define GREEN			0x0000FF00	
-#define WHITE			0x00FFFFFF
+# define BLACK			0x00000000
+# define BLUE			0x000000FF
+# define RED			0x00FF0000
+# define ORANGE			0x00FF8900
+# define GREEN			0x0000FF00	
+# define WHITE			0x00FFFFFF
 
-#define MINIMAP_SCALE	1	
-#define STEP_LEN		5
-#define TILE_SIZE		64.0
+# define MINIMAP_SCALE	1	
+# define STEP_LEN		5
+# define TILE_SIZE		100.0
 
-#define FOV				66.0
-#define RAY_NUMBER		100.0	
-#define RAY_ANGLE		FOV / RAY_NUMBER
-#define RAY_STEP		0.5	
-#define MOVE_SPEED		10
-#define ROT_SPEED		45 * (M_PI / 180)
-#define PI				M_PI
-#define TWO_PO			M_PI * 2
+# define FOV			66.0
+# define RAY_NUMBER		1.0	
+# define RAY_ANGLE		FOV / RAY_NUMBER
+# define RAY_STEP		0.5	
+# define MOVE_SPEED		10
+# define ROT_SPEED		10 * (M_PI / 180)
+# define PI				M_PI
+# define TWO_PO			M_PI * 2
 
 // for MAC
 /*
@@ -150,6 +153,14 @@ typedef		struct s_vars
 	int		void_color;
 }					t_vars;
 
+		//MAIN_PARSING//
+int		ft_parsing_main(char *map_file, t_cube *vars);
+void	ft_mapinfo_init(t_cube *element);
+void	ft_print_mapinfo(t_cube *element);
+void	ft_free_mapinfo(t_cube *element);
+void	ft_free_doublearray(char **tab);
+
+
 		//FIRST PARSING//
 int		ft_first_parsing(int fd, t_cube *map_info);
 int		ft_try_assigning_value(char *line, t_cube *map_info);
@@ -176,25 +187,25 @@ int		ft_check_fullmap_format(char **map, int max_col, int max_row);
 int		ft_make_oneline_map(int fd, t_cube *map_info);
 
 
-		//MAIN_PARSING//
-int		ft_parsing_main(char *map_file, t_cube *vars);
-void	ft_mapinfo_init(t_cube *element);
-void	ft_print_mapinfo(t_cube *element);
-void	ft_free_mapinfo(t_cube *element);
-void	ft_free_doublearray(char **tab);
+		//***********RAY_CASTING*************
+void	ft_cast_all_rays(t_vars *vars);
+void	ft_set_ray_angle(t_rays *ray, float ray_angle);
+void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars);
+			//RAY_algebra
+void		ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert);
+void		ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz);
+void		ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray);
+void		ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray);
 
 
 
 		//***Mini_MAP****
-				
 				//Minimap_MAKER
-int				ft_update_map(t_vars *vars);
-
+int		ft_update_map(t_vars *vars);
 				//MINI_MAP_INIT
 void	ft_init_color(t_cube *cube, t_vars *vars);
 void	ft_perso_init(t_vars *vars);
 void	ft_init_game(t_cube *cube, t_vars *vars);
-				
 				//Player_Movement_algo
 int		ft_reset_player(int keycode, t_vars *vars);
 int		ft_update_player(t_vars *vars);
@@ -204,29 +215,21 @@ float	ft_calculate_new_y(float y, t_vars *vars);
 
 		//*****UTILS************
 void	ft_print_tab(char **tab);
-
-		//CONVERSION UTILS
-float			ft_radconvert(float degree);
-float			ft_within_twopi(float rad);
-
-		//TMP_UTILS
-void			ft_print_tab(char **tab);
+		//MATHS UTILS
+float	ft_radconvert(float degree);
+float	ft_within_twopi(float rad);
+float	ft_get_distance(float x1, float y1, float x2, float y2);
 
 		//MLX_UTILS
 int		create_trgb(int t, int r, int g, int b);
 void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
-
 		//PRINT_UTILS	
-void			ft_draw_tile(float x, float y, char c, t_vars *vars);
-void			ft_draw_player(t_vars *vars);
-void			ft_draw_minimap(t_cube *cube, t_vars *vars);
-void			ft_draw_ray_projection(t_vars *vars);
-
-		//RAY_CASTING
-void			ft_cast_all_rays(t_vars *vars);
+void	ft_draw_tile(float x, float y, char c, t_vars *vars);
+void	ft_draw_player(t_vars *vars);
+void	ft_draw_minimap(t_cube *cube, t_vars *vars);
+void	ft_draw_ray_projection(t_vars *vars);
 		//SHAPE_PRINT
-void			ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid, int color);
-
+void	ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid, int color);
 
 		// COLLISION_UTILS
 int		ft_map_content(float x, float y, t_vars *vars);
@@ -234,5 +237,11 @@ int		ft_is_wall(float x, float y, t_vars *vars);
 int		ft_is_maplimit(float x, float y, t_vars *vars);
 int		ft_is_sprite(float x, float y, t_vars *vars);
 	
+		//TMP_UTILS
+void	ft_print_tab(char **tab);
+void	print_ray_info(t_rays *ray);
+void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle);
+
+
 
 #endif

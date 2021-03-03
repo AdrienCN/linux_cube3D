@@ -49,9 +49,9 @@ int		ft_is_maplimit(float x, float y, t_vars *vars)
 	map_limit_x = TILE_SIZE * vars->cube.max_col;
 	map_limit_y = TILE_SIZE * vars->cube.max_row;
 
-	if (y >= map_limit_y || y <= 0)
+	if (y >= map_limit_y || y < 0)
 		return (1);
-	if (x >= map_limit_x|| x <= 0)
+	if (x >= map_limit_x || x < 0)
 		return (1);
 	return (0);
 }

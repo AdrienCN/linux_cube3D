@@ -19,3 +19,17 @@ float	ft_radconvert(float degree)
 	rad = degree * M_PI / 180;
 	return (rad);
 }
+
+float	ft_get_distance(float x1, float y1, float x2, float y2)
+{
+	double result;
+	double x;
+	double y;
+
+	x = (x2 - x1) * (x2 - x1);
+	y = (y2 - y1) * (y2 - y1);
+
+	result = sqrt(x + y);
+	return ((float)result);
+}
+
