@@ -7,6 +7,7 @@
 -Proteger contre le fait de trouver un espace ?
 -Fix -> relinker si modif de h_cub.h
 -Supprimer le INT_MAX dans le calcul de ray_vert/horz_hit distance (ft_cast_allrays)
+-Supprimer tile_height et tile_width
 
 PROBLEME: demarre sans signaler faute -> absence de joueur.
 

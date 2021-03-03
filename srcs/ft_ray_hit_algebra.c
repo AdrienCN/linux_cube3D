@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:05 by calao             #+#    #+#             */
-/*   Updated: 2021/03/03 13:08:57 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/03 16:11:14 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 	vert->found_wall = -1;
 	vert->content = -1;
 
+	//printf("vars->ray_num = %f\n", vars->ray_num);
 	vert->x_inter = ((int)(x / TILE_SIZE)) * TILE_SIZE ;
 	if (ray->rayisright)
 		vert->x_inter += TILE_SIZE;
@@ -81,8 +82,8 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 		tmp = -1;
 	while (!ft_is_maplimit(horz->next_x, horz->next_y + tmp, vars))
 	{
-		printf("ray->rayisup = %d\n", ray->rayisup);
-		printf("HORZ_X = %f | HORZ_Y %f\n", horz->next_x, horz->next_y);
+	//	printf("ray->rayisup = %d\n", ray->rayisup);
+		//printf("HORZ_X = %f | HORZ_Y %f\n", horz->next_x, horz->next_y);
 		if (ft_is_wall(horz->next_x, horz->next_y + tmp, vars))
 		{
 			horz->wallhitx = horz->next_x;
@@ -90,7 +91,7 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 			horz->content = ft_map_content(horz->next_x, horz->next_y + tmp, vars);
 			horz->distance = ft_get_distance(x1, y1, horz->next_x, horz->next_y);
 			horz->found_wall = 1;
-			printf("FINAL HORZ_X = %f | HORZ_Y %f\n", horz->next_x, horz->next_y);
+		//	printf("FINAL HORZ_X = %f | HORZ_Y %f\n", horz->next_x, horz->next_y);
 			return;
 		}
 		horz->next_x += horz->x_step;
@@ -111,7 +112,7 @@ void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 		tmp = -1;
 	while (!ft_is_maplimit(vert->next_x + tmp, vert->next_y, vars))
 	{
-		printf("VERT_X = %f | VERT_Y %f\n", vert->next_x, vert->next_y);
+		//printf("VERT_X = %f | VERT_Y %f\n", vert->next_x, vert->next_y);
 		//SEGV cause de ft_is_wall et ft_map_content
 		if (ft_is_wall(vert->next_x + tmp, vert->next_y, vars))
 		{
@@ -120,7 +121,7 @@ void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 			vert->content = ft_map_content(vert->next_x + tmp, vert->next_y, vars);
 			vert->distance = ft_get_distance(x1, y1, vert->next_x, vert->next_y);
 			vert->found_wall = 1;
-			printf("FINAL: VERT_X = %f | VERT_Y %f\n", vert->next_x, vert->next_y);
+		//	printf("FINAL: VERT_X = %f | VERT_Y %f\n", vert->next_x, vert->next_y);
 	//		printf("FOUND INTERSECTION\n");
 			return;
 		}

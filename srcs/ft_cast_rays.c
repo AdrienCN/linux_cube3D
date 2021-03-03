@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/03 13:08:12 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/03 16:10:51 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 	ft_set_horz_hit(&horz_hit, vars, ray);
 	ft_find_vert_wallhit(vars, ray, &vert_hit);
 	ft_find_horz_wallhit(vars, ray, &horz_hit);
-	printf("horz->distance = %f\n", horz_hit.distance);
-	printf("vert->distance = %f\n", vert_hit.distance);
+//	printf("horz->distance = %f\n", horz_hit.distance);
+//	printf("vert->distance = %f\n", vert_hit.distance);
 	if (vert_hit.distance < horz_hit.distance)
 	{
 		ray->wallhitx = vert_hit.wallhitx;
@@ -45,7 +45,7 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->distance = vert_hit.distance;
 		ray->hitisvertical = TRUE;
 		ray->hitcontent = vert_hit.content;
-		printf("--VERT_HIT--\n");
+//		printf("--VERT_HIT--\n");
 	}
 	else
 	{
@@ -54,7 +54,7 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->distance = horz_hit.distance;
 		ray->hitisvertical = FALSE;
 		ray->hitcontent = horz_hit.content;
-		printf("--HORZ_HIT--\n");
+//		printf("--HORZ_HIT--\n");
 	}
 	//printf("player_x = %f | player_y = %f\n", vars->player.x, vars->player.y);
 }
@@ -72,7 +72,7 @@ void	ft_cast_all_rays(t_vars *vars)
 	ray_angle = ft_within_twopi(ray_angle);
 	
 	i = 0;
-	while  (i < RAY_NUMBER)
+	while  (i < vars->ray_num)
 	{
 		x = vars->player.x;
 		y = vars->player.y;
@@ -81,7 +81,7 @@ void	ft_cast_all_rays(t_vars *vars)
 		//print_ray_info(vars->rays + i);
 		ft_cast_single_ray(x, y, vars, ray_angle);
 		i++;
-		// RAY_NUMBER = decalage d'angle entre chaque rayon
-		ray_angle += ft_radconvert(RAY_ANGLE);
+		// vars->ray_num = decalage d'angle entre chaque rayon
+		ray_angle += ft_radconvert(vars->ray_increment);
 	}
 }

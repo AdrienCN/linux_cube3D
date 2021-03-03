@@ -31,8 +31,6 @@
 # define TILE_SIZE		100.0
 
 # define FOV			66.0
-# define RAY_NUMBER		1.0	
-# define RAY_ANGLE		FOV / RAY_NUMBER
 # define RAY_STEP		0.5	
 # define MOVE_SPEED		10
 # define ROT_SPEED		10 * (M_PI / 180)
@@ -131,26 +129,30 @@ typedef struct s_cube
 
 typedef		struct s_vars
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	t_rays	rays[(int)RAY_NUMBER];
-	t_cube	cube;
-	t_perso player;
-	int		bpp;
-	int		line_len;
-	int		endian;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*addr;
+	int			ray_num;
+	int			*color;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	int			player_color;
+	int			wall_color;
+	int			floor_color;
+	int			ceil_color;
+	int			sprite_color;
+	int			void_color;
+	float		ray_increment;
 	float		win_height;
 	float		win_width;
 	float		tile_width;
 	float		tile_height;
-	int		player_color;
-	int		wall_color;
-	int		floor_color;
-	int		ceil_color;
-	int		sprite_color;
-	int		void_color;
+	t_cube		cube;
+	t_perso		player;
+	t_rays		*rays;
+
 }					t_vars;
 
 		//MAIN_PARSING//

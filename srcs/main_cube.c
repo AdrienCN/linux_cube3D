@@ -19,7 +19,6 @@ int             main(int argc, char **argv)
 	
 	ft_init_game(&vars.cube, &vars);
 	write(1,"init ok\n", 8);
-	printf("RAY_NUMBER = %f\n", RAY_NUMBER);
 	mlx_loop_hook(vars.mlx, ft_update_map, &vars);
 	mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
 	mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
