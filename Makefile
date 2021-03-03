@@ -13,7 +13,6 @@ LIB_X	= -L minilibx-linux/ -lmlx -lm -lX11 -lXext
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(INCL) -o $(@) $(OBJ) $(LIB_FT) $(LIB_X)
-	rm -rf $(OBJ)
 
 all: $(NAME)
 	

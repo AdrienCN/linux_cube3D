@@ -33,8 +33,6 @@ int		ft_update_map(t_vars *vars)
 {
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_player(vars);
-
-//	ft_draw_ray_projection(vars);
 	ft_cast_all_rays(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);

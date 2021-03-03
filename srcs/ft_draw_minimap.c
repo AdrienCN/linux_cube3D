@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/02 16:58:54 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/03 04:54:28 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 		map_col = 0.0;
 		while (map_col < cube->max_col && pixel_x < vars->win_width)
 		{
-			ft_choose_tile_color(pixel_x, pixel_y, (map[(int)map_row][(int)map_col]), vars);
-			map_col = pixel_x / vars->tile_width;
+			ft_draw_tile(pixel_x * MINIMAP_SCALE, pixel_y * MINIMAP_SCALE,
+				   (map[(int)map_row][(int)map_col]), vars);
+			map_col = pixel_x / TILE_SIZE;
 			pixel_x++;
 		}
 		pixel_y++;
-		map_row = pixel_y / vars->tile_height;
+		map_row = pixel_y / TILE_SIZE;
 	}
 }
 
@@ -45,52 +46,21 @@ void			ft_draw_player(t_vars *vars)
 	int square_w;
 	int start_y;
 	int start_x;
-	square_h = vars->tile_height / 2;
-	square_w = vars->tile_width / 2;
-	start_y = (vars->player.y - vars->tile_height / 4);
-	start_x = (vars->player.x - vars->tile_width / 4);
-	/*
-	start_y = vars->player.y;
-	start_x = vars->player.x;
-	*/
+	square_h = (TILE_SIZE / 2) * MINIMAP_SCALE;
+	square_w = (TILE_SIZE / 2) * MINIMAP_SCALE;
+	start_y = (vars->player.y - TILE_SIZE / 4) * MINIMAP_SCALE;
+	start_x = (vars->player.x - TILE_SIZE / 4) * MINIMAP_SCALE;
 	ft_draw_square(vars, start_y, start_x, square_h, square_w, BLUE);
 }
 
-void		ft_draw_ray_projection(t_vars *vars)
-{	
-	float x;
-	float y;
-	float r;
-	float fov_start;
-	int i;
-
-	fov_start = ft_radconvert(vars->player.angle) - ft_radconvert(FOV) / 2;
-	// fov_start = pikuma RayAngle ? 
-	i = 0;
-	while  (i < RAY_NUMBER)
-	{
-		r = 0;
-		x = vars->player.x;
-		y = vars->player.y;
-		//Draw line if RAY_HIT is IN maplimit AND NOT in WALL
-		while (!ft_is_maplimit(x, y, vars) && !ft_map_content(x, y, vars))
-		{
-			my_mlx_pixel_put(vars, x, y, RED);
-			x = vars->player.x + cos(vars->player.angle + fov_start) * r;
-			y = vars->player.y - sin(vars->player.angle + fov_start) * r;
-			r += RAY_STEP;
-		}
-		i++;
-		// RAY_NUMBER = decalage d'angle entre chaque rayon
-		fov_start += ft_radconvert(RAY_ANGLE);
-	}
-}
-
-void			ft_choose_tile_color(float x, float y, char c, t_vars *vars)
+void			ft_draw_tile(float x, float y, char c, t_vars *vars)
 {
-	if ((int)y % (int)vars->tile_height == 0)
+	int test;
+
+	test = TILE_SIZE * MINIMAP_SCALE;
+	if ((int)y % test == 0)
 		my_mlx_pixel_put(vars, x, y, BLACK);
-	else if ((int)x % (int)vars->tile_width == 0)
+	else if ((int)x % test == 0)
 		my_mlx_pixel_put(vars, x, y, BLACK);
 	else if (c == ' ')
 		my_mlx_pixel_put(vars, x, y, vars->void_color);

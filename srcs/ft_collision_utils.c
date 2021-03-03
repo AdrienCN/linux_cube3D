@@ -17,8 +17,8 @@ int		ft_is_wall(float x, float y, t_vars *vars)
 	int col;
 	char item;
 
-	row =  y / vars->tile_height;
-	col = x / vars->tile_width;
+	row =  y / TILE_SIZE;
+	col = x / TILE_SIZE;
 	
 	item = vars->cube.map[row][col];
 	if (item == '1' || item == ' ')
@@ -32,8 +32,8 @@ int		ft_is_sprite(float x, float y, t_vars *vars)
 	int col;
 	char item;
 
-	row =  y / vars->tile_height;
-	col = x / vars->tile_width;
+	row =  y / TILE_SIZE;
+	col = x / TILE_SIZE;
 
 	item = vars->cube.map[row][col];
 	if (item == '2')

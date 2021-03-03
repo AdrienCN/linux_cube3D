@@ -10,30 +10,31 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define TRUE 1
+# define TRUE			1
 
-# define FALSE 0
+# define FALSE			0
 
-# define MAP_CHAR "012 WSNE"
+# define MAP_CHAR		"012 WSNE"
 
-#define BLACK		0x00000000
-#define BLUE		0x000000FF
-#define RED			0x00FF0000
-#define ORANGE		0x00FF8900
-#define GREEN		0x0000FF00	
-#define WHITE		0x00FFFFFF
+#define BLACK			0x00000000
+#define BLUE			0x000000FF
+#define RED				0x00FF0000
+#define ORANGE			0x00FF8900
+#define GREEN			0x0000FF00	
+#define WHITE			0x00FFFFFF
 
-#define STEP_LEN	5
-#define TILE_SIZE	64.0
+#define MINIMAP_SCALE	1
+#define STEP_LEN		5
+#define TILE_SIZE		64.0
 
-#define FOV			66.0
-#define RAY_NUMBER	100.0	
-#define RAY_ANGLE	FOV / RAY_NUMBER
-#define RAY_STEP	0.5	
-#define MOVE_SPEED	10
-#define ROT_SPEED	45 * (M_PI / 180)
-#define PI			M_PI
-#define TWO_PO		M_PI * 2
+#define FOV				66.0
+#define RAY_NUMBER		100.0	
+#define RAY_ANGLE		FOV / RAY_NUMBER
+#define RAY_STEP		0.5	
+#define MOVE_SPEED		10
+#define ROT_SPEED		45 * (M_PI / 180)
+#define PI				M_PI
+#define TWO_PO			M_PI * 2
 
 // for MAC
 /*
@@ -216,7 +217,7 @@ int		create_trgb(int t, int r, int g, int b);
 void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 
 		//PRINT_UTILS	
-void			ft_choose_tile_color(float x, float y, char c, t_vars *vars);
+void			ft_draw_tile(float x, float y, char c, t_vars *vars);
 void			ft_draw_player(t_vars *vars);
 void			ft_draw_minimap(t_cube *cube, t_vars *vars);
 void			ft_draw_ray_projection(t_vars *vars);

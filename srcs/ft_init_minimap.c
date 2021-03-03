@@ -29,8 +29,8 @@ void	ft_perso_init(t_vars *vars)
 	else 
 		angle = 0.0;
 	vars->player.angle = angle;
-	vars->player.x = vars->tile_width * vars->cube.player_tmp.x + vars->tile_width  / 2;
-	vars->player.y = vars->tile_height * vars->cube.player_tmp.y + vars->tile_height / 2;
+	vars->player.x = TILE_SIZE * vars->cube.player_tmp.x + TILE_SIZE  / 2;
+	vars->player.y = TILE_SIZE * vars->cube.player_tmp.y + TILE_SIZE / 2;
 }
 
 void			ft_rays_init(t_vars *vars)
@@ -58,10 +58,8 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
-	vars->tile_width = TILE_SIZE;
-	vars->tile_height = TILE_SIZE;
 	//vars->tile_width = vars->win_width / cube->max_col;
-	//vars->tile_height = vars->win_height / cube->max_row;
+	//vars->tile_height= vars->win_height / cube->max_row;
 
 	// Get color
 	ft_init_color(cube, vars);

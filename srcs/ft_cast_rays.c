@@ -6,13 +6,13 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/02 17:46:26 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/03 04:35:36 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 #include <limits.h>
-
+//
 void	print_ray_info(t_rays *ray);
 
 void	ft_set_ray_angle(t_rays *ray, float ray_angle)
@@ -38,7 +38,8 @@ void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle)
 	r = 0;
 	while (ft_is_maplimit(x, y, vars) == 0 && ft_map_content(x, y, vars) == 0)
 		{
-			my_mlx_pixel_put(vars, x, y, ORANGE);
+			my_mlx_pixel_put(vars, x * MINIMAP_SCALE,
+				   	y * MINIMAP_SCALE, ORANGE);
 			x = vars->player.x + cos(ray_angle) * r;
 			y = vars->player.y - sin(ray_angle) * r;
 			r += RAY_STEP;
@@ -166,14 +167,14 @@ void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 			vert->content = ft_map_content(vert->next_x, vert->next_y, vars);
 			vert->distance = ft_get_distance(x1, y1, vert->next_x, vert->next_y);
 			vert->found_wall = 1;
-			printf("FOUND INTERSECTION\n");
+	//		printf("FOUND INTERSECTION\n");
 			return;
 		}
 		//
 		vert->next_x += vert->x_step;
 		vert->next_y += vert->y_step;
 	}
-	printf("no intersection found\n");
+	//printf("no intersection found\n");
 }
 	
 void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
@@ -185,8 +186,8 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 	ft_set_horz_hit(&horz_hit, vars, ray);
 	ft_find_vert_wallhit(vars, ray, &vert_hit);
 	ft_find_horz_wallhit(vars, ray, &horz_hit);
-	printf("horz->distance = %f\n", horz_hit.distance);
-	printf("vert->distance = %f\n", vert_hit.distance);
+	//printf("horz->distance = %f\n", horz_hit.distance);
+	//printf("vert->distance = %f\n", vert_hit.distance);
 	if (vert_hit.distance < horz_hit.distance)
 	{
 		ray->wallhitx = vert_hit.wallhitx;
@@ -194,7 +195,7 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->distance = vert_hit.distance;
 		ray->hitisvertical = TRUE;
 		ray->hitcontent = vert_hit.content;
-		printf("--VERT_HIT--\n");
+		//printf("--VERT_HIT--\n");
 	}
 	else
 	{
@@ -203,7 +204,7 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->distance = horz_hit.distance;
 		ray->hitisvertical = FALSE;
 		ray->hitcontent = horz_hit.content;
-		printf("--HORZ_HIT--\n");
+		//printf("--HORZ_HIT--\n");
 	}
 }
 
@@ -223,8 +224,6 @@ void	ft_cast_all_rays(t_vars *vars)
 	{
 		x = vars->player.x;
 		y = vars->player.y;
-
-
 		ft_set_ray_angle(vars->rays + i, ray_angle);
 		ft_set_ray_wallhit(vars->rays + i, vars);
 		//print_ray_info(vars->rays + i);
