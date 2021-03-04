@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_color_buffer.c                                  :+:      :+:    :+:   */
+/*   ft_draw_maze.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/04 13:46:08 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/04 14:15:16 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,16 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 	int i;
 
 	i = 0;
-	// distance ecran aka projectionplane (en radiant?)
 	while (i < vars->ray_num)
 	{
-		//Remplir buffer par colonne
 			y = 0;
 			while (y < vars->win_height)
 			{
-				//Remplir couleur de plafond si y < limit sup mur
 				if (y <	ray[i].walluplimit)
-				{
 					//my_mlx_pixel_put(vars, i, y, BLUE);
 					colorbuf[y * vars->win_width + i] = BLUE;
-				}
 				//Remplir couleur de mur si y > limit sup mur && y < limit inf
-				else if (y >= ray[i].walluplimit 
-						&& y <= ray[i].walldownlimit)
+				else if (y >= ray[i].walluplimit && y <= ray[i].walldownlimit)
 				{
 					if (ray[i].hitisvertical)
 						colorbuf[y * vars->win_width + i] = WHITE;
@@ -88,10 +82,8 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 					colorbuf[y * vars->win_width + i] = GREY;
 				}
 				else if (y > ray[i].walldownlimit)
-				{
 					//my_mlx_pixel_put(vars, i, y, GREEN);
 					colorbuf[y * vars->win_width + i] = GREEN;
-				}
 				y++;
 			}
 		i++;
