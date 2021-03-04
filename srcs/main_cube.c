@@ -19,7 +19,7 @@ int             main(int argc, char **argv)
 	
 	ft_init_game(&vars.cube, &vars);
 	write(1,"init ok\n", 8);
-	mlx_loop_hook(vars.mlx, ft_update_map, &vars);
+	mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
 	mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
 	mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
 	mlx_loop(vars.mlx);
@@ -28,12 +28,34 @@ int             main(int argc, char **argv)
 	return (0);
 }
 
-int		ft_update_map(t_vars *vars)
+void	ft_draw_all_rays(t_vars *vars)
 {
-	ft_draw_minimap(&vars->cube, vars);
-	ft_draw_player(vars);
+	int i;
+	float x;
+	float y;
+
+	i = 0;
+	x = vars->player.x;
+	y = vars->player.y;
+
+	while (i < vars->ray_num)
+	{
+		ft_cast_single_ray(x, y, vars, vars->rays[i].angle);
+		i++;
+	}
+}
+
+int		ft_update_screen(t_vars *vars)
+{
 	ft_cast_all_rays(vars);
+	//ft_draw_minimap(&vars->cube, vars);
+	ft_draw_maze(vars);
+	//printf("maze drawing.... ok\n");
+	//ft_draw_all_rays(vars);
+	//ft_draw_player(vars);
+	//printf("player drawing.... ok\n");
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	//printf("image -> window ... ok\n");
 	return (0);
 }
 

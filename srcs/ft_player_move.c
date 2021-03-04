@@ -57,8 +57,8 @@ int		ft_update_player(t_vars *vars)
 			return (1);
 	vars->player.x = x;
 	vars->player.y = y;
-	printf("x = %f | y = %f* | ", x, y);
-	printf("player_angle = %f\n", vars->player.angle);
+	//printf("x = %f | y = %f* | ", x, y);
+	//printf("player_angle = %f\n", vars->player.angle);
 	return (0);
 }
 
@@ -79,7 +79,7 @@ int		ft_update_move(int keycode, t_vars *vars)
 		vars->player.turn = 1;
 	else if (c == RIGHT_ARROW)
 		vars->player.turn = -1;
-	printf("key_pressed = %d|\n", keycode);
+	//printf("key_pressed = %d|\n", keycode);
 	ft_update_player(vars);
 	return (1);
 }

@@ -25,14 +25,15 @@
 # define ORANGE			0x00FF8900
 # define GREEN			0x0000FF00	
 # define WHITE			0x00FFFFFF
+# define GREY			0x00D3D3D3
 
 # define MINIMAP_SCALE	1	
 # define STEP_LEN		5
-# define TILE_SIZE		100.0
+# define TILE_SIZE		10.0
 
 # define FOV			66.0
 # define RAY_STEP		0.5	
-# define MOVE_SPEED		10
+# define MOVE_SPEED		5
 # define ROT_SPEED		10 * (M_PI / 180)
 # define PI				M_PI
 # define TWO_PO			M_PI * 2
@@ -85,6 +86,10 @@ typedef struct s_rays
 	float wallhitx;
 	float wallhity;
 	float distance;
+	float wallheight;
+	float walluplimit;
+	float walldownlimit;
+	float fixed_dist;
 	int hitisvertical;
 	int rayisup;
 	int	rayisdown;
@@ -134,7 +139,7 @@ typedef		struct s_vars
 	void		*img;
 	char		*addr;
 	int			ray_num;
-	int			*color;
+	int			*colorbuf;
 	int			bpp;
 	int			line_len;
 	int			endian;
@@ -143,10 +148,10 @@ typedef		struct s_vars
 	int			floor_color;
 	int			ceil_color;
 	int			sprite_color;
+	int			win_height;
 	int			void_color;
+	int			win_width;
 	float		ray_increment;
-	float		win_height;
-	float		win_width;
 	float		tile_width;
 	float		tile_height;
 	t_cube		cube;
@@ -199,11 +204,13 @@ void		ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz);
 void		ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray);
 void		ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray);
 
+		//*************3D_RENDERERING*********
+void	ft_draw_maze(t_vars *vars);
 
 
 		//***Mini_MAP****
 				//Minimap_MAKER
-int		ft_update_map(t_vars *vars);
+int		ft_update_screen(t_vars *vars);
 				//MINI_MAP_INIT
 void	ft_init_color(t_cube *cube, t_vars *vars);
 void	ft_perso_init(t_vars *vars);

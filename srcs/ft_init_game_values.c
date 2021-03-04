@@ -59,7 +59,7 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
 	vars->rays = malloc(sizeof(t_rays) * vars->win_width);
-	vars->color = malloc(sizeof(int) * (vars->win_width * vars->win_height));
+	vars->colorbuf = malloc(sizeof(int) * (vars->win_width * vars->win_height));
 	vars->ray_num = vars->win_width;
 	vars->ray_increment = FOV / vars->ray_num;
 	//vars->tile_width = vars->win_width / cube->max_col;
