@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/04 13:04:32 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/04 13:46:08 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,25 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 			while (y < vars->win_height)
 			{
 				//Remplir couleur de plafond si y < limit sup mur
-				if (y <	(ray + i)->walluplimit)
+				if (y <	ray[i].walluplimit)
 				{
-					my_mlx_pixel_put(vars, i, y, BLUE);
+					//my_mlx_pixel_put(vars, i, y, BLUE);
 					colorbuf[y * vars->win_width + i] = BLUE;
 				}
 				//Remplir couleur de mur si y > limit sup mur && y < limit inf
-				else if (y >= (ray + i)->walluplimit 
-						&& y <= (ray + i)->walldownlimit)
+				else if (y >= ray[i].walluplimit 
+						&& y <= ray[i].walldownlimit)
 				{
 					if (ray[i].hitisvertical)
-						my_mlx_pixel_put(vars, i, y, WHITE);
+						colorbuf[y * vars->win_width + i] = WHITE;
+						//my_mlx_pixel_put(vars, i, y, WHITE);
 					else
-						my_mlx_pixel_put(vars, i, y, GREY);
-					colorbuf[y * vars->win_width + i] = WHITE;
+						//my_mlx_pixel_put(vars, i, y, GREY);
+					colorbuf[y * vars->win_width + i] = GREY;
 				}
 				else if (y > ray[i].walldownlimit)
 				{
-					my_mlx_pixel_put(vars, i, y, GREEN);
+					//my_mlx_pixel_put(vars, i, y, GREEN);
 					colorbuf[y * vars->win_width + i] = GREEN;
 				}
 				y++;
@@ -100,10 +101,10 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 void	ft_draw_maze(t_vars *vars)
 {
 	//printf("colorbuf[%d]\n", vars->win_width * vars->win_height);
-	//ft_clear_colorbuf_to_color(vars, vars->colorbuf, RED);
+	ft_clear_colorbuf_to_color(vars, vars->colorbuf, RED);
 	//printf("clearing... done\n");
 	ft_fill_colorbuf(vars, vars->rays, vars->colorbuf);
 	//printf("filling done\n");
-	//ft_display_color_buffer(vars->colorbuf, vars);
+	ft_display_color_buffer(vars->colorbuf, vars);
 	//printf("display done...\n");
 }

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/04 12:58:19 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/04 13:45:24 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_set_rayprojection_val(t_rays *ray, float screen_dist, t_vars *vars)
 	if (ray->walluplimit < 0)
 		ray->walluplimit = 0;
 	if (ray->walldownlimit > vars->win_height)
-		ray->walldownlimit = 0;
+		ray->walldownlimit = vars->win_height;
 }
 		
 
@@ -88,7 +88,7 @@ void	ft_cast_all_rays(t_vars *vars)
 	float screen_dist;
 	int i;
 
-	ray_angle = vars->player.angle - ft_radconvert(FOV / 2);
+	ray_angle = vars->player.angle + ft_radconvert(FOV / 2);
 	//ray_angle = vars->player.angle;
 	ray_angle = ft_within_twopi(ray_angle);
 	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV/2));	
@@ -101,6 +101,6 @@ void	ft_cast_all_rays(t_vars *vars)
 		//print_ray_info(vars->rays + i);
 		i++;
 		// vars->ray_num = decalage d'angle entre chaque rayon
-		ray_angle += ft_radconvert(vars->ray_increment);
+		ray_angle -= ft_radconvert(vars->ray_increment);
 	}
 }
