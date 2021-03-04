@@ -6,22 +6,10 @@
 
 
 int		display_minimap(char *str);
-/*
-void	ft_init_tmp(t_vars *tmp, t_vars *vars)
-{
-	tmp->win_height = vars->win_height;
-	tmp->win_width = vars->win_width;
-	tmp->mlx = mlx_init();
-	tmp->img = mlx_new_image(tmp->mlx, tmp->win_width, tmp->win_height);
-	tmp->addr = mlx_get_data_addr(tmp->img, &tmp->bpp, &tmp->line_len, &tmp->endian);
-	tmp->win = mlx_new_window(tmp->mlx, tmp->win_width, tmp->win_height, "minimap");
-}
-*/
 
 int             main(int argc, char **argv)
 {
 	t_vars		vars;
-//	t_vars		tmp;
 	
 	if (argc != 2)
 		return (printf("Usage : 1 argument\n"));
@@ -29,7 +17,6 @@ int             main(int argc, char **argv)
 	if (ft_parsing_main(argv[1], &vars.cube))
 		return (-1);
 	ft_init_game(&vars.cube, &vars);
-	//ft_init_tmp(tmp, vars);
 	write(1,"init ok\n", 8);
 	mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
 	mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);

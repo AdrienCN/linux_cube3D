@@ -132,17 +132,40 @@ typedef struct s_cube
 	int info_nbr;
 }				t_cube;
 
+typedef		struct s_img
+{
+	void	*img;
+	void	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		img_width;
+	int		img_height;
+}				t_img;
+
+typedef		struct s_text
+{
+	t_img	north;
+	t_img	south;
+	t_img	east;
+	t_img	west;
+	t_img	sprite;
+}				t_text;
+
 typedef		struct s_vars
 {
+	// Instance mlx
 	void		*mlx;
 	void		*win;
+	// Img de l'instance mx soit du jeu globale
 	void		*img;
 	char		*addr;
-	int			ray_num;
-	int			*colorbuf;
 	int			bpp;
 	int			line_len;
 	int			endian;
+	
+	int			ray_num;
+	int			*colorbuf;
 	int			player_color;
 	int			wall_color;
 	int			floor_color;
@@ -154,6 +177,7 @@ typedef		struct s_vars
 	float		ray_increment;
 	float		tile_width;
 	float		tile_height;
+	t_text		text;
 	t_cube		cube;
 	t_perso		player;
 	t_rays		*rays;

@@ -53,7 +53,41 @@ void			ft_rays_init(t_vars *vars)
 		i++;
 	}
 }
+void			ft_text_init(t_vars *vars, t_text *text)
+{
+	// Assign an Image instance for each text
+	text->north.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.north,
+				&text->north.img_width, &text->north.img_height);
 
+	text->east.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.east,
+				&text->east.img_width, &text->east.img_height);
+
+	text->south.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.south,
+				&text->south.img_width, &text->south.img_height);
+
+	text->west.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.west,
+				&text->west.img_width, &text->west.img_height);
+
+	text->sprite.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.sprite,
+				&text->sprite.img_width, &text->sprite.img_height);
+
+	// Assign addr for each text & text_img
+	text->north.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,
+			&text->north.line_len, &text->north.endian);
+
+	text->east.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,
+			&text->east.line_len, &text->north.endian);
+	
+	text->south.addr = mlx_get_data_addr(text->south.img, &text->south.bpp,
+			&text->south.line_len, &text->south.endian);
+
+	text->west.addr = mlx_get_data_addr(text->west.img, &text->west.bpp,
+			&text->west.line_len, &text->west.endian);
+
+	text->sprite.addr = mlx_get_data_addr(text->sprite.img, &text->sprite.bpp,
+			&text->sprite.line_len, &text->sprite.endian);
+}
+	
 void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
@@ -78,4 +112,5 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
                                &vars->endian);
     vars->win = mlx_new_window(vars->mlx, vars->win_width, 
 			vars->win_height, "Adrien_cube");
+	ft_text_init(vars, &vars->text);
 }

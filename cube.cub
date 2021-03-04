@@ -1,10 +1,11 @@
 R 1000 1000
-NO ./texture/path_to_north_texture.xpm
-SO ./texture/path_to_south_texture.xpm
-WE ./texture/path_to_west_texture.xpm
-EA ./texture/path_to_east_texture.xpm
 
-S ./texture/path_to_sprite_texture.xpm
+NO ./texture/sky.xpm
+EA ./texture/sky.xpm
+SO ./texture/sky.xpm
+WE ./texture/sky.xpm
+
+S ./texture/sky.xpm
 
 F 220,100,0
 C 225,30,0
