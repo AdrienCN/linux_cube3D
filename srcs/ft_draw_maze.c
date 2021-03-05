@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 14:48:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 14:59:15 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 				y++;
 			}
 			while (y >= ray[(int)x].walluplimit 
-					&& y <= ray[(int)x].walldownlimit
-					&& y < vars->win_height)
+					&& y <= ray[(int)x].walldownlimit)
+					//&& y < vars->win_height)
 			{
 					tmp_box(vars, ray[(int)x], x, y, wallheight);
 					y++;
