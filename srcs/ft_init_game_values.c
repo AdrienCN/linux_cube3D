@@ -56,6 +56,11 @@ void			ft_rays_init(t_vars *vars)
 }
 void			ft_text_init(t_vars *vars, t_text *text)
 {
+	text->north.path = vars->cube.north;
+	text->south.path = vars->cube.south;
+	text->east.path = vars->cube.east;
+	text->west.path = vars->cube.west;
+
 	// Assign an Image instance for each text
 	text->north.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.north,
 				&text->north.width, &text->north.height);
@@ -76,7 +81,7 @@ void			ft_text_init(t_vars *vars, t_text *text)
 	text->north.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,
 			&text->north.line_len, &text->north.endian);
 
-	text->east.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,
+	text->east.addr = mlx_get_data_addr(text->east.img, &text->east.bpp,
 			&text->east.line_len, &text->north.endian);
 	
 	text->south.addr = mlx_get_data_addr(text->south.img, &text->south.bpp,

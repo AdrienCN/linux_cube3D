@@ -138,6 +138,7 @@ typedef		struct s_img
 {
 	void	*img;
 	void	*addr;
+	char	*path;
 	int		bpp;
 	int		line_len;
 	int		endian;

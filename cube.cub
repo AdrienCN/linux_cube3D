@@ -2,7 +2,7 @@ R 1000 1000
 
 NO ./texture/city.xpm
 EA ./texture/sky.xpm
-SO ./texture/sky.xpm
+SO ./texture/claire.xpm
 WE ./texture/sky.xpm
 
 S ./texture/sky.xpm
