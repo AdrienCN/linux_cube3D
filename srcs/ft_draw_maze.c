@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 14:59:15 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 15:06:04 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,38 +131,38 @@ void	tmp_box(t_vars *vars, t_rays ray, int x, int y, int y_in_tile)
 
 void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 {
-	float y;
-	float x;
+	int y;
+	int x;
 	float wallheight;
 //	int pos;
 
 	x = 0;
-	while (x < vars->ray_num)
+	while (x < vars->win_width)
 	{
 		y = 0;
 		wallheight = 0;
+		while (y < vars->win_height)
+		{
 			//pos = y * vars->win_width + x;
-			while (y < ray[(int)x].walluplimit)
+			if (y < ray[x].walluplimit)
 			{
 				my_mlx_pixel_put(vars, x, y, BLUE);
 				colorbuf[1]= BLUE;
-				y++;
 			}
-			while (y >= ray[(int)x].walluplimit 
-					&& y <= ray[(int)x].walldownlimit)
-					//&& y < vars->win_height)
+			if (y >= ray[x].walluplimit 
+					&& y <= ray[x].walldownlimit)
 			{
-					tmp_box(vars, ray[(int)x], x, y, wallheight);
-					y++;
+					tmp_box(vars, ray[x], x, y, wallheight);
 					wallheight++;
-					//ft_draw_wall(vars, ray[(int)x], x, y);
+					//ft_draw_wall(vars, ray[x], x, y);
 			}
-			while (y > ray[(int)x].walldownlimit && y < vars->win_height)
+			if (y > ray[x].walldownlimit)
 			{
 				my_mlx_pixel_put(vars, x, y, GREEN);
 				//colorbuf[pos] = GREEN;
-				y++;
 			}
+			y++;
+		}
 		x++;
 	}
 }
