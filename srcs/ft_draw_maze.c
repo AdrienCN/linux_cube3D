@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 16:11:06 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 16:15:57 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,33 +57,22 @@ void	ft_display_color_buffer(int *colorbuf, t_vars *vars)
 	}
 }
 
-t_img	*ft_what_is_texture(t_vars *vars, t_rays *ray)
+t_img	*ft_what_is_texture(t_vars *vars, t_rays ray)
 {
-	if (ray->rayisup)
+	if (ray.hitisvertical)
 	{
-		if (!ray->hitisvertical)
-			return (&vars->text.north);
+		if (ray.rayisleft)
+			return (&vars->text.west);
 		else
-		{
-			if (ray->rayisleft)
-				return (&vars->text.west);
-			else
-				return (&vars->text.east);
-		}
+			return (&vars->text.east);
 	}
 	else
 	{
-		if (!ray->hitisvertical)
-			return (&vars->text.south);
+		if (ray.rayisup)
+			return (&vars->text.north);
 		else
-		{
-			if (ray->rayisleft)
-				return (&vars->text.east);
-			else
-				return (&vars->text.west);
-		}
+			return (&vars->text.south);
 	}
-	
 }
 
 float	ft_set_x_text(t_rays ray, t_img *w_text)
@@ -106,25 +95,9 @@ void	tmp_box(t_vars *vars, t_rays ray, int x, int y, int pos_in_wall)
 
 	if (ray.wallheight > vars->win_height)
 		pos_in_wall += (ray.wallheight - vars->win_height) / 2;
-	//text = ft_what_is_texture(vars, &ray);
-	//printf("north = %s\n east = %s\n, south = %s\n, west =%s\n", vars->);
+	text = ft_what_is_texture(vars, ray);
 	//printf("rayisleft = %d \n", ray.rayisleft);
-	if (ray.hitisvertical)
-	{
-		if (ray.rayisleft)
-			text = &vars->text.west;
-		else
-			text = &vars->text.east;
-	}
-	else
-	{
-		if (ray.rayisup)
-			text = &vars->text.north;
-		else
-			text = &vars->text.south;
-	}
-
-	x_text = ft_set_x_text(ray, text);	
+		x_text = ft_set_x_text(ray, text);	
 	y_text = (((int)pos_in_wall) / ray.wallheight) * text->height;
 	color = ft_get_xpm_pixel_value(text, x_text, y_text);
 	my_mlx_pixel_put(vars, x, y, color);
