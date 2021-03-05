@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/04 14:15:16 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:08:34 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,36 +57,58 @@ void	ft_display_color_buffer(int *colorbuf, t_vars *vars)
 	}
 }
 
+void	ft_what_is_texture(t_vars *vars, t_rays *ray)
+{
+	//Choisir texture selon: 
+		//is hit_vert ou horz?
+		//is ray up / down / left / right ?
+}
+
+
+
+void	ft_draw_wall(t_vars *vars, int x, int x, t_rays *ray)
+{
+	int				x_text;
+	int				y_text;
+	unsigned int	t_pixel_color;
+	t_img			*final_text;
+
+	//final_text = ft_what_is_texture(vars, ray + x);
+	final_text = vars->text.north;
+	x_text = ft_get_x_text_coord(vars, final_text, x, y);
+	y_text = ft_get_y_text_coord(vars, final_text, x, y);
+	
+	t_pixel_color = ft_get_xpm_pixel_value(final_text, x_text, y_text);
+	my_mlx_pixel_put(vars, x, y, t_pixel_color)
+	//vars->colorbuf[y * vars->win_width + x] = t_pixel_color;
+}
+
 void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 {
 	int y;
-	int i;
+	int x;
+	float x_text;
+	float y_text;
+//	int pos;
 
-	i = 0;
-	while (i < vars->ray_num)
+	x = 0;
+	while (x < vars->ray_num)
 	{
-			y = 0;
-			while (y < vars->win_height)
-			{
-				if (y <	ray[i].walluplimit)
-					//my_mlx_pixel_put(vars, i, y, BLUE);
-					colorbuf[y * vars->win_width + i] = BLUE;
-				//Remplir couleur de mur si y > limit sup mur && y < limit inf
-				else if (y >= ray[i].walluplimit && y <= ray[i].walldownlimit)
-				{
-					if (ray[i].hitisvertical)
-						colorbuf[y * vars->win_width + i] = WHITE;
-						//my_mlx_pixel_put(vars, i, y, WHITE);
-					else
-						//my_mlx_pixel_put(vars, i, y, GREY);
-					colorbuf[y * vars->win_width + i] = GREY;
-				}
-				else if (y > ray[i].walldownlimit)
-					//my_mlx_pixel_put(vars, i, y, GREEN);
-					colorbuf[y * vars->win_width + i] = GREEN;
-				y++;
-			}
-		i++;
+		y = 0;
+		while (y < vars->win_height)
+		{
+			//pos = y * vars->win_width + x;
+			if (y <	ray[x].walluplimit)
+				my_mlx_pixel_put(vars, i, y, BLUE);
+				//colorbuf[pos]= BLUE;
+			else if (y >= ray[x].walluplimit && y <= ray[x].walldownlimit)
+				ft_draw_wall(vars, ray, x, y)
+			else if (y > ray[x].walldownlimit)
+				my_mlx_pixel_put(vars, i, y, GREEN);
+				//colorbuf[pos] = GREEN;
+			y++;
+		}
+		x++;
 	}
 }
 
@@ -97,6 +119,6 @@ void	ft_draw_maze(t_vars *vars)
 	//printf("clearing... done\n");
 	ft_fill_colorbuf(vars, vars->rays, vars->colorbuf);
 	//printf("filling done\n");
-	ft_display_color_buffer(vars->colorbuf, vars);
+	//ft_display_color_buffer(vars->colorbuf, vars);
 	//printf("display done...\n");
 }

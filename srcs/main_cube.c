@@ -17,7 +17,7 @@ int             main(int argc, char **argv)
 	if (ft_parsing_main(argv[1], &vars.cube))
 		return (-1);
 	ft_init_game(&vars.cube, &vars);
-	write(1,"init ok\n", 8);
+	printf("Init ok\n");
 	mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
 	mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
 	mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
@@ -44,15 +44,51 @@ void	ft_draw_all_rays(t_vars *vars)
 	}
 }
 
+unsigned int	ft_get_xpm_pixel_value(t_img *img, int x, int y)
+{
+	char *dst;
+
+	dst = img->addr + (y * img->line_len) + (x * 4);
+	return (*(unsigned*)dst);
+}
+
+
+void	ft_draw_text_to_box(t_vars *vars, t_img *text_img,
+	   	int t_width, int t_height)
+{
+	float x;
+	float y;
+	float x_text;
+	float y_text;
+	unsigned int color;
+
+	x = 0;
+	while (x < vars->win_width)
+	{
+		y = 0;
+		while (y < vars->win_height)
+		{
+			x_text = (x / vars->win_width) * t_width;
+			y_text = (y / vars->win_height) * t_height;
+			color = ft_get_xpm_pixel_value(text_img, x_text, y_text);
+			my_mlx_pixel_put(vars, x, y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
 int		ft_update_screen(t_vars *vars)
 {
 	ft_cast_all_rays(vars);
 	ft_draw_maze(vars);
-/*	
+/*
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_all_rays(vars);
 	ft_draw_player(vars);
-*/	
+*/
+
+//	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.img_width, vars->text.north.img_height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);
 }

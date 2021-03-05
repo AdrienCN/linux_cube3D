@@ -29,7 +29,7 @@
 
 # define MINIMAP_SCALE	1	
 # define STEP_LEN		5
-# define TILE_SIZE		10.0
+# define TILE_SIZE		100.0
 
 # define FOV			66.0
 # define RAY_STEP		0.5	
