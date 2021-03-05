@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 16:15:57 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 16:21:40 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ float	ft_set_x_text(t_rays ray, t_img *w_text)
 	float x_coord;
 
 	if (ray.hitisvertical)
-		x_coord = (((int)ray.wallhity % (int)TILE_SIZE) / TILE_SIZE) * w_text->width;
+		x_coord = (((int)ray.wallhity % (int)TILE_SIZE) / TILE_SIZE) 
+			* w_text->width;
 	else
-		x_coord = (((int)ray.wallhitx % (int)TILE_SIZE) / TILE_SIZE) * w_text->width;
+		x_coord = (((int)ray.wallhitx % (int)TILE_SIZE) / TILE_SIZE) 
+			* w_text->width;
 	return (x_coord);
 }
 
@@ -96,8 +98,7 @@ void	tmp_box(t_vars *vars, t_rays ray, int x, int y, int pos_in_wall)
 	if (ray.wallheight > vars->win_height)
 		pos_in_wall += (ray.wallheight - vars->win_height) / 2;
 	text = ft_what_is_texture(vars, ray);
-	//printf("rayisleft = %d \n", ray.rayisleft);
-		x_text = ft_set_x_text(ray, text);	
+	x_text = ft_set_x_text(ray, text);	
 	y_text = (((int)pos_in_wall) / ray.wallheight) * text->height;
 	color = ft_get_xpm_pixel_value(text, x_text, y_text);
 	my_mlx_pixel_put(vars, x, y, color);
@@ -112,23 +113,27 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 
 	x = 0;
 	colorbuf[1]= BLUE;
-	while (x < vars->win_width)
+	while (x < vars->ray_num)
 	{
 		y = 0;
 		pos_in_wall = 0;
-		while (y < vars->win_height)
-		{
 			//pos = y * vars->win_width + x;
-			if (y < ray[x].walluplimit)
+			while (y < ray[x].walluplimit)
+			{
 				my_mlx_pixel_put(vars, x, y, BLUE);
-			if (y >= ray[x].walluplimit && y <= ray[x].walldownlimit)
-				tmp_box(vars, ray[x], x, y, pos_in_wall++);
-				//ft_draw_wall(vars, ray[x], x, y);
-			if (y > ray[x].walldownlimit)
+				y++;
+			}
+			while (y >= ray[x].walluplimit && y <= ray[x].walldownlimit)
+			{
+				tmp_box(vars, ray[x], x, y, pos_in_wall);
+				y++;
+				pos_in_wall++;
+			}
+			while (y < vars->win_height)
+			{
 				my_mlx_pixel_put(vars, x, y, GREEN);
-				//colorbuf[pos] = GREEN;
-			y++;
-		}
+				y++;
+			}
 		x++;
 	}
 }
