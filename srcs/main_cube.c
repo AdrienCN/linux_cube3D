@@ -88,7 +88,7 @@ int		ft_update_screen(t_vars *vars)
 	ft_draw_player(vars);
 */
 
-//	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.img_width, vars->text.north.img_height);
+//	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);
 }

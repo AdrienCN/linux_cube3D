@@ -29,11 +29,11 @@
 
 # define MINIMAP_SCALE	1	
 # define STEP_LEN		5
-# define TILE_SIZE		100.0
+# define TILE_SIZE		10000.0
 
 # define FOV			66.0
 # define RAY_STEP		0.5	
-# define MOVE_SPEED		5
+# define MOVE_SPEED		0.1 * TILE_SIZE
 # define ROT_SPEED		10 * (M_PI / 180)
 # define PI				M_PI
 # define TWO_PO			M_PI * 2
@@ -139,8 +139,8 @@ typedef		struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-	int		img_width;
-	int		img_height;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef		struct s_text
@@ -256,6 +256,8 @@ float	ft_get_distance(float x1, float y1, float x2, float y2);
 		//MLX_UTILS
 int		create_trgb(int t, int r, int g, int b);
 void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
+unsigned int	ft_get_xpm_pixel_value(t_img *img, int x, int y);
+
 		//PRINT_UTILS	
 void	ft_draw_tile(float x, float y, char c, t_vars *vars);
 void	ft_draw_player(t_vars *vars);

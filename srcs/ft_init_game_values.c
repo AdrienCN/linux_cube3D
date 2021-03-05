@@ -57,19 +57,19 @@ void			ft_text_init(t_vars *vars, t_text *text)
 {
 	// Assign an Image instance for each text
 	text->north.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.north,
-				&text->north.img_width, &text->north.img_height);
+				&text->north.width, &text->north.height);
 
 	text->east.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.east,
-				&text->east.img_width, &text->east.img_height);
+				&text->east.width, &text->east.height);
 
 	text->south.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.south,
-				&text->south.img_width, &text->south.img_height);
+				&text->south.width, &text->south.height);
 
 	text->west.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.west,
-				&text->west.img_width, &text->west.img_height);
+				&text->west.width, &text->west.height);
 
 	text->sprite.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.sprite,
-				&text->sprite.img_width, &text->sprite.img_height);
+				&text->sprite.width, &text->sprite.height);
 
 	// Assign addr for each text & text_img
 	text->north.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,

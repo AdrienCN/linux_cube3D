@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 11:54:22 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 11:19:22 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,76 +57,44 @@ void	ft_display_color_buffer(int *colorbuf, t_vars *vars)
 	}
 }
 
-/*
 void	ft_what_is_texture(t_vars *vars, t_rays *ray)
 {
 	//Choisir texture selon: 
 		//is hit_vert ou horz?
 		//is ray up / down / left / right ?
 }
-*/
 
-float	ft_get_x_text_coord(t_img *w_text, int x)
+float	ft_get_x_y_text_coord(t_vars *vars, t_img *w_text, float x)
 {
 	float x_val;
 
-	x_val = (x % (int)TILE_SIZE) * w_text->width;
+	x_val = (x % TILE_SIZE) * text->width;
 	return (x_val);
 }
 
-float	ft_get_y_text_coord(t_img *w_text, int y)
-{
-	float y_val;
-
-	y_val = (y % (int)TILE_SIZE) * w_text->height;
-	return (y_val);
-}
-
-void	ft_draw_wall(t_vars *vars, t_rays ray, float x, float y)
+void	ft_draw_wall(t_vars *vars, float x, float x, t_rays *ray)
 {
 	float			x_text;
 	float			y_text;
 	unsigned int	t_pixel_color;
 	t_img			*w_text;
 
-	if (ray.rayisup)
-		x_text = 1;
-	else
-		x_text = 1;
-	//final_text = ft_what_is_texture(vars, ray);
+	//final_text = ft_what_is_texture(vars, ray + x);
 	w_text = &vars->text.north;
-	x_text = ft_get_x_text_coord(w_text, x);
-	y_text = ft_get_y_text_coord(w_text, y);
+	x = ft_get_x_text_coord(vars, w_text, x);
+	y = ft_get_y_text_coord(vars, w_text, y);
 	
-	t_pixel_color = ft_get_xpm_pixel_value(w_text, x_text, y_text);
-	my_mlx_pixel_put(vars, x, y, t_pixel_color);
+	t_pixel_color = ft_get_xpm_pixel_value(final_text, x_text, y_text);
+	my_mlx_pixel_put(vars, x, y, t_pixel_color)
 	//vars->colorbuf[y * vars->win_width + x] = t_pixel_color;
 }
 
-
-void	tmp_box(t_vars *vars, int x, int y)
-{
-	float x_text;
-	float y_text;
-	t_img	*text_img;
-	unsigned int color;
-
-	
-	if (vars->rays[x].hitisvertical)
-		text_img = &vars->text.north;
-	else
-		text_img = &vars->text.south;
-	//x_text = (x / TILE_SIZE) * text_img->width;
-	//y_text = (y / TILE_SIZE) * text_img->height;
-	x_text = x % (int)TILE_SIZE / text_img->width;
- 	y_text = y % (int)TILE_SIZE / text_img->height;
-	color = ft_get_xpm_pixel_value(text_img, x_text, y_text);
-	my_mlx_pixel_put(vars, x, y, color);
-}
 void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 {
 	float y;
 	float x;
+	float x_text;
+	float y_text;
 //	int pos;
 
 	x = 0;
@@ -136,19 +104,13 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 		while (y < vars->win_height)
 		{
 			//pos = y * vars->win_width + x;
-			if (y <	ray[(int)x].walluplimit)
-			{
-				my_mlx_pixel_put(vars, x, y, BLUE);
-				colorbuf[1]= BLUE;
-			}
-			else if (y >= ray[(int)x].walluplimit 
-					&& y <= ray[(int)x].walldownlimit)
-			{
-				tmp_box(vars, x, y);
-				//ft_draw_wall(vars, ray[(int)x], x, y);
-			}
-			else if (y > ray[(int)x].walldownlimit)
-				my_mlx_pixel_put(vars, x, y, GREEN);
+			if (y <	ray[x].walluplimit)
+				my_mlx_pixel_put(vars, i, y, BLUE);
+				//colorbuf[pos]= BLUE;
+			else if (y >= ray[x].walluplimit && y <= ray[x].walldownlimit)
+				ft_draw_wall(vars, ray, x, y)
+			else if (y > ray[x].walldownlimit)
+				my_mlx_pixel_put(vars, i, y, GREEN);
 				//colorbuf[pos] = GREEN;
 			y++;
 		}
