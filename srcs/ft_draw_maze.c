@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 16:25:06 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 16:35:42 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,17 @@ void	ft_xpm_wall_pixel_put(t_vars *vars, t_rays ray, int x, int y, int pos_in_wa
 	my_mlx_pixel_put(vars, x, y, color);
 }
 
-void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
+void	my_maze_pixel_put(t_vars *vars, t_rays *ray)
 {
 	int y;
 	int x;
 	float pos_in_wall;
-//	int pos;
 
 	x = 0;
-	colorbuf[1]= BLUE;
 	while (x < vars->ray_num)
 	{
 		y = 0;
 		pos_in_wall = 0;
-			//pos = y * vars->win_width + x;
 			while (y < ray[x].wall_start)
 			{
 				my_mlx_pixel_put(vars, x, y, BLUE);
@@ -138,13 +135,58 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 	}
 }
 
+int		ft_get_xpm_color(t_vars *vars, t_rays ray, int pos_in_wall)
+{
+	float x_text;
+	float y_text;
+	t_img	*text;
+	int color;
+
+	if (ray.wallheight > vars->win_height)
+		pos_in_wall += (ray.wallheight - vars->win_height) / 2;
+	text = ft_what_is_texture(vars, ray);
+	x_text = ft_set_x_text(ray, text);	
+	y_text = (((int)pos_in_wall) / ray.wallheight) * text->height;
+	color = ft_get_xpm_pixel_value(text, x_text, y_text);
+	return (color);
+}
+void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
+{
+	int y;
+	int x;
+	float pos_in_wall;
+
+	x = 0;
+	while (x < vars->ray_num)
+	{
+		y = 0;
+		pos_in_wall = 0;
+			while (y < ray[x].wall_start)
+			{
+				colorbuf[y * vars->win_width + x] = BLUE;	
+				y++;
+			}
+			while (y >= ray[x].wall_start && y <= ray[x].wall_end)
+			{
+				colorbuf[y * vars->win_width + x] = 
+					ft_get_xpm_color(vars, ray[x], pos_in_wall);
+				y++;
+				pos_in_wall++;
+			}
+			while (y < vars->win_height)
+			{
+				colorbuf[y * vars->win_width + x] = GREEN;
+				y++;
+			}
+		x++;
+	}
+}
+
 void	ft_draw_maze(t_vars *vars)
 {
-	//printf("colorbuf[%d]\n", vars->win_width * vars->win_height);
 	ft_clear_colorbuf_to_color(vars, vars->colorbuf, RED);
-	//printf("clearing... done\n");
 	ft_fill_colorbuf(vars, vars->rays, vars->colorbuf);
-	//printf("filling done\n");
-	//ft_display_color_buffer(vars->colorbuf, vars);
-	//printf("display done...\n");
+	ft_display_color_buffer(vars->colorbuf, vars);
+	
+	//my_maze_pixel_put(vars, vars->rays);
 }
