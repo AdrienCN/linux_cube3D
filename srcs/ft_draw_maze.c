@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 13:40:31 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 14:48:17 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,36 +104,27 @@ void	ft_draw_wall(t_vars *vars, t_rays ray, float x, float y)
 }
 
 
-void	tmp_box(t_vars *vars, t_rays ray, int x, int y, int wall)
+void	tmp_box(t_vars *vars, t_rays ray, int x, int y, int y_in_tile)
 {
 	float x_text;
 	float y_text;
 	t_img	*text_img;
 	unsigned int color;
-
+	if (ray.wallheight > vars->win_height)
+		y_in_tile += (ray.wallheight - vars->win_height) / 2;
 	if (ray.hitisvertical)
+	{
 		text_img = &vars->text.north;
+		x_text = (((int)ray.wallhity % (int)TILE_SIZE) / TILE_SIZE) * text_img->width;
+
+	}
 	else
+	{
 		text_img = &vars->text.south;
+		x_text = (((int)ray.wallhitx % (int)TILE_SIZE) / TILE_SIZE) * text_img->width;
 
-	//Chaque tuile contient toute l'image mais n'en display qu'une partie
-	//x_text = (ray.wallhitx / TILE_SIZE) * text_img->width;
-	//y_text = (y / TILE_SIZE) * text_img->height;
-	
-	//TUILE MONOCOULEUR DE LA BONNE TEXT
-	//x_text = (int)ray.wallhitx % (int)TILE_SIZE / text_img->width;
-	//y_text = y % (int)TILE_SIZE / text_img->height;
-
-	//++++ MIEUX. Texture + nuance
-	x_text = (((int)ray.wallhitx % (int)TILE_SIZE) / TILE_SIZE) * text_img->width;
-	y_text = ((int)wall / TILE_SIZE) * text_img->height;
-	// Version de Joann
-	/*
-	int x_hit;
-	x_hit = ray.wallhitx;
-	x_text = ((x_hit - (TILE_SIZE * (x_hit / TILE_SIZE))) * (text_img->width / TILE_SIZE));	
-	y_text =  (((int)y % (int)TILE_SIZE) / TILE_SIZE) * text_img->height;	
-	*/
+	}
+	y_text = (((int)y_in_tile) / ray.wallheight) * text_img->height;
 	color = ft_get_xpm_pixel_value(text_img, x_text, y_text);
 	my_mlx_pixel_put(vars, x, y, color);
 }
@@ -158,7 +149,8 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 				y++;
 			}
 			while (y >= ray[(int)x].walluplimit 
-					&& y <= ray[(int)x].walldownlimit)
+					&& y <= ray[(int)x].walldownlimit
+					&& y < vars->win_height)
 			{
 					tmp_box(vars, ray[(int)x], x, y, wallheight);
 					y++;
