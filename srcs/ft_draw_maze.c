@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 11:54:22 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 12:18:35 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_draw_wall(t_vars *vars, t_rays ray, float x, float y)
 }
 
 
-void	tmp_box(t_vars *vars, int x, int y)
+void	tmp_box(t_vars *vars, t_rays ray, int x, int y)
 {
 	float x_text;
 	float y_text;
@@ -112,14 +112,30 @@ void	tmp_box(t_vars *vars, int x, int y)
 	unsigned int color;
 
 	
-	if (vars->rays[x].hitisvertical)
+	if (ray.hitisvertical)
 		text_img = &vars->text.north;
 	else
 		text_img = &vars->text.south;
+	//Chaque tuile contient toute l'image mais n'en display qu'une partie
 	//x_text = (x / TILE_SIZE) * text_img->width;
 	//y_text = (y / TILE_SIZE) * text_img->height;
-	x_text = x % (int)TILE_SIZE / text_img->width;
- 	y_text = y % (int)TILE_SIZE / text_img->height;
+	
+	//TUILE MONOCOULEUR DE LA BONNE TEXT
+//	x_text = x % (int)TILE_SIZE / text_img->width;
+// 	y_text = y % (int)TILE_SIZE / text_img->height;
+
+	//++++ MIEUX. Texture + nuance
+	//x_text = (((int)ray.wallhitx % (int)TILE_SIZE) / TILE_SIZE) * text_img->width;
+ 	//y_text = (((int)ray.wallhity % (int)TILE_SIZE) / TILE_SIZE) * text_img->height;
+	// Version de Joann
+	int x_hit;
+	int y_hit;
+	x_hit = ray.wallhitx;
+	y_hit = ray.wallhity;
+
+	x_text = ((x_hit - (TILE_SIZE * (x_hit / TILE_SIZE))) * (text_img->width / TILE_SIZE));	
+	y_text = ((y_hit - (TILE_SIZE * (y_hit / TILE_SIZE))) * (text_img->height / TILE_SIZE));	
+
 	color = ft_get_xpm_pixel_value(text_img, x_text, y_text);
 	my_mlx_pixel_put(vars, x, y, color);
 }
@@ -144,7 +160,7 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 			else if (y >= ray[(int)x].walluplimit 
 					&& y <= ray[(int)x].walldownlimit)
 			{
-				tmp_box(vars, x, y);
+				tmp_box(vars,ray[(int)x], x, y);
 				//ft_draw_wall(vars, ray[(int)x], x, y);
 			}
 			else if (y > ray[(int)x].walldownlimit)
