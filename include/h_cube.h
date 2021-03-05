@@ -88,8 +88,8 @@ typedef struct s_rays
 	float wallhity;
 	float distance;
 	float wallheight;
-	float walluplimit;
-	float walldownlimit;
+	float wall_start;
+	float wall_end;
 	float fixed_dist;
 	int hitisvertical;
 	int rayisup;

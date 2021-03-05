@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 16:21:40 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/05 16:25:06 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ float	ft_set_x_text(t_rays ray, t_img *w_text)
 	return (x_coord);
 }
 
-void	tmp_box(t_vars *vars, t_rays ray, int x, int y, int pos_in_wall)
+void	ft_xpm_wall_pixel_put(t_vars *vars, t_rays ray, int x, int y, int pos_in_wall)
 {
 	float x_text;
 	float y_text;
@@ -118,14 +118,14 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 		y = 0;
 		pos_in_wall = 0;
 			//pos = y * vars->win_width + x;
-			while (y < ray[x].walluplimit)
+			while (y < ray[x].wall_start)
 			{
 				my_mlx_pixel_put(vars, x, y, BLUE);
 				y++;
 			}
-			while (y >= ray[x].walluplimit && y <= ray[x].walldownlimit)
+			while (y >= ray[x].wall_start && y <= ray[x].wall_end)
 			{
-				tmp_box(vars, ray[x], x, y, pos_in_wall);
+				ft_xpm_wall_pixel_put(vars, ray[x], x, y, pos_in_wall);
 				y++;
 				pos_in_wall++;
 			}

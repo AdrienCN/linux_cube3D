@@ -69,16 +69,16 @@ void	ft_set_rayprojection_val(t_rays *ray, float screen_dist, t_vars *vars)
 	ray->wallheight = (TILE_SIZE / ray->fixed_dist) * screen_dist;
 	
 	// limite superieure du mur
-	ray->walluplimit = (vars->win_height / 2) -
+	ray->wall_start = (vars->win_height / 2) -
 		(ray->wallheight / 2);
 	
 	// limite inf du mur
-	ray->walldownlimit = (vars->win_height / 2) +
+	ray->wall_end = (vars->win_height / 2) +
 		(ray->wallheight / 2);
-	if (ray->walluplimit < 0)
-		ray->walluplimit = 0;
-	if (ray->walldownlimit > vars->win_height)
-		ray->walldownlimit = vars->win_height;
+	if (ray->wall_start < 0)
+		ray->wall_start = 0;
+	if (ray->wall_end > vars->win_height)
+		ray->wall_end = vars->win_height;
 }
 		
 
