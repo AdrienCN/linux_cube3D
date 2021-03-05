@@ -1,8 +1,8 @@
 R 1000 1000
 
-NO ./texture/sky.xpm
+NO ./texture/city.xpm
 EA ./texture/sky.xpm
-SO ./texture/city.xpm
+SO ./texture/sky.xpm
 WE ./texture/sky.xpm
 
 S ./texture/sky.xpm

@@ -20,6 +20,7 @@ void	ft_perso_init(t_vars *vars)
 	vars->player.hze_walk = 0;
 	vars->player.vert_walk = 0;
 	vars->player.turn = 0;
+	vars->player.exit = 0;
 	if (compass == 'N')
 		angle = M_PI / 2;
 	else if (compass == 'W')

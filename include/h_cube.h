@@ -29,7 +29,7 @@
 
 # define MINIMAP_SCALE	1	
 # define STEP_LEN		5
-# define TILE_SIZE		10000.0
+# define TILE_SIZE		1000.0
 
 # define FOV			66.0
 # define RAY_STEP		0.5	
@@ -55,6 +55,7 @@
 #define A			97
 #define S			115
 #define D			100
+#define ESCAPE		65307
 
 typedef struct s_inter
 {
@@ -106,6 +107,7 @@ typedef struct s_perso
 	int		vert_walk; // si w y + 1 | si  s  y - 1
 	int		hze_walk; // pareil avec x
 	int		turn;
+	int		exit;
 	float	angle;
 }				t_perso;
 

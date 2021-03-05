@@ -49,6 +49,11 @@ int		ft_update_player(t_vars *vars)
 
 	x = 0;
 	y = 0;
+	if (vars->player.exit)
+	{
+		mlx_loop_end(vars->mlx);
+		return (0);
+	}
 	vars->player.angle = ft_within_twopi(vars->player.angle
 			+ vars->player.turn * ROT_SPEED);
 	x = ft_calculate_new_x(x, vars);
@@ -79,7 +84,9 @@ int		ft_update_move(int keycode, t_vars *vars)
 		vars->player.turn = 1;
 	else if (c == RIGHT_ARROW)
 		vars->player.turn = -1;
-	//printf("key_pressed = %d|\n", keycode);
+	else if (c == ESCAPE)
+		vars->player.exit = 1;
+	printf("key_pressed = %d|\n", keycode);
 	ft_update_player(vars);
 	return (1);
 }
