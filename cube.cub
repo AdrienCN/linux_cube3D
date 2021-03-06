@@ -1,9 +1,9 @@
 R 1000 1000
 
-NO ./texture/mountain.xpm
-EA ./texture/totoro.xpm
-SO ./texture/chihiro_train.xpm
-WE ./texture/square_rocks.xpm
+NO ./texture/sad_forest.xpm
+EA ./texture/sad_forest.xpm
+SO ./texture/sad_forest.xpm
+WE ./texture/sad_forest.xpm
 
 S ./texture/sky.xpm
 
@@ -14,8 +14,8 @@ C 225,30,0
 1000000001
 1000000011
 1010010101
-1000000001
-10000N1001
-1000001001
-1000000001
+1010000001
+10100N1001
+1010001001
+1010000001
  11111111
