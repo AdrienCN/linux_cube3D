@@ -1,9 +1,9 @@
 R 1000 1000
 
-NO ./texture/city.xpm
-EA ./texture/sky.xpm
-SO ./texture/claire.xpm
-WE ./texture/sky.xpm
+NO ./texture/mountain.xpm
+EA ./texture/totoro.xpm
+SO ./texture/chihiro_train.xpm
+WE ./texture/square_rocks.xpm
 
 S ./texture/sky.xpm
 
