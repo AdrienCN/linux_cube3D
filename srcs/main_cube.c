@@ -7,6 +7,43 @@
 
 int		display_minimap(char *str);
 
+void	ft_dda(t_vars *vars, t_rays ray, float x1, float y1)
+{
+	int delta_x;
+	int delta_y;
+	int x2;
+	int y2;
+	int side_l;
+	int i;
+	float x_inc;
+	float y_inc;
+	float cur_x;
+	float cur_y;
+
+	x2 = ray.wallhitx;
+	y2 = ray.wallhity;
+	delta_x = x2 - x1;
+	delta_y = y2 - y1;
+	cur_x = x1;
+	cur_y = y1;
+	if (delta_x >= delta_y)
+		side_l = delta_x;
+	else
+		side_l = delta_y;
+	if (side_l < 0)
+		side_l = -side_l;
+	x_inc = delta_x / (float)side_l;
+	y_inc = delta_y / (float)side_l;
+	i = 0;
+	while (i <= side_l)
+	{
+		my_mlx_pixel_put(vars, round(cur_x), round(cur_y), RED);
+		cur_x += x_inc;
+		cur_y += y_inc;
+		i++;
+	}
+}
+
 int             main(int argc, char **argv)
 {
 	t_vars		vars;
@@ -32,6 +69,8 @@ void	ft_draw_all_rays(t_vars *vars)
 	int i;
 	float x;
 	float y;
+	float x1;
+	float y1;
 
 	i = 0;
 	x = vars->player.x;
@@ -39,7 +78,18 @@ void	ft_draw_all_rays(t_vars *vars)
 
 	while (i < vars->ray_num)
 	{
-		ft_cast_single_ray(x, y, vars, vars->rays[i].angle);
+		x1 = vars->rays[i].wallhitx;
+		y1 = vars->rays[i].wallhity;
+	
+		//SEUL qui fonctionne
+	//	ft_cast_single_ray(x, y, vars, vars->rays[i].angle);
+	
+		// Fonctionne mais apparence etrange sur cadran sup et gauche	
+		ft_dda(vars, vars->rays[i], x, y);
+		
+		my_mlx_pixel_put(vars, x1 - 1, y1 - 1, BLUE);
+		my_mlx_pixel_put(vars, x1 + 1, y1 + 1, BLUE);
+		my_mlx_pixel_put(vars, x1, y1, BLUE);
 		i++;
 	}
 }
@@ -81,13 +131,17 @@ void	ft_draw_text_to_box(t_vars *vars, t_img *text_img,
 int		ft_update_screen(t_vars *vars)
 {
 	ft_cast_all_rays(vars);
-	ft_draw_maze(vars);
-/*
+	
+	// draw 3D cube with my_mlx_pixel_put
+	//ft_draw_maze(vars);
+
+	// Draw minimap + rays
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_all_rays(vars);
 	ft_draw_player(vars);
-*/
 
+	
+	// Draw 3d cube with color buffer
 //	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);

@@ -29,7 +29,7 @@
 
 # define MINIMAP_SCALE	1	
 # define STEP_LEN		5
-# define TILE_SIZE		2000.0
+# define TILE_SIZE		100.0
 
 # define FOV			66.0
 # define RAY_STEP		0.5	
@@ -279,7 +279,7 @@ int		ft_is_sprite(float x, float y, t_vars *vars);
 void	ft_print_tab(char **tab);
 void	print_ray_info(t_rays *ray);
 void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle);
-
+void	ft_bresenham_line_draw_algo(t_vars *vars, float x0 ,float y0, float x1, float y1);
 
 
 #endif
