@@ -10,6 +10,7 @@ void			ft_init_color(t_cube *cube, t_vars *vars)
 	vars->ceil_color = create_trgb(0, cube->ceil.r, cube->ceil.g,
 									cube->ceil.b);
 }
+
 void	ft_perso_init(t_vars *vars)
 {
 	char compass;
@@ -136,7 +137,11 @@ void	ft_init_sprite_array(t_vars *vars, t_sprite *sprite_tab, char **map)
 				sprite_tab[count].id = 2;
 				sprite_tab[count].row = i;
 				sprite_tab[count].col = j;
-			//	printf("sprite_tab[%d].row = %d | col = %d\n", count + 1, i, j);
+				sprite_tab[count].x = j * TILE_SIZE + (TILE_SIZE / 2);
+				sprite_tab[count].y = i * TILE_SIZE + (TILE_SIZE / 2);
+				printf("sprite_tab[%d].row = %d | col = %d", count + 1, i, j);
+				printf("|y  = %f | x = %f\n", sprite_tab[count].y,
+						sprite_tab[count].x);
 				count++;
 			}
 			j++;
