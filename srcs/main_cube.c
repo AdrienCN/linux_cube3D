@@ -37,7 +37,9 @@ void	ft_dda(t_vars *vars, t_rays ray, float x1, float y1)
 	i = 0;
 	while (i <= side_l)
 	{
-		my_mlx_pixel_put(vars, round(cur_x), round(cur_y), RED);
+		if (ft_is_sprite(cur_x, cur_y, vars))
+				break;
+		my_mlx_pixel_put(vars, round(cur_x) * MINIMAP_SCALE, round(cur_y) * MINIMAP_SCALE, RED);
 		cur_x += x_inc;
 		cur_y += y_inc;
 		i++;
@@ -69,27 +71,17 @@ void	ft_draw_all_rays(t_vars *vars)
 	int i;
 	float x;
 	float y;
-	float x1;
-	float y1;
 
 	i = 0;
 	x = vars->player.x;
 	y = vars->player.y;
-
 	while (i < vars->ray_num)
 	{
-		x1 = vars->rays[i].wallhitx;
-		y1 = vars->rays[i].wallhity;
-	
 		//SEUL qui fonctionne
 	//	ft_cast_single_ray(x, y, vars, vars->rays[i].angle);
 	
 		// Fonctionne mais apparence etrange sur cadran sup et gauche	
 		ft_dda(vars, vars->rays[i], x, y);
-		
-		my_mlx_pixel_put(vars, x1 - 1, y1 - 1, BLUE);
-		my_mlx_pixel_put(vars, x1 + 1, y1 + 1, BLUE);
-		my_mlx_pixel_put(vars, x1, y1, BLUE);
 		i++;
 	}
 }
@@ -139,7 +131,6 @@ int		ft_update_screen(t_vars *vars)
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_all_rays(vars);
 	ft_draw_player(vars);
-
 	
 	// Draw 3d cube with color buffer
 //	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);

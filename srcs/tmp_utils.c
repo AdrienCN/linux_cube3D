@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:56:52 by calao             #+#    #+#             */
-/*   Updated: 2021/03/07 13:53:27 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/07 14:52:10 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,46 +54,3 @@ void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle)
 			r += RAY_STEP;
 		}
 }
-
-void	ft_bresenham_line_draw_algo(t_vars *vars, float x1 ,float y1, float x2, float y2)
-
-{
-	float dx;
-	float dy;
-	float x;
-	float y;
-	float p;
-	float end;
-    
-	dx = x1 - x2;
-    dy = y1 - y2;
-    p = 2 * dy - dx;
-
-    if (x1 > x2)
-    {
-        x = x2;
-        y = y2;
-        end = x1;
-    }
-    else
-    {
-        x = x1;
-        y = y1;
-        end = x2;
-    }
-    my_mlx_pixel_put(vars, x, y, RED);
-    while (x < end)
-    {
-        x = x + 1;
-        if (p < 0)
-        {
-              p = p + 2 * dy;
-        }
-        else
-        {
-              y = y + 1;
-              p = p + 2 * (dy - dx);
-        }
-        my_mlx_pixel_put(vars, x, y, RED);
-    }
-}	
