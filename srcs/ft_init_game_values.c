@@ -93,7 +93,60 @@ void			ft_text_init(t_vars *vars, t_text *text)
 	text->sprite.addr = mlx_get_data_addr(text->sprite.img, &text->sprite.bpp,
 			&text->sprite.line_len, &text->sprite.endian);
 }
-	
+
+int				ft_count_sprites_in_map(char **map)
+{
+	int i;
+	int j;
+	int sprites_found;
+
+	i = 0;
+	sprites_found = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '2')
+				sprites_found++;
+			j++;
+		}
+		i++;
+	}
+	return (sprites_found);
+}
+
+void	ft_init_sprite_array(t_vars *vars, t_sprite *sprite_tab, char **map)
+{
+	int i;
+	int j;
+	int count;
+
+	vars->sprite_count = ft_count_sprites_in_map(map);
+	sprite_tab = malloc(sizeof(t_sprite) * vars->sprite_count);
+	i = 0;
+	count = 0;
+	while (map[i] && count < vars->sprite_count)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '2')
+			{
+				sprite_tab[count].id = 2;
+				sprite_tab[count].row = i;
+				sprite_tab[count].col = j;
+			//	printf("sprite_tab[%d].row = %d | col = %d\n", count + 1, i, j);
+				count++;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+
+}
+
 void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
@@ -111,6 +164,10 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	ft_rays_init(vars);
 	//efface le player de la carte
 	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
+
+
+	ft_init_sprite_array(vars, vars->sprite_tab, vars->cube.map);
+	printf("sprite_count = %d\n", vars->sprite_count);
 	// Init mlx_instances
 	vars->mlx = mlx_init();
 	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);

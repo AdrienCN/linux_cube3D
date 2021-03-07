@@ -157,16 +157,16 @@ typedef		struct s_text
 
 typedef		struct s_sprite
 {
-	int		id;
-	int		row;
-	int		col;
+	int		sprite_id;
+	int		map_row;
+	int		map_col;
 	float	x;
 	float	y;
 	//BONUS multi text
 //	t_img	text;
 	float	dist;
 	float	angle;
-}				t_sprite;
+}
 
 
 typedef		struct s_vars
@@ -181,9 +181,7 @@ typedef		struct s_vars
 	int			bpp;
 	int			line_len;
 	int			endian;
-
-	// raycasting utils	
-	int			sprite_count;
+	
 	int			ray_num;
 	int			*colorbuf;
 	int			player_color;
@@ -201,7 +199,6 @@ typedef		struct s_vars
 	t_cube		cube;
 	t_perso		player;
 	t_rays		*rays;
-	t_sprite	*sprite_tab;
 
 }					t_vars;
 
