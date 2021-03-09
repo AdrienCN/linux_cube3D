@@ -127,7 +127,7 @@ int		ft_update_screen(t_vars *vars)
 	ft_cast_all_rays(vars);
 	
 	// draw 3D cube with my_mlx_pixel_put
-	ft_draw_maze(vars);
+	ft_render_walls(vars, vars->rays);
 
 	// Draw minimap + rays
 	/*
@@ -135,9 +135,6 @@ int		ft_update_screen(t_vars *vars)
 	ft_draw_all_rays(vars);
 	ft_draw_player(vars);
 	*/
-	
-	// Draw 3d cube with color buffer
-//	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);
 	
 	ft_render_sprite(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);

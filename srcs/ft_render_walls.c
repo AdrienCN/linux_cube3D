@@ -6,13 +6,13 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 16:45:00 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:47:22 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-t_img	*ft_what_is_texture(t_vars *vars, t_rays ray)
+static	t_img	*ft_what_is_texture(t_vars *vars, t_rays ray)
 {
 	if (ray.hitisvertical)
 	{
@@ -30,7 +30,7 @@ t_img	*ft_what_is_texture(t_vars *vars, t_rays ray)
 	}
 }
 
-float	ft_set_x_text(t_rays ray, t_img *w_text)
+static	float	ft_set_x_text(t_rays ray, t_img *w_text)
 {
 	float x_coord;
 
@@ -43,7 +43,7 @@ float	ft_set_x_text(t_rays ray, t_img *w_text)
 	return (x_coord);
 }
 
-void	ft_xpm_wall_pixel_put(t_vars *vars, t_rays ray, int x, int y, int pos_in_wall)
+static	void	ft_xpm_wall_pixel_put(t_vars *vars, t_rays ray, int x, int y, int pos_in_wall)
 {
 	float x_text;
 	float y_text;
@@ -59,7 +59,7 @@ void	ft_xpm_wall_pixel_put(t_vars *vars, t_rays ray, int x, int y, int pos_in_wa
 	my_mlx_pixel_put(vars, x, y, color);
 }
 
-void	my_maze_pixel_put(t_vars *vars, t_rays *ray)
+void	ft_render_walls(t_vars *vars, t_rays *ray)
 {
 	int y;
 	int x;
@@ -88,26 +88,4 @@ void	my_maze_pixel_put(t_vars *vars, t_rays *ray)
 			}
 		x++;
 	}
-}
-
-int		ft_get_xpm_color(t_vars *vars, t_rays ray, int pos_in_wall)
-{
-	float x_text;
-	float y_text;
-	t_img	*text;
-	int color;
-
-	if (ray.wallheight > vars->win_height)
-		pos_in_wall += (ray.wallheight - vars->win_height) / 2;
-	text = ft_what_is_texture(vars, ray);
-	x_text = ft_set_x_text(ray, text);	
-	y_text = (((int)pos_in_wall) / ray.wallheight) * text->height;
-	color = ft_get_xpm_pixel_value(text, x_text, y_text);
-	return (color);
-}
-
-
-void	ft_draw_maze(t_vars *vars)
-{
-	my_maze_pixel_put(vars, vars->rays);
 }

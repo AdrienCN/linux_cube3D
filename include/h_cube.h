@@ -251,7 +251,7 @@ void		ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray);
 void		ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray);
 
 		//*************3D_RENDERERING*********
-void	ft_draw_maze(t_vars *vars);
+void	ft_render_walls(t_vars *vars, t_rays *ray);
 void	ft_render_sprite(t_vars *vars);
 
 
