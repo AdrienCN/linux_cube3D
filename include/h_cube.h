@@ -161,8 +161,6 @@ typedef		struct s_sprite
 	int		col;
 	float	x;
 	float	y;
-	//BONUS multi text
-//	t_img	text;
 	float	dist;
 	float	angle;
 }				t_sprite;
@@ -260,7 +258,6 @@ void	ft_init_color(t_cube *cube, t_vars *vars);
 void	ft_perso_init(t_vars *vars);
 void	ft_init_game(t_cube *cube, t_vars *vars);
 				//Player_Movement_algo
-int		ft_reset_player(int keycode, t_vars *vars);
 int		ft_update_player(t_vars *vars);
 int		ft_update_move(int keycode, t_vars *vars);
 float	ft_calculate_new_x(float x, t_vars *vars);	
@@ -268,6 +265,14 @@ float	ft_calculate_new_y(float y, t_vars *vars);
 
 		//*****UTILS************
 void	ft_print_tab(char **tab);
+
+		
+		//RESET VAL
+int			ft_reset_player(int keycode, t_vars *vars);
+void		ft_reset_sprites(t_sprite *sprite_tab, int sprite_count);
+
+
+
 		//MATHS UTILS
 float	ft_radconvert(float degree);
 float	ft_within_twopi(float rad);

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 09:23:01 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 09:24:05 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,12 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 	ft_set_horz_hit(&horz_hit, vars, ray);
 	ft_find_vert_wallhit(vars, ray, &vert_hit);
 	ft_find_horz_wallhit(vars, ray, &horz_hit);
-//	printf("horz->distance = %f\n", horz_hit.distance);
-//	printf("vert->distance = %f\n", vert_hit.distance);
 	if (vert_hit.distance < horz_hit.distance)
 	{
 		ray->wallhitx = vert_hit.wallhitx;
 		ray->wallhity = vert_hit.wallhity;
 		ray->distance = vert_hit.distance;
 		ray->hitisvertical = TRUE;
-//		printf("--VERT_HIT--\n");
 	}
 	else
 	{
@@ -52,9 +49,7 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->wallhity = horz_hit.wallhity;
 		ray->distance = horz_hit.distance;
 		ray->hitisvertical = FALSE;
-//		printf("--HORZ_HIT--\n");
 	}
-	//printf("player_x = %f | player_y = %f\n", vars->player.x, vars->player.y);
 }
 
 void	ft_set_rayprojection_val(t_rays *ray, float screen_dist, t_vars *vars)

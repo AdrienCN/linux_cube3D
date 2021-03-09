@@ -57,10 +57,12 @@ int             main(int argc, char **argv)
 		return (-1);
 	ft_init_game(&vars.cube, &vars);
 	printf("Init ok\n");
+
 	mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
 	mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
 	mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
 	mlx_loop(vars.mlx);
+	
 	ft_free_mapinfo(&vars.cube);
 	printf("\nmain --> return (0);\n");
 	return (0);
@@ -137,6 +139,7 @@ int		ft_update_screen(t_vars *vars)
 	// Draw 3d cube with color buffer
 //	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	ft_reset_sprites(vars->sprite_tab, vars->sprite_count);
 	return (0);
 }
 

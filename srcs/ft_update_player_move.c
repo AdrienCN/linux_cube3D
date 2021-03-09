@@ -90,12 +90,3 @@ int		ft_update_move(int keycode, t_vars *vars)
 	ft_update_player(vars);
 	return (1);
 }
-
-int				ft_reset_player(int keycode, t_vars *vars)
-{
-	(void)keycode;
-	vars->player.hze_walk = 0;
-	vars->player.vert_walk = 0;
-	vars->player.turn = 0;
-	return (0);
-}

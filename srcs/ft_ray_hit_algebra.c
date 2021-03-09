@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:05 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 09:22:39 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 09:29:02 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 		vert->y_step *= -1;
 	vert->next_x = vert->x_inter;
 	vert->next_y = vert->y_inter;
+}
+
+void	ft_set_sprite_to_visible(t_vars *vars, float x, float y)
+{
+	int row;
+	int col;
+	int i;
+
+	i = 0;
+	row = y / TILE_SIZE;
+	col = x / TILE_SIZE;
+	while (i < vars->sprite_count)
+	{
+		if (vars->sprite_tab[i].row = row && vars->sprite_tab[i].col = col)
+		{
+			vars->sprite_tab[i].is_visible = 1;
+			return;
+		}
+		i++;
+	}
 }
 
 void	ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray)
@@ -78,6 +98,8 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 		tmp = -1;
 	while (!ft_is_maplimit(horz->next_x, horz->next_y + tmp, vars))
 	{
+		if (ft_is_sprite(horz->next_x, horz->y + tmp, vars))
+				ft_set_sprite_to_visible(vars, horz->next_x, horz->next_y);
 		if (ft_is_wall(horz->next_x, horz->next_y + tmp, vars))
 		{
 			horz->wallhitx = horz->next_x;
@@ -104,6 +126,8 @@ void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 		tmp = -1;
 	while (!ft_is_maplimit(vert->next_x + tmp, vert->next_y, vars))
 	{
+		if (ft_is_sprite(horz->next_x, horz->y + tmp, vars))
+				ft_set_sprite_to_visible(vars, horz->next_x, horz->next_y);
 		if (ft_is_wall(vert->next_x + tmp, vert->next_y, vars))
 		{
 			vert->wallhitx = vert->next_x;
