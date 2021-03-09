@@ -135,6 +135,7 @@ void	ft_init_sprite_array(t_vars *vars, char **map)
 			{
 				vars->sprite_tab[count].id = 2;
 				vars->sprite_tab[count].is_visible = 0;
+				vars->sprite_tab[count].dist = -1;
 				vars->sprite_tab[count].row = i;
 				vars->sprite_tab[count].col = j;
 				vars->sprite_tab[count].x = j * TILE_SIZE + (TILE_SIZE / 2);
@@ -168,7 +169,10 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	ft_init_sprite_array(vars, vars->cube.map);
 	int i;
 	for (i = 0; i < vars->sprite_count; i++)
-		printf("sprite_tab[%d].row = %d\n", i, vars->sprite_tab[i].row);
+	{
+		printf("sprite_tab[%d].row = %d | dist = %f \n", i, vars->sprite_tab[i].row,
+				vars->sprite_tab[i].dist);
+	}
 
 	printf("sprite_count = %d\n", vars->sprite_count);
 	

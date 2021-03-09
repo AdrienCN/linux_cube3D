@@ -10,9 +10,6 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-// to delete in final
-#include <limits.h>
-
 # define TRUE			1
 
 # define FALSE			0
@@ -37,6 +34,7 @@
 # define ROT_SPEED		10 * (M_PI / 180)
 # define PI				M_PI
 # define TWO_PO			M_PI * 2
+# define INT_MAX		2147483647
 
 // for MAC
 /*

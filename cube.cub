@@ -5,17 +5,17 @@ EA ./texture/sad_forest.xpm
 SO ./texture/sad_forest.xpm
 WE ./texture/sad_forest.xpm
 
-S ./texture/sky.xpm
+S ./texture/chest.xpm
 
 F 220,100,0
 C 225,30,0
 
 1111111111
-1222222221
+1022002201
 1000000011
 1010010101
 1010000001
-10100N1001
 1010001001
-1010000021
+10100S1001
+1200000021
  11111111

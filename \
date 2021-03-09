@@ -21,19 +21,8 @@ void	ft_set_sprite_val(t_vars *vars, t_sprite *sprite)
 		sprite->end_y = vars->win_height;
 	sprite->left_x = (vars->win_width / 2) + tan(sprite->angle) * screen_dist;
 	sprite->left_x -= sprite->width / 2;
+
 	sprite->right_x = sprite->left_x + sprite->width;
-}
-
-int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite, int x, int y)
-{
-	int x_xpm;
-	int y_xpm;
-	int color;
-
-	x_xpm = x / sprite->width * vars->text.sprite.width;
-	y_xpm = y / sprite->height * vars->text.sprite.height;
-	color = ft_get_xpm_pixel_value(&vars->text.sprite, x_xpm, y_xpm);
-	return (color);
 }
 
 void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
@@ -43,15 +32,10 @@ void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	int x_sprite;
 	int y_sprite;
 	int sprite_color;
-	int hide_color;
 	
 	x = 0;
-
 	x_sprite = 0;
-	if (sprite->left_x < 0)
-		x_sprite += -sprite->left_x;
 	sprite_color = RED;
-	hide_color = ft_get_xpm_pixel_value(&vars->text.sprite, 0, 0);
 	while (x < vars->win_width)
 	{
 		y_sprite = 0;
@@ -63,12 +47,10 @@ void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 			{
 				if (sprite->dist < vars->rays[x].distance)
 				{
-					sprite_color = ft_get_sprite_color(vars, sprite,
-							x_sprite, y_sprite);
-					if (sprite_color != hide_color)
-						my_mlx_pixel_put(vars, x, y, sprite_color);
+				//	sprite_color = ft_get_sprite_color(vars, x_sprite, y_sprite);
+					my_mlx_pixel_put(vars, x, y, sprite_color);
+					y_sprite++;
 				}
-				y_sprite++;
 			}
 			y++;
 		}
@@ -78,49 +60,18 @@ void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	}
 }
 
-void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
-{
-	int			i;
-	int			j;
-	t_sprite	tmp;
-
-	while (i < vars->sprite_count - 1)
-	{
-		j = i;
-		while (j < vars->sprite_count)
-		{
-			if (sprite[i].dist < sprite[j].dist)
-			{
-				tmp = sprite[j];
-				sprite[j] = sprite[i];
-				sprite[i] = tmp;	
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
 void	ft_render_sprite(t_vars *vars)
 {
 	int i;
 
 	i = 0;
-	printf("Before sorting \n");
 	while (i < vars->sprite_count)
 	{
 		if (vars->sprite_tab[i].is_visible)
+		{
 			ft_set_sprite_val(vars, &vars->sprite_tab[i]);
-		printf("sprite_tab[%d].dist = %f \n", i
-				, vars->sprite_tab[i].dist);
-			i++;
-	}
-	ft_sort_sprite_by_dist(vars, vars->sprite_tab);
-	i = 0;
-	while (i < vars->sprite_count)
-	{
-		if (vars->sprite_tab[i].is_visible)
 			ft_draw_sprite(vars, &vars->sprite_tab[i]);
+		}
 		i++;
 	}
 }

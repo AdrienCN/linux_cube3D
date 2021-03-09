@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:30:49 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 09:54:10 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 16:10:50 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		ft_reset_sprites(t_vars *vars, int sprite_count)
 	while (i < sprite_count)
 	{
 		vars->sprite_tab[i].is_visible = 0;
+		vars->sprite_tab[i].dist = -1;
 		i++;
 	}
 }

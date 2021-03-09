@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/05 16:35:42 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 13:55:00 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int		ft_get_xpm_color(t_vars *vars, t_rays ray, int pos_in_wall)
 	color = ft_get_xpm_pixel_value(text, x_text, y_text);
 	return (color);
 }
+
 void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 {
 	int y;
@@ -184,9 +185,10 @@ void	ft_fill_colorbuf(t_vars *vars, t_rays *ray, int *colorbuf)
 
 void	ft_draw_maze(t_vars *vars)
 {
+	/*
 	ft_clear_colorbuf_to_color(vars, vars->colorbuf, RED);
 	ft_fill_colorbuf(vars, vars->rays, vars->colorbuf);
 	ft_display_color_buffer(vars->colorbuf, vars);
-	
-	//my_maze_pixel_put(vars, vars->rays);
+	*/
+	my_maze_pixel_put(vars, vars->rays);
 }
