@@ -116,14 +116,14 @@ int				ft_count_sprites_in_map(char **map)
 	return (sprites_found);
 }
 
-void	ft_init_sprite_array(t_vars *vars, t_sprite *sprite_tab, char **map)
+void	ft_init_sprite_array(t_vars *vars, char **map)
 {
 	int i;
 	int j;
 	int count;
 
 	vars->sprite_count = ft_count_sprites_in_map(map);
-	sprite_tab = malloc(sizeof(t_sprite) * vars->sprite_count);
+	vars->sprite_tab = malloc(sizeof(t_sprite) * vars->sprite_count);
 	i = 0;
 	count = 0;
 	while (map[i] && count < vars->sprite_count)
@@ -133,12 +133,12 @@ void	ft_init_sprite_array(t_vars *vars, t_sprite *sprite_tab, char **map)
 		{
 			if (map[i][j] == '2')
 			{
-				sprite_tab[count].id = 2;
-				sprite_tab[count].is_visible = 0;
-				sprite_tab[count].row = i;
-				sprite_tab[count].col = j;
-				sprite_tab[count].x = j * TILE_SIZE + (TILE_SIZE / 2);
-				sprite_tab[count].y = i * TILE_SIZE + (TILE_SIZE / 2);
+				vars->sprite_tab[count].id = 2;
+				vars->sprite_tab[count].is_visible = 0;
+				vars->sprite_tab[count].row = i;
+				vars->sprite_tab[count].col = j;
+				vars->sprite_tab[count].x = j * TILE_SIZE + (TILE_SIZE / 2);
+				vars->sprite_tab[count].y = i * TILE_SIZE + (TILE_SIZE / 2);
 				//printf("sprite_tab[%d].row = %d | col = %d", count + 1, i, j);
 				//printf("|y  = %f | x = %f\n", sprite_tab[count].y,
 				//		sprite_tab[count].x);
@@ -165,7 +165,11 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	ft_init_color(cube, vars);
 	ft_perso_init(vars);
 	ft_rays_init(vars);
-	ft_init_sprite_array(vars, vars->sprite_tab, vars->cube.map);
+	ft_init_sprite_array(vars, vars->cube.map);
+	int i;
+	for (i = 0; i < vars->sprite_count; i++)
+		printf("sprite_tab[%d].row = %d\n", i, vars->sprite_tab[i].row);
+
 	printf("sprite_count = %d\n", vars->sprite_count);
 	
 	//efface le player de la carte

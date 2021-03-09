@@ -269,9 +269,7 @@ void	ft_print_tab(char **tab);
 		
 		//RESET VAL
 int			ft_reset_player(int keycode, t_vars *vars);
-void		ft_reset_sprites(t_sprite *sprite_tab, int sprite_count);
-
-
+void		ft_reset_sprites(t_vars *vars, int sprite_count);
 
 		//MATHS UTILS
 float	ft_radconvert(float degree);

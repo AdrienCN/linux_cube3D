@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:30:49 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 09:33:32 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 09:54:10 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int				ft_reset_player(int keycode, t_vars *vars)
 	return (0);
 }
 
-void		ft_reset_sprites(t_sprite *sprite_tab, int sprite_count)
+void		ft_reset_sprites(t_vars *vars, int sprite_count)
 {
 	int i;
 
 	i = 0;
 	while (i < sprite_count)
 	{
-		sprite_tab[i].is_visible = 0;
+		vars->sprite_tab[i].is_visible = 0;
 		i++;
 	}
 }
