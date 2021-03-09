@@ -30,18 +30,21 @@ void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	int x;
 	int y;
 	
-	y = 0;
-	while (y < vars->win_height)
+	x = 0;
+	while (x < vars->win_width)
 	{
-		x = 0;
-		while (x < vars->win_width)
+		y = 0;
+		while (y < vars->win_height)
 		{
 			if ((y >= sprite->start_y && y <= sprite->end_y)
 					&& (x >= sprite->left_x && x <= sprite->right_x))
-				my_mlx_pixel_put(vars, x, y, RED);
-			x++;
+			{
+				if (sprite->dist < vars->rays[x].distance)
+					my_mlx_pixel_put(vars, x, y, RED);
+			}
+			y++;
 		}
-		y++;
+		x++;
 	}
 }
 
