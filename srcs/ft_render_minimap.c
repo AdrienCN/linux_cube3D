@@ -6,60 +6,63 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 17:07:38 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 17:46:37 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-static	void			ft_draw_tile(float x, float y, char c, t_vars *vars)
+static	int		ft_render_tile_color(float x, float y, char c, t_vars *vars)
 {
 	int test;
+	int	color;
 
 	test = TILE_SIZE * MINIMAP_SCALE;
 	if ((int)y % test == 0)
-		my_mlx_pixel_put(vars, x, y, BLACK);
+		color = BLACK;
 	else if ((int)x % test == 0)
-		my_mlx_pixel_put(vars, x, y, BLACK);
+		color = BLACK;
 	else if (c == ' ')
-		my_mlx_pixel_put(vars, x, y, vars->void_color);
+		color = vars->void_color;
 	else if (c == '0')
-		my_mlx_pixel_put(vars, x, y, vars->floor_color);
+		color = vars->floor_color;
 	else if (c == '1')
-		my_mlx_pixel_put(vars, x, y, vars->wall_color);
+		color = vars->wall_color;
 	else if (ft_isbase(c, "NESW"))
-		my_mlx_pixel_put(vars, x, y, vars->player_color);
+		color = vars->player_color;
 	else if (c == '2')
-		my_mlx_pixel_put(vars, x, y, vars->sprite_color);
+		color = vars->sprite_color;
 	else
-		my_mlx_pixel_put(vars, x, y, vars->void_color);
+		color = vars->void_color;
+	return (color);
 }
 
-static	void			ft_render_grid(t_cube *cube, t_vars *vars)
+static	void			ft_render_grid(t_cube cube, t_vars *vars, char **map)
 {
-	float pixel_x;
-	float pixel_y;
-	float map_col;
-	float  map_row;
-	char **map;
+	float	x;
+	float	y;
+	float	map_col;
+	float	map_row;
+	int		color;
 
-	map = cube->map;
-	pixel_y = 0.0;
-	map_row = 0.0;
-	map_col = 0.0;
-	while (map_row < cube->max_row && pixel_y < vars->win_height)
+	y = 0;
+	map_row = 0;
+	map_col = 0;
+	while (map_row < cube.max_row && y < vars->win_height)
 	{
-		pixel_x = 0.0;
+		x = 0.0;
 		map_col = 0.0;
-		while (map_col < cube->max_col && pixel_x < vars->win_width)
+		while (map_col < cube.max_col && x < vars->win_width)
 		{
-			ft_draw_tile(pixel_x * MINIMAP_SCALE, pixel_y * MINIMAP_SCALE,
-				   (map[(int)map_row][(int)map_col]), vars);
-			map_col = pixel_x / TILE_SIZE;
-			pixel_x++;
+			color = ft_render_tile_color(x * MINIMAP_SCALE,
+					y * MINIMAP_SCALE,
+					(map[(int)map_row][(int)map_col]), vars);
+			my_mlx_pixel_put(vars, x * MINIMAP_SCALE, y * MINIMAP_SCALE, color);
+			map_col = x / TILE_SIZE;
+			x++;
 		}
-		pixel_y++;
-		map_row = pixel_y / TILE_SIZE;
+		y++;
+		map_row = y / TILE_SIZE;
 	}
 }
 
@@ -98,7 +101,10 @@ void	ft_render_all_rays(t_vars *vars)
 
 void	ft_render_minimap(t_vars *vars)
 {
-	ft_render_grid(&vars->cube, vars);
+	char	**map;
+
+	map = vars->cube.map;
+	ft_render_grid(vars->cube, vars, map);
 	ft_render_all_rays(vars);
 	ft_render_player(vars);
 }

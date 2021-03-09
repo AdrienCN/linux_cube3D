@@ -24,7 +24,7 @@
 # define WHITE			0x00FFFFFF
 # define GREY			0x00D3D3D3
 
-# define MINIMAP_SCALE	1	
+# define MINIMAP_SCALE	0.3	
 # define STEP_LEN		5
 # define TILE_SIZE		100.0
 
