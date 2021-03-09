@@ -1,18 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw_minimap.c                                  :+:      :+:    :+:   */
+/*   ft_render_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/03 04:54:28 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 17:07:38 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-void			ft_draw_minimap(t_cube *cube, t_vars *vars)
+static	void			ft_draw_tile(float x, float y, char c, t_vars *vars)
+{
+	int test;
+
+	test = TILE_SIZE * MINIMAP_SCALE;
+	if ((int)y % test == 0)
+		my_mlx_pixel_put(vars, x, y, BLACK);
+	else if ((int)x % test == 0)
+		my_mlx_pixel_put(vars, x, y, BLACK);
+	else if (c == ' ')
+		my_mlx_pixel_put(vars, x, y, vars->void_color);
+	else if (c == '0')
+		my_mlx_pixel_put(vars, x, y, vars->floor_color);
+	else if (c == '1')
+		my_mlx_pixel_put(vars, x, y, vars->wall_color);
+	else if (ft_isbase(c, "NESW"))
+		my_mlx_pixel_put(vars, x, y, vars->player_color);
+	else if (c == '2')
+		my_mlx_pixel_put(vars, x, y, vars->sprite_color);
+	else
+		my_mlx_pixel_put(vars, x, y, vars->void_color);
+}
+
+static	void			ft_render_grid(t_cube *cube, t_vars *vars)
 {
 	float pixel_x;
 	float pixel_y;
@@ -40,7 +63,7 @@ void			ft_draw_minimap(t_cube *cube, t_vars *vars)
 	}
 }
 
-void			ft_draw_player(t_vars *vars)
+static	void			ft_render_player(t_vars *vars)
 {
 	int square_h;
 	int square_w;
@@ -53,25 +76,29 @@ void			ft_draw_player(t_vars *vars)
 	ft_draw_square(vars, start_y, start_x, square_h, square_w, BLUE);
 }
 
-void			ft_draw_tile(float x, float y, char c, t_vars *vars)
+void	ft_render_all_rays(t_vars *vars)
 {
-	int test;
+	int i;
+	float x;
+	float y;
 
-	test = TILE_SIZE * MINIMAP_SCALE;
-	if ((int)y % test == 0)
-		my_mlx_pixel_put(vars, x, y, BLACK);
-	else if ((int)x % test == 0)
-		my_mlx_pixel_put(vars, x, y, BLACK);
-	else if (c == ' ')
-		my_mlx_pixel_put(vars, x, y, vars->void_color);
-	else if (c == '0')
-		my_mlx_pixel_put(vars, x, y, vars->floor_color);
-	else if (c == '1')
-		my_mlx_pixel_put(vars, x, y, vars->wall_color);
-	else if (ft_isbase(c, "NESW"))
-		my_mlx_pixel_put(vars, x, y, vars->player_color);
-	else if (c == '2')
-		my_mlx_pixel_put(vars, x, y, vars->sprite_color);
-	else
-		my_mlx_pixel_put(vars, x, y, vars->void_color);
+	i = 0;
+	x = vars->player.x;
+	y = vars->player.y;
+	while (i < vars->ray_num)
+	{
+		//SEUL qui fonctionne
+	//	ft_render_line_gpetit(x, y, vars, vars->rays[i].angle);
+	
+		// Fonctionne mais apparence etrange sur cadran sup et gauche	
+		ft_render_line_dda(vars, vars->rays[i], x, y);
+		i++;
+	}
+}
+
+void	ft_render_minimap(t_vars *vars)
+{
+	ft_render_grid(&vars->cube, vars);
+	ft_render_all_rays(vars);
+	ft_render_player(vars);
 }

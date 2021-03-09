@@ -253,6 +253,7 @@ void		ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray);
 		//*************3D_RENDERERING*********
 void	ft_render_walls(t_vars *vars, t_rays *ray);
 void	ft_render_sprite(t_vars *vars);
+void	ft_render_minimap(t_vars *vars);
 
 
 		//***Mini_MAP****
@@ -274,7 +275,7 @@ void	ft_print_tab(char **tab);
 		
 		//RESET VAL
 int			ft_reset_player(int keycode, t_vars *vars);
-void		ft_reset_sprites(t_vars *vars, int sprite_count);
+void		ft_reset_sprites_visibility(t_vars *vars, int sprite_count);
 
 		//MATHS UTILS
 float	ft_radconvert(float degree);
@@ -284,15 +285,14 @@ float	ft_get_distance(float x1, float y1, float x2, float y2);
 		//MLX_UTILS
 int		create_trgb(int t, int r, int g, int b);
 void    my_mlx_pixel_put(t_vars *data, int x, int y, int color);
-unsigned int	ft_get_xpm_pixel_value(t_img *img, int x, int y);
+int		ft_get_xpm_pixel_value(t_img *img, int x, int y);
 
 		//PRINT_UTILS	
-void	ft_draw_tile(float x, float y, char c, t_vars *vars);
-void	ft_draw_player(t_vars *vars);
-void	ft_draw_minimap(t_cube *cube, t_vars *vars);
-void	ft_draw_ray_projection(t_vars *vars);
+
 		//SHAPE_PRINT
 void	ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid, int color);
+void	ft_render_line_gpetit(float x, float y, t_vars *vars, float ray_angle);
+void	ft_render_line_dda(t_vars *vars, t_rays ray, float x1, float y1);
 
 		// COLLISION_UTILS
 int		ft_map_content(float x, float y, t_vars *vars);
@@ -303,7 +303,6 @@ int		ft_is_sprite(float x, float y, t_vars *vars);
 		//TMP_UTILS
 void	ft_print_tab(char **tab);
 void	print_ray_info(t_rays *ray);
-void	ft_cast_single_ray(float x, float y, t_vars *vars, float ray_angle);
 
 
 #endif
