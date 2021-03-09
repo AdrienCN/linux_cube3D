@@ -138,6 +138,8 @@ int		ft_update_screen(t_vars *vars)
 	
 	// Draw 3d cube with color buffer
 //	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);
+	
+	ft_render_sprite(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	ft_reset_sprites(vars, vars->sprite_count);
 	return (0);

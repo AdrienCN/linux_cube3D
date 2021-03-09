@@ -159,10 +159,16 @@ typedef		struct s_sprite
 	int		is_visible;
 	int		row;
 	int		col;
+	float	start_y;
+	float	end_y;
+	float	right_x;
+	float	left_x;
 	float	x;
 	float	y;
 	float	dist;
 	float	angle;
+	float	height;
+	float	width;
 }				t_sprite;
 
 
@@ -248,6 +254,7 @@ void		ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray);
 
 		//*************3D_RENDERERING*********
 void	ft_draw_maze(t_vars *vars);
+void	ft_render_sprite(t_vars *vars);
 
 
 		//***Mini_MAP****

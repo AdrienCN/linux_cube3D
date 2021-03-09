@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 09:24:05 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 11:08:21 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_cast_all_rays(t_vars *vars)
 	float screen_dist;
 	int i;
 	
-	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV/2));	
+	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV/2)) ;	
 	i = 0;
 	while  (i < vars->ray_num)
 	{
