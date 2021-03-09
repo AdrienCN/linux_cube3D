@@ -84,6 +84,7 @@ void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
 	int			j;
 	t_sprite	tmp;
 
+	i = 0;
 	while (i < vars->sprite_count - 1)
 	{
 		j = i;
@@ -93,7 +94,8 @@ void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
 			{
 				tmp = sprite[j];
 				sprite[j] = sprite[i];
-				sprite[i] = tmp;	
+				sprite[i] = tmp;
+				i = 0;
 			}
 			j++;
 		}
@@ -106,14 +108,11 @@ void	ft_render_sprite(t_vars *vars)
 	int i;
 
 	i = 0;
-	printf("Before sorting \n");
 	while (i < vars->sprite_count)
 	{
 		if (vars->sprite_tab[i].is_visible)
 			ft_set_sprite_val(vars, &vars->sprite_tab[i]);
-		printf("sprite_tab[%d].dist = %f \n", i
-				, vars->sprite_tab[i].dist);
-			i++;
+		i++;
 	}
 	ft_sort_sprite_by_dist(vars, vars->sprite_tab);
 	i = 0;
@@ -124,4 +123,3 @@ void	ft_render_sprite(t_vars *vars)
 		i++;
 	}
 }
-
