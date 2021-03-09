@@ -125,12 +125,14 @@ int		ft_update_screen(t_vars *vars)
 	ft_cast_all_rays(vars);
 	
 	// draw 3D cube with my_mlx_pixel_put
-	//ft_draw_maze(vars);
+	ft_draw_maze(vars);
 
 	// Draw minimap + rays
+	/*
 	ft_draw_minimap(&vars->cube, vars);
 	ft_draw_all_rays(vars);
 	ft_draw_player(vars);
+	*/
 	
 	// Draw 3d cube with color buffer
 //	ft_draw_text_to_box(vars, &vars->text.north, vars->text.north.width, vars->text.north.height);

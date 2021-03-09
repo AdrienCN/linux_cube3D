@@ -51,7 +51,6 @@ void			ft_rays_init(t_vars *vars)
 		vars->rays[i].rayisdown = 0;
 		vars->rays[i].rayisleft = 0;
 		vars->rays[i].rayisright = 0;
-		vars->rays[i].hitcontent = 0;
 		i++;
 	}
 }
@@ -135,21 +134,20 @@ void	ft_init_sprite_array(t_vars *vars, t_sprite *sprite_tab, char **map)
 			if (map[i][j] == '2')
 			{
 				sprite_tab[count].id = 2;
+				sprite_tab[count].is_visible = 0;
 				sprite_tab[count].row = i;
 				sprite_tab[count].col = j;
 				sprite_tab[count].x = j * TILE_SIZE + (TILE_SIZE / 2);
 				sprite_tab[count].y = i * TILE_SIZE + (TILE_SIZE / 2);
-				printf("sprite_tab[%d].row = %d | col = %d", count + 1, i, j);
-				printf("|y  = %f | x = %f\n", sprite_tab[count].y,
-						sprite_tab[count].x);
+				//printf("sprite_tab[%d].row = %d | col = %d", count + 1, i, j);
+				//printf("|y  = %f | x = %f\n", sprite_tab[count].y,
+				//		sprite_tab[count].x);
 				count++;
 			}
 			j++;
 		}
 		i++;
 	}
-	i = 0;
-
 }
 
 void			ft_init_game(t_cube * cube, t_vars *vars)
@@ -163,16 +161,16 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	//vars->tile_width = vars->win_width / cube->max_col;
 	//vars->tile_height= vars->win_height / cube->max_row;
 
-	// Get color
+	// init values
 	ft_init_color(cube, vars);
 	ft_perso_init(vars);
 	ft_rays_init(vars);
+	ft_init_sprite_array(vars, vars->sprite_tab, vars->cube.map);
+	printf("sprite_count = %d\n", vars->sprite_count);
+	
 	//efface le player de la carte
 	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
 
-
-	ft_init_sprite_array(vars, vars->sprite_tab, vars->cube.map);
-	printf("sprite_count = %d\n", vars->sprite_count);
 	// Init mlx_instances
 	vars->mlx = mlx_init();
 	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
@@ -180,5 +178,7 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
                                &vars->endian);
     vars->win = mlx_new_window(vars->mlx, vars->win_width, 
 			vars->win_height, "Adrien_cube");
+
+	// Init text
 	ft_text_init(vars, &vars->text);
 }

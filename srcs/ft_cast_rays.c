@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/06 19:09:31 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/09 09:23:01 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->wallhity = vert_hit.wallhity;
 		ray->distance = vert_hit.distance;
 		ray->hitisvertical = TRUE;
-		ray->hitcontent = vert_hit.content;
 //		printf("--VERT_HIT--\n");
 	}
 	else
@@ -53,7 +52,6 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 		ray->wallhity = horz_hit.wallhity;
 		ray->distance = horz_hit.distance;
 		ray->hitisvertical = FALSE;
-		ray->hitcontent = horz_hit.content;
 //		printf("--HORZ_HIT--\n");
 	}
 	//printf("player_x = %f | player_y = %f\n", vars->player.x, vars->player.y);

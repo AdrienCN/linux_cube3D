@@ -29,7 +29,7 @@
 
 # define MINIMAP_SCALE	1	
 # define STEP_LEN		5
-# define TILE_SIZE		10.0
+# define TILE_SIZE		100.0
 
 # define FOV			66.0
 # define RAY_STEP		0.5	
@@ -68,7 +68,6 @@ typedef struct s_inter
 	int		found_wall;
 	float	wallhitx;
 	float	wallhity;
-	int		content;
 	float	distance;
 }			t_inter;
 
@@ -96,7 +95,6 @@ typedef struct s_rays
 	int	rayisdown;
 	int rayisleft;
 	int rayisright;
-	int hitcontent;
 }				t_rays;
 
 typedef struct s_perso
@@ -158,6 +156,7 @@ typedef		struct s_text
 typedef		struct s_sprite
 {
 	int		id;
+	int		is_visible;
 	int		row;
 	int		col;
 	float	x;
