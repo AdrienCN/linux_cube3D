@@ -1,6 +1,6 @@
 #include "h_cube.h"
 
-void	ft_set_sprite_val(t_vars *vars, t_sprite *sprite)
+static	void	ft_set_sprite_val(t_vars *vars, t_sprite *sprite)
 {
 	float	screen_dist;
 
@@ -24,7 +24,7 @@ void	ft_set_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->right_x = sprite->left_x + sprite->width;
 }
 
-int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite, int x, int y)
+static	int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite, int x, int y)
 {
 	int x_xpm;
 	int y_xpm;
@@ -36,7 +36,7 @@ int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite, int x, int y)
 	return (color);
 }
 
-void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
+static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 {
 	int x;
 	int y;
@@ -78,7 +78,7 @@ void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	}
 }
 
-void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
+static	void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
 {
 	int			i;
 	int			j;
