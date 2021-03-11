@@ -183,6 +183,9 @@ typedef		struct s_vars
 	int			line_len;
 	int			endian;
 
+	//BMP
+	int			bmp_save;
+
 	// raycasting utils	
 	int			sprite_count;
 	int			ray_num;
@@ -198,6 +201,8 @@ typedef		struct s_vars
 	float		ray_increment;
 	float		tile_width;
 	float		tile_height;
+
+	//struct
 	t_text		text;
 	t_cube		cube;
 	t_perso		player;

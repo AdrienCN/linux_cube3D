@@ -14,6 +14,7 @@ int             main(int argc, char **argv)
 
 	if (ft_parsing_main(argv[1], &vars.cube))
 		return (-1);
+	vars.bmp_save = 0;
 	ft_init_game(&vars.cube, &vars);
 	printf("Init ok\n");
 

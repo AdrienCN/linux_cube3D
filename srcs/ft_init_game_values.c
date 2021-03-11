@@ -143,7 +143,7 @@ void	ft_init_sprite_array(t_vars *vars, char **map)
 			if (map[i][j] == '2')
 			{
 				ft_set_sprite_val(&vars->sprite_tab[count], i, j);
-			count++;
+				count++;
 			}
 			j++;
 		}
@@ -151,24 +151,36 @@ void	ft_init_sprite_array(t_vars *vars, char **map)
 	}
 }
 
+void			ft_resolution_init(t_vars *vars, t_cube *cube)
+{
+	int screen_height;
+	int screen_width;
+
+	vars->win_width = cube->r_x;
+	vars->win_height = cube->r_y;
+	if (vars->bmp_save == 1)
+		return;
+	else
+	{
+		mlx_get_screen_size(vars->mlx, &screen_width, &screen_height);
+		if (screen_height < cube->r_y)
+			vars->win_height = screen_height;
+		if (screen_width < cube->r_x)
+			vars->win_width = screen_width;
+	}
+}
+
 void			ft_init_game(t_cube * cube, t_vars *vars)
 {
-	vars->win_height = cube->r_y ;
-	vars->win_width = cube->r_x ;
-	//vars->tile_width = vars->win_width / cube->max_col;
-	//vars->tile_height= vars->win_height / cube->max_row;
+	vars->mlx = mlx_init();
+	ft_resolution_init(vars,cube);
 
+	printf("win_width = %d | win_height = %d \n", vars->win_width, vars->win_height);
 	// init values
 	ft_init_color(cube, vars);
 	ft_perso_init(vars);
 	ft_rays_init(vars);
 	ft_init_sprite_array(vars, vars->cube.map);
-	int i;
-	for (i = 0; i < vars->sprite_count; i++)
-	{
-		printf("sprite_tab[%d].row = %d | dist = %f \n", i, vars->sprite_tab[i].row,
-				vars->sprite_tab[i].dist);
-	}
 
 	printf("sprite_count = %d\n", vars->sprite_count);
 	
@@ -176,7 +188,6 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
 
 	// Init mlx_instances
-	vars->mlx = mlx_init();
 	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len,
                                &vars->endian);
