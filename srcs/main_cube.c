@@ -37,7 +37,7 @@ int		ft_update_screen(t_vars *vars)
 	ft_render_sprite(vars);
 	
 	// Draw minimap + rays
-	ft_render_minimap(vars);
+	//ft_render_minimap(vars);
 
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	ft_reset_sprites_visibility(vars, vars->sprite_count);

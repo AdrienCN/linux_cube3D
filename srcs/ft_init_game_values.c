@@ -39,6 +39,13 @@ void			ft_rays_init(t_vars *vars)
 {
 	int i;
 
+	vars->rays = malloc(sizeof(t_rays) * vars->win_width);
+	vars->colorbuf = malloc(sizeof(int) * (vars->win_width * vars->win_height));
+	vars->ray_num = vars->win_width;
+
+	// Corriger cette valeur 
+	vars->ray_increment = FOV / vars->ray_num;
+
 	i = 0;
 	while (i < vars->ray_num)
 	{	
@@ -56,40 +63,26 @@ void			ft_rays_init(t_vars *vars)
 }
 void			ft_text_init(t_vars *vars, t_text *text)
 {
-	text->north.path = vars->cube.north;
-	text->south.path = vars->cube.south;
-	text->east.path = vars->cube.east;
-	text->west.path = vars->cube.west;
-
 	// Assign an Image instance for each text
 	text->north.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.north,
 				&text->north.width, &text->north.height);
-
 	text->east.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.east,
 				&text->east.width, &text->east.height);
-
 	text->south.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.south,
 				&text->south.width, &text->south.height);
-
 	text->west.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.west,
 				&text->west.width, &text->west.height);
-
 	text->sprite.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.sprite,
 				&text->sprite.width, &text->sprite.height);
-
 	// Assign addr for each text & text_img
 	text->north.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,
 			&text->north.line_len, &text->north.endian);
-
 	text->east.addr = mlx_get_data_addr(text->east.img, &text->east.bpp,
 			&text->east.line_len, &text->north.endian);
-	
 	text->south.addr = mlx_get_data_addr(text->south.img, &text->south.bpp,
 			&text->south.line_len, &text->south.endian);
-
 	text->west.addr = mlx_get_data_addr(text->west.img, &text->west.bpp,
 			&text->west.line_len, &text->west.endian);
-
 	text->sprite.addr = mlx_get_data_addr(text->sprite.img, &text->sprite.bpp,
 			&text->sprite.line_len, &text->sprite.endian);
 }
@@ -116,6 +109,22 @@ int				ft_count_sprites_in_map(char **map)
 	return (sprites_found);
 }
 
+void	ft_set_sprite_val(t_sprite *sprite, int i, int j)
+{
+				sprite->id = 2;
+				sprite->is_visible = 0;
+				sprite->dist = -1;
+				sprite->row = i;
+				sprite->col = j;
+				sprite->x = j * TILE_SIZE + (TILE_SIZE / 2);
+				sprite->y = i * TILE_SIZE + (TILE_SIZE / 2);
+				//printf("sprite_tab[%d]->row = %d | col = %d", count + 1, i, j);
+				//printf("|y  = %f | x = %f\n", sprite_tab[count].y,
+				//		sprite_tab[count].x);
+				//		
+}
+		
+
 void	ft_init_sprite_array(t_vars *vars, char **map)
 {
 	int i;
@@ -133,17 +142,8 @@ void	ft_init_sprite_array(t_vars *vars, char **map)
 		{
 			if (map[i][j] == '2')
 			{
-				vars->sprite_tab[count].id = 2;
-				vars->sprite_tab[count].is_visible = 0;
-				vars->sprite_tab[count].dist = -1;
-				vars->sprite_tab[count].row = i;
-				vars->sprite_tab[count].col = j;
-				vars->sprite_tab[count].x = j * TILE_SIZE + (TILE_SIZE / 2);
-				vars->sprite_tab[count].y = i * TILE_SIZE + (TILE_SIZE / 2);
-				//printf("sprite_tab[%d].row = %d | col = %d", count + 1, i, j);
-				//printf("|y  = %f | x = %f\n", sprite_tab[count].y,
-				//		sprite_tab[count].x);
-				count++;
+				ft_set_sprite_val(&vars->sprite_tab[count], i, j);
+			count++;
 			}
 			j++;
 		}
@@ -155,10 +155,6 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->win_height = cube->r_y ;
 	vars->win_width = cube->r_x ;
-	vars->rays = malloc(sizeof(t_rays) * vars->win_width);
-	vars->colorbuf = malloc(sizeof(int) * (vars->win_width * vars->win_height));
-	vars->ray_num = vars->win_width;
-	vars->ray_increment = FOV / vars->ray_num;
 	//vars->tile_width = vars->win_width / cube->max_col;
 	//vars->tile_height= vars->win_height / cube->max_row;
 
