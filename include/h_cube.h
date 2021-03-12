@@ -16,11 +16,14 @@
 
 # define MAP_CHAR		"012 WSNE"
 
-# define BLACK			0x00000000
+// True Blue
 # define BLUE			0x000000FF
+// Green_BLUE
+//# define BLUE			0x0000FF00	
+# define GREEN			0x0000FF00	
+# define BLACK			0x00000000
 # define RED			0x00FF0000
 # define ORANGE			0x00FF8900
-# define GREEN			0x0000FF00	
 # define WHITE			0x00FFFFFF
 # define GREY			0x00D3D3D3
 
@@ -340,6 +343,5 @@ int		ft_is_sprite(float x, float y, t_vars *vars);
 		//TMP_UTILS
 void	ft_print_tab(char **tab);
 void	print_ray_info(t_rays *ray);
-
 
 #endif
