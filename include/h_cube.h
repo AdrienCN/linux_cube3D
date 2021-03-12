@@ -2,7 +2,6 @@
 # define H_CUBE_H
 
 # include "../libft/libft.h"
-# include "get_next_line.h"
 # include <mlx.h>
 # include <math.h>
 # include <stdio.h>
