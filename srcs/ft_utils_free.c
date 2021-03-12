@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 22:27:02 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 22:44:24 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 23:57:54 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,27 @@ void	ft_free_cube(t_cube *element)
 		free(element->m_line);
 }
 
-void			ft_free_img(t_img *img)
-{
-	free(img->img);
-	free(img->addr);
-}
-
 void			ft_free_game(t_vars *vars)
 {
-	ft_free_img(&vars->game);
-	ft_free_img(&vars->text.north);
-	ft_free_img(&vars->text.south);
-	ft_free_img(&vars->text.east);
-	ft_free_img(&vars->text.west);
-	ft_free_img(&vars->text.sprite);
+	if (vars->game.img)
+		mlx_destroy_image(vars->mlx, vars->game.img);
+	if (vars->text.north.img)
+		mlx_destroy_image(vars->mlx, vars->text.north.img);
+	if (vars->text.south.img)
+		mlx_destroy_image(vars->mlx, vars->text.south.img);
+	if (vars->text.east.img)
+		mlx_destroy_image(vars->mlx, vars->text.east.img);
+	if (vars->text.west.img)
+		mlx_destroy_image(vars->mlx, vars->text.west.img);
+	if (vars->text.sprite.img)
+		mlx_destroy_image(vars->mlx, vars->text.sprite.img);
+	if (vars->win)
+		mlx_destroy_window(vars->mlx, vars->win);
+	if (vars->mlx)
+	{
+		mlx_destroy_display(vars->mlx);
+		free(vars->mlx);
+	}
 	free(vars->sprite_tab);
 	free(vars->rays);
 	ft_free_cube(&vars->cube);

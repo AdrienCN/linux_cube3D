@@ -210,14 +210,14 @@ int				ft_init_game(t_cube * cube, t_vars *vars)
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
 		return (1);
-	// init values
 	if (ft_set_basic_vars_val(vars, cube))
 		return (1);
-	vars->game.img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
+	vars->game.img = mlx_new_image(vars->mlx,
+			vars->win_width, vars->win_height);
 	if (vars->game.img == NULL)
 		return (1);
-	vars->game.addr = mlx_get_data_addr(vars->game.img, &vars->game.bpp, &vars->game.line_len,
-                               &vars->game.endian);
+	vars->game.addr = mlx_get_data_addr(vars->game.img, &vars->game.bpp,
+		   &vars->game.line_len, &vars->game.endian);
 	if (vars->game.addr == NULL)
 		return (1);
 	if (vars->bmp_save == 0)

@@ -4,8 +4,6 @@
 #define KEYPRESS	1L<<0
 #define KEYRELEASE	1L<<1
 
-void	ft_render_bmp_file(t_vars *vars);
-
 int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 {
 	vars->bmp_save = 0;
@@ -25,6 +23,24 @@ int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 	}
 	return (0);
 }
+void			ft_start_game(t_vars *vars)
+{
+	if (vars->bmp_save)
+	{
+		ft_cast_all_rays(vars);
+		ft_render_walls(vars, vars->rays);
+		ft_render_sprite(vars);
+		ft_save_bmp(vars);
+	}
+	else
+	{
+		//implementer croix rouge
+		mlx_loop_hook(vars->mlx, ft_update_screen, vars);
+		mlx_hook(vars->win, 2, KEYPRESS, ft_update_move, vars);
+		mlx_hook(vars->win, 3, KEYRELEASE, ft_reset_player, vars);
+		mlx_loop(vars->mlx);
+	}
+}
 
 int             main(int argc, char **argv)
 {
@@ -32,44 +48,24 @@ int             main(int argc, char **argv)
 	
 	ft_game_null_init(&vars);	
 	if (ft_parsing_args(&vars, argc, argv)
-		|| ft_parsing_main(argv[1], &vars.cube)
-		|| ft_init_game(&vars.cube, &vars))
+			|| ft_parsing_main(argv[1], &vars.cube))
 	{
 		ft_free_game(&vars);
 		return (-1);
 	}
 	
+	if (ft_init_game(&vars.cube, &vars))
+	{
+		printf("Error while initializing game structures.\n");
+		return (1);
+	}
+		
 	printf("Init ok\n");
-
-	if (vars.bmp_save)
-	{
-		ft_render_bmp_file(&vars);
-		// Free bmp only stuff
-	}
-	else
-	{
-
-		mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
-		mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
-		mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
-		mlx_loop(vars.mlx);
-		//Free game loop only stuff
-	}
-
-	// Free common stuff
+	ft_start_game(&vars);
+	printf("before freeing the game\n");
 	ft_free_game(&vars);
 	printf("\nmain --> return (0);\n");
 	return (0);
-}
-
-void	ft_render_bmp_file(t_vars *vars)
-{
-	ft_cast_all_rays(vars);
-	ft_render_walls(vars, vars->rays);
-	ft_render_sprite(vars);
-	ft_save_bmp(vars);	
-	// Draw minimap + rays
-	//ft_render_minimap(vars);
 }
 
 int		ft_update_screen(t_vars *vars)
@@ -87,12 +83,4 @@ int		ft_update_screen(t_vars *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->game.img, 0, 0);
 	ft_reset_sprites_visibility(vars, vars->sprite_count);
 	return (0);
-}
-
-
-void	fucking_clean(void	*mlx, void *win)
-{
-	mlx_destroy_window(mlx, win);
-//	mlx_destroy_display(mlx);
-	free(mlx);
 }
