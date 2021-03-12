@@ -1,20 +1,19 @@
 S_DIR		= srcs/
 SRCS		= $(wildcard $(S_DIR)*.c)
 OBJ			= $(SRCS:.c=.o)
-CC			= gcc
 CUBE.H		= include/h_cube.h
-ALL_HEADER	= -I libft/ -I include/ -I minilibx-linux
 LIB_FT		= ./libft/libft.a
 LIB_MLX		= ./minilibx-linux/libmlx.a
 DEPS		= $(CUBE.H) $(LIB_FT) $(LIB_MLX)
+ALL_HEADERS	= -I libft/ -I include/ -I minilibx-linux
+CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
+ALL_LIBS	= -L libft/ -lft -L minilibx-linux/ -lmlx -lm -lX11 -lXext 
 NAME		= cube3d 
-ALL_LIBS	=  -L libft/ -lft -L minilibx-linux/ -lmlx -lm -lX11 -lXext 
 
 
 %.o: %.c $(DEPS) 
-#	$(CC) $(CFLAGS) $(INCL) -c $< -o $@ -I /usr/Include -I mlx_linux 
-	$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o $@ 
+	$(CC) $(CFLAGS) $(ALL_HEADERS) -c $< -o $@ 
 
 all: $(NAME)
 
