@@ -8,7 +8,6 @@ void	ft_render_bmp_file(t_vars *vars);
 
 int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 {
-	vars->bmp_save = 0;
 	if (argc < 2 || argc > 3)
 	{
 		printf("Usage : 1 or 2 arguments\n");
@@ -16,34 +15,41 @@ int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 	}
 	if (argc == 3)
 	{
-		if (ft_strcmp(argv[2], "--save") != 0)
+		if (ft_strcmp(argv[2], "--save") == 0)
+		{
+			vars->bmp_save = 1;
+			printf("argv[2] == %s et == --save\n", argv[2]);
+		}
+		else
 		{
 			printf("Error-Format :./cube3D [map_name.cub] [--save]\n");
 			return (1);
 		}
-		vars->bmp_save = 1;
 	}
+	else
+		vars->bmp_save = 0;
 	return (0);
 }
 
 int             main(int argc, char **argv)
 {
 	t_vars		vars;
+	int			error;
 	
-	if (ft_parsing_args(&vars, argc, argv))
+	if (error = ft_parsing_args(&vars, argc, argv))
 	{
 		printf("Error in command line:");
-		return (-1);
+		return (ft_error_msg(error, 0, 0));
 	}
-	if (ft_parsing_main(argv[1], &vars.cube))
+	if (error = ft_parsing_main(argv[1], &vars.cube))
 	{
-		// add free cube_struct
-		return (-1);
+		printf("Error while parsing: [%s] ", argv[1]);
+		return (ft_error_msg(error, 0, 1));
 	}
-	if (ft_init_game(&vars.cube, &vars))
+	if (error = ft_init_game(&vars.cube, &vars))
 	{
 		printf("Error while intializing game: ");
-		return (-1);
+		return (ft_error_msg(error, 1, 0));
 	}
 	
 	printf("Init ok\n");
@@ -51,6 +57,9 @@ int             main(int argc, char **argv)
 	if (vars.bmp_save)
 	{
 		ft_render_bmp_file(&vars);
+		if (error)
+			return (ft_error_msg(error, 1, 1);
+
 		// Free bmp only stuff
 	}
 	else

@@ -1,3 +1,39 @@
+1) Proteger les Malloc et Mlx Init
+	-> Parsing
+	-> Game_loop
+
+1.bis) Free proprement
+	->Parsing
+	->game_loop
+
+2)Reparer Parsing:
+	-> READ : .cub, les textures path
+	->Probleme ci dessous
+
+3) Reparer la game init:
+	Check que la map parse, rentre dans la resolution donne
+	definir valeur TILE_SIZE en fonction de la res ou de la grille
+
+4) Autre
+	->Implementer exit croix rouge
+
+
+5) Rajouter Bonus ?
+	-> Minimap
+	->Barre de vie
+	->Sprite multiple
+	->Sprite dynamique
+	->Sprite offensif
+	->Vision avec casque ?
+	->Sol et ciel texture?
+
+
+
+
+
+
+
+
 -Gerer le potentiel leak de storage dans GNL
 -Gerer les return 0 ou -1  en cas d'erreur dans le parsing.
 -Creer messages d'erreur personnalise
@@ -5,7 +41,7 @@
 -Utilite de la var 'found_wall' dans les calcul de vert et horz hit ?
 -Utiite d'initialiser l'arrray de ray[NUM_RAY] ?
 -Proteger contre le fait de trouver un espace ?
--Fix -> relinker si modif de h_cub.h
+
 -Supprimer le INT_MAX dans le calcul de ray_vert/horz_hit distance (ft_cast_allrays)
 -Supprimer tile_height et tile_width
 

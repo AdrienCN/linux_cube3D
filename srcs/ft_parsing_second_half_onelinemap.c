@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/02/17 17:14:15 by adconsta         ###   ########.fr       */
+/*   Updated: 2021/03/12 18:22:34 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	ft_line_char_check(char *line, char *base, t_cube *map_info);
 
 int		ft_make_oneline_map(int fd, t_cube *map_info)
 {
-	char *line;
+	char	*line;
+	int		error;
 
 	while (get_next_line(fd, &map_info->gnl_line) > 0)
 	{
@@ -30,31 +31,32 @@ int		ft_make_oneline_map(int fd, t_cube *map_info)
 		{
 			if (ft_empty_line(line) == TRUE)
 				map_info->map_end = TRUE;
-			else if (ft_make_oneline_map_two(line, map_info) == -1)
-					return (-1);
+			else if ((error = ft_make_oneline_map_two(line, map_info)))
+				return (error);
 		}
 		else if (map_info->map_end == TRUE && ft_empty_line(line) == FALSE)
-			return (-1);
+			return (-4);
 		free(line);
 	}
 	if (map_info->max_col == 0 || map_info->max_row == 0)
-		return (-1);
-	return (1);
+		return (-5);
+	return (0);
 }
 
 static int	ft_make_oneline_map_two(char *gnl_line, t_cube *map)
 {
-	char *tmp;
+	char	*tmp;
+	int		error;
 
-	if (ft_line_char_check(gnl_line, MAP_CHAR, map) == -1)
-		return (-1);
+	if ((error = ft_line_char_check(gnl_line, MAP_CHAR, map)))
+		return (error);
 	ft_set_row_col(gnl_line, map);
 	tmp = map->m_line;
 	map->m_line = ft_cube_strjoin(map->m_line, "@", gnl_line);
 	free(tmp);
 	if (map == NULL)
-		return (-1);
-	return (1);
+		return (-3);
+	return (0);
 }
 
 static int	ft_line_char_check(char *line, char *base, t_cube *map_info)
@@ -75,11 +77,11 @@ static int	ft_line_char_check(char *line, char *base, t_cube *map_info)
 				map_info->player_tmp.y = map_info->max_row;
 			}
 			else
-				return (-1);
+				return (-2);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static char	*ft_cube_strjoin(char const *s1, char const *sep, char const *s2)

@@ -6,29 +6,107 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/03/11 14:54:09 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 18:51:26 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-int		ft_parsing_main(char *map_file, t_cube *cube)
+int		ft_is_file_readable(char *file_path)
+{
+	int fd;
+	int ret;
+	char buf;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	ret = read(fd, &buf, 1);
+	if (ret < 0)
+		return (-2);
+	close(fd);
+	if (fd < 0)
+		return (-3);
+	return (0);
+}
+
+void	ft_class_one_error(int error)
+{
+	if (error == -1)
+		printf("could not open .cub or .xpm.\n");
+	if (error == -2)
+		printf("could not read from .cub or .xpm.\n");
+	if (error == -3)
+		printf("could not close .cub or .xpm.\n");
+	if (error == -4)
+		printf("file is not .cub. Verify filename extension.\n");
+}
+
+void	ft_class_two_error(int error)
+{
+	if (error == -3)
+		printf("please verify resolution informations format.\n");
+	if (error == -4)
+		printf("please verify texture informations format.\n");
+	if (error == -5)
+		printf("please verify C or F [RGB] informations format.\n");
+	if (error == -5)
+		printf("missing information to create map.\n");
+	if (error == -6)
+	   printf("unknown error, well this is awkward...\n");
+}
+
+void	ft_class_three_error(int error)
+{
+	printf("map grid : ");
+	if (error == -1)
+		printf("non authorized character in map grid.\n");
+	if (error == -2)
+		printf("map has more than one player.\n");
+	if (error == -3)
+		printf("error in map join from char* to char**. Malloc has failed.\n");
+	if (error == -4)
+		printf("horizontal empty line found in map grid.\n");
+	if (error == -5)
+		printf("map must contain at least 1 row and 1 col.\n");
+	if (error == -6)
+		printf("empty line found vertically.\n");
+	if (error == -7)
+		printf("wall missing. Map border must '1' only.\n");	
+	if (error == -8)
+		printf("0 in contact with void.\n");	
+}
+
+int		ft_parsing_error_msg(int class, int error)
+{
+	printf("Parsing error: ");
+	if (class == 1)
+		ft_class_one_error(error);
+	if (class == 2)
+		ft_class_two_error(error);
+	if (class == 3)
+		ft_class_three_error(error);
+	return (1);
+}
+
+int		ft_parsing_main(char *map_file_name, t_cube *cube)
 {
 	int			fd;
+	int			error;
 
 	ft_mapinfo_init(cube);
-	if (ft_check_filename(map_file, ".cub")
-			|| (fd = open(map_file, O_RDONLY)) < 0 
-			|| ft_first_parsing(fd, cube) == -1
-			|| ft_second_parsing(fd, cube) == -1
-		   	|| close(fd) < 0)
-	{
-		printf("...ERROR....Map_info value: \n");
-		ft_print_mapinfo(cube);
-		ft_free_mapinfo(cube);
-		printf("\n...program SHUT DOWN...\n");
-		return(1);
-	}
+	if ((error = ft_check_file_ext_name(map_file_name, ".cub")))
+		return (ft_parsing_error_msg(1, -4));
+	if ((error = ft_is_file_readable(map_file_name)))
+		return (ft_parsing_error_msg(1, error));
+	if ((fd = open(map_file_name, O_RDONLY)) < 0)
+		return (ft_parsing_error_msg(1, -1));
+	if ((error = ft_first_parsing(fd, cube)))
+		return (ft_parsing_error_msg(2, error));
+	if ((error = ft_second_parsing(fd, cube)))
+		return (ft_parsing_error_msg(2, error));
+	if ((error = close(fd)) < 0)
+		return(ft_parsing_error_msg(1, -3));
 	printf("--------------after-------------------\n");
 	ft_print_mapinfo(cube);
 	printf("----------------------------------\n");

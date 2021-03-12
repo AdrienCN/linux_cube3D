@@ -9,13 +9,13 @@ int		ft_check_fullmap_format(char **map, int max_col, int max_row)
 {
 	(void)max_row;
 	if (ft_emptyline_vert_check(map))
-		return (-1);
+		return (-6);
 	if (ft_wall_closed_hze_check(map, max_col) 
 			|| ft_wall_closed_vert_check(map, max_row))
-		return (-1);
+		return (-7);
 	if (ft_zero_in_void_check(map))
-		return (-1);
-	return (1);
+		return (-8);
+	return (0);
 }
 
 static int		ft_emptyline_vert_check(char **map)
@@ -56,11 +56,11 @@ static int		ft_wall_closed_hze_check(char **map, int max_col)
 		while (map[i][j] != '\0' && map[i][j] == ' ')
 			j++;
 		if (map[i][j] == '\0' || map[i][j] != '1')
-			return (-1);
+			return (1);
 		while (k >= 0 && map[i][k] == ' ')
 			k--;
 		if (k < 0 || map[i][k] != '1')
-			return (-1);
+			return (1);
 		i++;
 	}
 	return (0);

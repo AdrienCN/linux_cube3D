@@ -253,7 +253,7 @@ void	ft_free_doublearray(char **tab);
 int		ft_first_parsing(int fd, t_cube *map_info);
 int		ft_try_assigning_value(char *line, t_cube *map_info);
 int		ft_assign_resolution(t_cube *element, char *line);
-int		ft_check_filename(char *filename, char *ext_name);
+int		ft_check_file_ext_name(char *filename, char *ext_name);
 int		ft_check_mapname(char *name);
 
 int		ft_rbg_rb_format(char *line);
@@ -297,7 +297,7 @@ int		ft_update_screen(t_vars *vars);
 				//MINI_MAP_INIT
 void	ft_init_color(t_cube *cube, t_vars *vars);
 void	ft_perso_init(t_vars *vars);
-void	ft_init_game(t_cube *cube, t_vars *vars);
+int		ft_init_game(t_cube *cube, t_vars *vars);
 				//Player_Movement_algo
 int		ft_update_player(t_vars *vars);
 int		ft_update_move(int keycode, t_vars *vars);
@@ -309,6 +309,7 @@ int		ft_save_bmp(t_vars *d);
 
 		//*****UTILS************
 void	ft_print_tab(char **tab);
+int		ft_is_file_readable(char *file_path);
 
 		
 		//RESET VAL

@@ -170,7 +170,7 @@ void			ft_resolution_init(t_vars *vars, t_cube *cube)
 	}
 }
 
-void			ft_init_game(t_cube * cube, t_vars *vars)
+int				ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	ft_resolution_init(vars,cube);
@@ -199,4 +199,5 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 
 	// Init text
 	ft_text_init(vars, &vars->text);
+	return (0);
 }

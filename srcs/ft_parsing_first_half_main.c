@@ -4,16 +4,20 @@
 int		ft_first_parsing(int fd, t_cube *cube)
 {
 	char	*line;
+	int		error;
 
 	while (get_next_line(fd, &line) > 0 && cube->info_nbr < 8)
 	{
-		if (ft_try_assigning_value(line, cube) == -1)
-			return (-1);
+		if ((error = ft_try_assigning_value(line, cube)))
+		{
+			free(line);
+			return (error);
+		}
 		free(line);
 	}
 	free(line);
 	if (cube->info_nbr < 8)
-		return (-1);
+		return (-6);
 	return (0);
 }
 
@@ -39,39 +43,39 @@ int		ft_try_assigning_value(char *line, t_cube *map_info)
 		return (ft_rgb_assign(1, map_info, line + 1));
 	if (ft_strncmp("C ", line, 2) == 0)
 		return (ft_rgb_assign(2, map_info, line + 1));
-	 return (-1);
+	 return (-7);
 }
 
 int		ft_assign_resolution(t_cube *map_info, char *line)
 {
 	if (map_info->r_bol == 1)
-		return (-1);
+		return (-3);
 	map_info->r_bol = 1;
 	while (*line == ' ')
 		line++;
 	if (!ft_isdigit(*line))
-		return (-1);
+		return (-3);
 	map_info->r_x = ft_atoi(line);
 	while (ft_isdigit(*line))
 		line++;
 	while (*line == ' ')
 		line++;
 	if (ft_isdigit(*line) == 0)
-		return (-1);
+		return (-3);
 	map_info->r_y = ft_atoi(line);
 	while (ft_isdigit(*line))
 		line++;
 	while (*line)
 	{
 		if (*line != ' ')
-			return (-1);
+			return (-3);
 		line++;
 	}
 	map_info->info_nbr += 1; 
 	return (0);
 }
 
-int		ft_check_filename(char *filename, char *ext_name)
+int		ft_check_file_ext_name(char *filename, char *ext_name)
 {
 	unsigned int i;
 
