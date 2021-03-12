@@ -191,8 +191,11 @@ void			ft_init_game(t_cube * cube, t_vars *vars)
 	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len,
                                &vars->endian);
-    vars->win = mlx_new_window(vars->mlx, vars->win_width, 
+	if (vars->bmp_save == 0)
+	{
+		vars->win = mlx_new_window(vars->mlx, vars->win_width, 
 			vars->win_height, "Adrien_cube");
+	}
 
 	// Init text
 	ft_text_init(vars, &vars->text);

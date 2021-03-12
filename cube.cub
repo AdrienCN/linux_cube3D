@@ -1,9 +1,9 @@
 R 3000 3000
 
-NO ./texture/sad_forest.xpm
-EA ./texture/sad_forest.xpm
-SO ./texture/sad_forest.xpm
-WE ./texture/sad_forest.xpm
+NO ./texture/mountain.xpm
+EA ./texture/mountain.xpm
+SO ./texture/mountain.xpm
+WE ./texture/mountain.xpm
 
 S ./texture/chest.xpm
 

@@ -4,28 +4,75 @@
 #define KEYPRESS	1L<<0
 #define KEYRELEASE	1L<<1
 
+void	ft_render_bmp_file(t_vars *vars);
+
+int				ft_parsing_args(t_vars *vars, int argc, char **argv)
+{
+	if (argc < 2 || argc > 3)
+	{
+		printf("Usage : 1 or 2 arguments\n");
+		return (1);
+	}
+	if (argc == 3)
+	{
+		if (ft_strcmp(argv[2], "--save") == 0)
+		{
+			vars->bmp_save = 1;
+			printf("argv[2] == %s et == --save\n", argv[2]);
+		}
+		else
+		{
+			printf("Error-Format :./cube3D [map_name.cub] [--save]\n");
+			return (1);
+		}
+	}
+	else
+		vars->bmp_save = 0;
+	return (0);
+}
 
 int             main(int argc, char **argv)
 {
 	t_vars		vars;
 	
-	if (argc != 2)
-		return (printf("Usage : 1 argument\n"));
-
+	if (ft_parsing_args(&vars, argc, argv))
+		return (-1);
 	if (ft_parsing_main(argv[1], &vars.cube))
 		return (-1);
-	vars.bmp_save = 0;
 	ft_init_game(&vars.cube, &vars);
 	printf("Init ok\n");
+	if (vars.bmp_save)
+	{
+		ft_render_bmp_file(&vars);
 
-	mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
-	mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
-	mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
-	mlx_loop(vars.mlx);
-	
+		// Free bmp only stuff
+	}
+	else
+	{
+
+		mlx_loop_hook(vars.mlx, ft_update_screen, &vars);
+		mlx_hook(vars.win, 2, KEYPRESS, ft_update_move, &vars);
+		mlx_hook(vars.win, 3, KEYRELEASE, ft_reset_player, &vars);
+		mlx_loop(vars.mlx);
+		//Free game loop only stuff
+	}
+	// Free common stuff
 	ft_free_mapinfo(&vars.cube);
 	printf("\nmain --> return (0);\n");
 	return (0);
+}
+
+void	ft_render_bmp_file(t_vars *vars)
+{
+
+	ft_cast_all_rays(vars);
+	
+	// draw 3D cube with my_mlx_pixel_put
+	ft_render_walls(vars, vars->rays);
+	ft_render_sprite(vars);
+	ft_save_bmp(vars);	
+	// Draw minimap + rays
+	//ft_render_minimap(vars);
 }
 
 int		ft_update_screen(t_vars *vars)

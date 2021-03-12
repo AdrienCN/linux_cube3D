@@ -169,6 +169,36 @@ typedef		struct s_sprite
 	float	width;
 }				t_sprite;
 
+typedef struct		s_bmp_color
+{
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+}					t_bmp_color;
+
+typedef struct		s_img_header
+{
+	int				size_img_header;
+	int				width;
+	int				length;
+	short			nb_planes;
+	short			bpp;
+	int				compression;
+	int				size_img_total;
+	int				res_ver;
+	int				res_hor;
+	int				color_array;
+	int				img_array;
+}					t_img_header;
+
+typedef struct		s_file_header
+{
+	char			signature[2];
+	int				size;
+	int				reserved;
+	int				offset_img;
+	t_img_header	img;
+}					t_file_header;
 
 typedef		struct s_vars
 {
@@ -195,8 +225,8 @@ typedef		struct s_vars
 	int			floor_color;
 	int			ceil_color;
 	int			sprite_color;
-	int			win_height;
 	int			void_color;
+	int			win_height;
 	int			win_width;
 	float		ray_increment;
 	float		tile_width;
@@ -208,7 +238,6 @@ typedef		struct s_vars
 	t_perso		player;
 	t_rays		*rays;
 	t_sprite	*sprite_tab;
-
 }					t_vars;
 
 		//MAIN_PARSING//
@@ -273,6 +302,9 @@ int		ft_update_player(t_vars *vars);
 int		ft_update_move(int keycode, t_vars *vars);
 float	ft_calculate_new_x(float x, t_vars *vars);	
 float	ft_calculate_new_y(float y, t_vars *vars);
+
+		//****BMP****
+int		ft_save_bmp(t_vars *d);
 
 		//*****UTILS************
 void	ft_print_tab(char **tab);
