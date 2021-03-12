@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 11:10:21 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 11:27:30 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 12:09:03 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void		convert_trgb_bmp(t_bmp_color *pixel, t_vars *vars, int x, int y)
 {
 	int			color;
 	char		*dst;
-
+	
 	dst = vars->addr + (y * vars->line_len + x * (vars->bpp / 8));
-	color = *(unsigned int*)dst;
+	color = *(unsigned int*)dst; 
 	pixel->r = (color & 0xFFFF00) >> 16;
 	pixel->g = (color & 0xFF00) >> 8;
 	pixel->b = (color & 0xFF);
+
 }
 
 int			get_byte_correction(int win_width)
@@ -101,7 +102,7 @@ int		ft_save_bmp(t_vars *vars)
 	if (fill_file_header(vars, &fh) == 1)
 	{
 		x = 0;
-		fill_img_header(vars->img, &fh, fd, x);
+		fill_img_header(vars, &fh, fd, x);
 	}
 	close(fd);
 	if (fd == -1)

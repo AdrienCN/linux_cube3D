@@ -64,10 +64,7 @@ int             main(int argc, char **argv)
 
 void	ft_render_bmp_file(t_vars *vars)
 {
-
 	ft_cast_all_rays(vars);
-	
-	// draw 3D cube with my_mlx_pixel_put
 	ft_render_walls(vars, vars->rays);
 	ft_render_sprite(vars);
 	ft_save_bmp(vars);	
