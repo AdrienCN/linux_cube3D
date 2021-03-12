@@ -6,7 +6,7 @@
 /*   By: adconsta <adconsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:51:20 by adconsta          #+#    #+#             */
-/*   Updated: 2021/03/03 11:11:18 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 13:55:32 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+# define VAL 0
 int		get_next_line(int fd, char **line);
 int		ft_gnlstrlen(char *str);
 void	ft_gnlstrncpy(char *dest, char *src, int n);

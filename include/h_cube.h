@@ -1,25 +1,24 @@
 #ifndef H_CUBE_H
-# define H_PARSING_H
+# define H_CUBE_H
 
 # include "../libft/libft.h"
+# include "get_next_line.h"
 # include <mlx.h>
 # include <math.h>
-# include "get_next_line.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 
 # define TRUE			1
-
 # define FALSE			0
 
 # define MAP_CHAR		"012 WSNE"
 
 // True Blue
-# define BLUE			0x000000FF
+//# define BLUE			0x000000FF
 // Green_BLUE
-//# define BLUE			0x0000FF00	
+# define BLUE			0x0000FF00	
 # define GREEN			0x0000FF00	
 # define BLACK			0x00000000
 # define RED			0x00FF0000
