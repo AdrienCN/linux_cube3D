@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 20:02:28 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 22:57:13 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		ft_parsing_main(char *map_file_name, t_cube *cube)
 	int			fd;
 	int			error;
 
-	ft_mapinfo_init(cube);
 	if ((error = ft_check_file_ext_name(map_file_name, ".cub")))
 		return (ft_parsing_error_msg(1, -4));
 	if ((error = ft_is_file_readable(map_file_name)))
@@ -36,41 +35,10 @@ int		ft_parsing_main(char *map_file_name, t_cube *cube)
 	return (0);
 }
 
-
-void	ft_free_doublearray(char **tab)
+void	ft_cube_null_init(t_cube *element)
 {
-	while (*tab)
-	{
-		free(*tab);
-		tab++;
-	}
-}
-
-void	ft_free_mapinfo(t_cube *element)
-{
-	if (element->north != NULL)
-		free(element->north);
-	if (element->east != NULL)
-		free(element->east);
-	if (element->south != NULL)
-		free(element->south);
-	if (element->west != NULL)
-		free(element->west);
-	if (element->sprite != NULL)
-		free(element->sprite);
-	if (element->map != NULL)
-	{
-		ft_free_doublearray(element->map);
-		free(element->map);
-	}
-	if (element->gnl_line != NULL)
-		free(element->gnl_line);
-	if (element->m_line != NULL)
-		free(element->m_line);
-}
-
-void	ft_mapinfo_init(t_cube *element)
-{
+	//Supprimer les int qui ne sont pas des BOL ? sauf sprite count?
+	element->sprite_count = 0;
 	element->r_bol = 0;
 	element->r_x = 0;
 	element->r_y = 0;
@@ -122,6 +90,7 @@ void ft_print_mapinfo(t_cube *element)
 	printf("max_col = %d\n", element->max_col);
 	printf("m_line = {%s}\n", element->m_line);
 	printf("gnl_line = [%s]\n", element->gnl_line);
+	printf("sprite_count = %d\n", element->sprite_count);
 	if (element->map == NULL)
 		printf("element->map = (null)\n");
 	else

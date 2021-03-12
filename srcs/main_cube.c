@@ -30,13 +30,12 @@ int             main(int argc, char **argv)
 {
 	t_vars		vars;
 	
-	if (ft_parsing_args(&vars, argc, argv))
-		return (-1);
-	if (ft_parsing_main(argv[1], &vars.cube)
-			|| ft_init_game(&vars.cube, &vars))
+	ft_game_null_init(&vars);	
+	if (ft_parsing_args(&vars, argc, argv)
+		|| ft_parsing_main(argv[1], &vars.cube)
+		|| ft_init_game(&vars.cube, &vars))
 	{
-		// add free cube_struct
-		// free init game
+		ft_free_game(&vars);
 		return (-1);
 	}
 	
@@ -58,7 +57,7 @@ int             main(int argc, char **argv)
 	}
 
 	// Free common stuff
-	ft_free_mapinfo(&vars.cube);
+	ft_free_game(&vars);
 	printf("\nmain --> return (0);\n");
 	return (0);
 }
@@ -85,7 +84,7 @@ int		ft_update_screen(t_vars *vars)
 	// Draw minimap + rays
 	//ft_render_minimap(vars);
 
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->game.img, 0, 0);
 	ft_reset_sprites_visibility(vars, vars->sprite_count);
 	return (0);
 }

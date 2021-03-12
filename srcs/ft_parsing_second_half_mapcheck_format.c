@@ -3,17 +3,16 @@
 static int		ft_emptyline_vert_check(char **map);
 static int		ft_wall_closed_hze_check(char **map, int max_col);
 static int		ft_wall_closed_vert_check(char **map, int max_row);
-static int		ft_zero_in_void_check(char **map);
+static int		ft_zero_in_void_check(char **map, t_cube *cube);
 
-int		ft_check_fullmap_format(char **map, int max_col, int max_row)
+int		ft_check_fullmap_format(char **map, t_cube *cube)
 {
-	(void)max_row;
 	if (ft_emptyline_vert_check(map))
 		return (-6);
-	if (ft_wall_closed_hze_check(map, max_col) 
-			|| ft_wall_closed_vert_check(map, max_row))
+	if (ft_wall_closed_hze_check(map, cube->max_col) 
+			|| ft_wall_closed_vert_check(map, cube->max_row))
 		return (-7);
-	if (ft_zero_in_void_check(map))
+	if (ft_zero_in_void_check(map, cube))
 		return (-8);
 	return (0);
 }
@@ -90,7 +89,7 @@ static int		ft_wall_closed_vert_check(char **map, int max_row)
 	return (0);
 }
 
-static int		ft_zero_in_void_check(char **map)
+static int		ft_zero_in_void_check(char **map, t_cube *cube)
 {
 	int i;
 	int j;
@@ -101,6 +100,8 @@ static int		ft_zero_in_void_check(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
+			if (map[i][j] == '2')
+				cube->sprite_count++;
 			if (map[i][j] != '1' && map[i][j] != ' ')
 			{
 				if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ')

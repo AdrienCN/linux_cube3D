@@ -17,7 +17,7 @@ void		convert_trgb_bmp(t_bmp_color *pixel, t_vars *vars, int x, int y)
 	int			color;
 	char		*dst;
 	
-	dst = vars->addr + (y * vars->line_len + x * (vars->bpp / 8));
+	dst = vars->game.addr + (y * vars->game.line_len + x * (vars->game.bpp / 8));
 	color = *(unsigned int*)dst; 
 	pixel->r = (color & 0xFFFF00) >> 16;
 	pixel->g = (color & 0xFF00) >> 8;

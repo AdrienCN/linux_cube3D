@@ -1,16 +1,5 @@
 #include "h_cube.h"
 
-void			ft_init_color(t_cube *cube, t_vars *vars)
-{
-	vars->floor_color = create_trgb(0, 192, 192, 192);
-	vars->player_color = create_trgb(0, 255, 0, 0);
-	vars->wall_color = create_trgb(0, 0, 204, 0);
-	vars->sprite_color = create_trgb(0, 102, 255, 178);
-	vars->void_color = create_trgb(0, 0, 0, 0);
-	vars->ceil_color = create_trgb(0, cube->ceil.r, cube->ceil.g,
-									cube->ceil.b);
-}
-
 void	ft_perso_init(t_vars *vars)
 {
 	char compass;
@@ -35,7 +24,7 @@ void	ft_perso_init(t_vars *vars)
 	vars->player.y = TILE_SIZE * vars->cube.player_tmp.y + TILE_SIZE / 2;
 }
 
-void			ft_rays_init(t_vars *vars)
+int			ft_rays_init(t_vars *vars)
 {
 	int i;
 
@@ -46,7 +35,6 @@ void			ft_rays_init(t_vars *vars)
 
 	// Corriger cette valeur 
 	vars->ray_increment = FOV / vars->ray_num;
-
 	i = 0;
 	while (i < vars->ray_num)
 	{	
@@ -63,30 +51,29 @@ void			ft_rays_init(t_vars *vars)
 	}
 	return (0);
 }
-void			ft_text_init(t_vars *vars, t_text *text)
+
+int			ft_init_xpm_img(t_vars *vars, t_img *img, char *img_path)
 {
-	// Assign an Image instance for each text
-	text->north.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.north,
-				&text->north.width, &text->north.height);
-	text->east.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.east,
-				&text->east.width, &text->east.height);
-	text->south.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.south,
-				&text->south.width, &text->south.height);
-	text->west.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.west,
-				&text->west.width, &text->west.height);
-	text->sprite.img = mlx_xpm_file_to_image(vars->mlx, vars->cube.sprite,
-				&text->sprite.width, &text->sprite.height);
-	// Assign addr for each text & text_img
-	text->north.addr = mlx_get_data_addr(text->north.img, &text->north.bpp,
-			&text->north.line_len, &text->north.endian);
-	text->east.addr = mlx_get_data_addr(text->east.img, &text->east.bpp,
-			&text->east.line_len, &text->north.endian);
-	text->south.addr = mlx_get_data_addr(text->south.img, &text->south.bpp,
-			&text->south.line_len, &text->south.endian);
-	text->west.addr = mlx_get_data_addr(text->west.img, &text->west.bpp,
-			&text->west.line_len, &text->west.endian);
-	text->sprite.addr = mlx_get_data_addr(text->sprite.img, &text->sprite.bpp,
-			&text->sprite.line_len, &text->sprite.endian);
+	img->img = mlx_xpm_file_to_image(vars->mlx, img_path,
+				&img->width, &img->height);
+	if (img->img == NULL)
+		return (1);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, 
+			&img->line_len, &img->endian);
+	if (img->addr == NULL)
+		return (1);
+	return (0);
+}
+
+int			ft_text_init(t_vars *vars, t_text *text)
+{
+	if (ft_init_xpm_img(vars, &text->north, vars->cube.north)
+			|| ft_init_xpm_img(vars, &text->east, vars->cube.east)
+			|| ft_init_xpm_img(vars, &text->south, vars->cube.south)
+			|| ft_init_xpm_img(vars, &text->west, vars->cube.west)
+			|| ft_init_xpm_img(vars, &text->sprite, vars->cube.sprite))
+		return (1);
+	return (0);
 }
 
 int				ft_count_sprites_in_map(char **map)
@@ -127,13 +114,14 @@ void	ft_set_sprite_val(t_sprite *sprite, int i, int j)
 }
 		
 
-int		ft_init_sprite_array(t_vars *vars, char **map)
+int		ft_init_sprite(t_vars *vars, char **map)
 {
 	int i;
 	int j;
 	int count;
 
-	vars->sprite_count = ft_count_sprites_in_map(map);
+	//vars->sprite_count = ft_count_sprites_in_map(map);
+	vars->sprite_count = vars->cube.sprite_count;
 	vars->sprite_tab = malloc(sizeof(t_sprite) * vars->sprite_count);
 	if (vars->sprite_tab == NULL)
 		return (1);
@@ -177,68 +165,67 @@ void			ft_resolution_init(t_vars *vars, t_cube *cube)
 
 int				ft_set_basic_vars_val(t_vars *vars, t_cube *cube)
 {
+	//verifier que la resolution rentre dans l'ecran
 	ft_resolution_init(vars,cube);
-	ft_init_color(cube, vars);
+	// Mettre vrai valeur pour MINIMAP
+	vars->player_color = BLUE;
+	vars->wall_color = GREEN;
+	vars->sprite_color = ORANGE;
+	vars->void_color = BLACK;
+	vars->ceil_color = create_trgb(0, cube->ceil.r, cube->ceil.g, cube->ceil.b);
+	vars->floor_color = create_trgb(0, cube->floor.r, 
+			cube->floor.g, cube->floor.b);
 	ft_perso_init(vars);
 	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
-	if (ft_rays_init(vars))
+	if (ft_rays_init(vars)
+			|| ft_init_sprite(vars, vars->cube.map)
+			||ft_text_init(vars, &vars->text))
 		return (1);
-	if (ft_init_sprite_array(vars, vars->cube.map))
-	{
-		free(vars->rays);
-		return (1);
-	}
 	return (0);
 }
 
-void			ft_prepare_safe_free(vars)
+void			ft_game_null_init(t_vars *vars)
 {
 	vars->mlx = NULL;
-	vars->img = NULL;
-	vars->addr = NULL;
 	vars->win = NULL;
-
 	vars->rays = NULL;
 	vars->sprite_tab = NULL;
-	ft_free_img(vars->text.north);
-	etc...
+	vars->game.addr = NULL;
+	vars->game.img = NULL;
+	vars->text.north.addr = NULL;
+	vars->text.north.img = NULL;
+	vars->text.east.addr = NULL;
+	vars->text.east.img = NULL;
+	vars->text.south.addr = NULL;
+	vars->text.south.img = NULL;
+	vars->text.west.addr = NULL;
+	vars->text.west.img = NULL;
+	vars->text.sprite.addr = NULL;
+	vars->text.sprite.img = NULL;
+	ft_cube_null_init(&vars->cube);
 }
-
 
 int				ft_init_game(t_cube * cube, t_vars *vars)
 {
-	ft_prepare_safe_free(vars);
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
 		return (1);
 	// init values
 	if (ft_set_basic_vars_val(vars, cube))
-	{
-		free(vars->mlx);
 		return (1);
-	}
-	
-	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
-	if (vars->img == NULL)
-	{
-		free(vars->mlx);
+	vars->game.img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
+	if (vars->game.img == NULL)
 		return (1);
-	}
-
-	vars->addr = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len,
-                               &vars->endian);
-	if (vars->addr == NULL)
-	{
-		free(vars->mlx);
-		free(vars->img);
-	}
+	vars->game.addr = mlx_get_data_addr(vars->game.img, &vars->game.bpp, &vars->game.line_len,
+                               &vars->game.endian);
+	if (vars->game.addr == NULL)
+		return (1);
 	if (vars->bmp_save == 0)
 	{
 		vars->win = mlx_new_window(vars->mlx, vars->win_width, 
 			vars->win_height, "Adrien_cube");
+		if (vars->win == NULL)
+			return (1);
 	}
-
-	// Init text
-	ft_text_init(vars, &vars->text);
 	return (0);
 }

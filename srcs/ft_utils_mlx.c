@@ -6,17 +6,17 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:53:00 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 16:50:20 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 22:48:03 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-void            my_mlx_pixel_put(t_vars *data, int x, int y, int color)
+void            my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
     char    *dst;
 
-    dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+    dst = vars->game.addr + (y * vars->game.line_len + x * (vars->game.bpp / 8));
     *(unsigned int*)dst = color;
 }
 

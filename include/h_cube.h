@@ -123,6 +123,7 @@ typedef struct s_cube
 	t_perso player_tmp;
 	char *gnl_line;
 	char *m_line;
+	int  sprite_count;
 	int	 max_row;
 	int  max_col;
 	int	 map_start;
@@ -135,7 +136,6 @@ typedef		struct s_img
 {
 	void	*img;
 	void	*addr;
-	char	*path;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -206,14 +206,15 @@ typedef		struct s_vars
 	// Instance mlx
 	void		*mlx;
 	void		*win;
-
+	
 	// Img de l'instance mx soit du jeu globale
+	/*
 	void		*img;
 	char		*addr;
 	int			bpp;
 	int			line_len;
 	int			endian;
-
+*/
 	//BMP
 	int			bmp_save;
 
@@ -233,6 +234,7 @@ typedef		struct s_vars
 	float		tile_height;
 
 	//struct
+	t_img		game;
 	t_text		text;
 	t_cube		cube;
 	t_perso		player;
@@ -253,6 +255,7 @@ int		ft_first_parsing(int fd, t_cube *map_info);
 int		ft_try_assigning_value(char *line, t_cube *map_info);
 int		ft_assign_resolution(t_cube *element, char *line);
 int		ft_check_file_ext_name(char *filename, char *ext_name);
+// c ki lui ?
 int		ft_check_mapname(char *name);
 
 int		ft_rbg_rb_format(char *line);
@@ -270,7 +273,7 @@ char 	*ft_text_check_path(char *path);
 int		ft_second_parsing(int fd, t_cube *map_info);
 int		ft_isbase(char c, char *base);
 int		ft_empty_line(char *str);
-int		ft_check_fullmap_format(char **map, int max_col, int max_row);
+int		ft_check_fullmap_format(char **map, t_cube *cube);
 int		ft_make_oneline_map(int fd, t_cube *map_info);
 
 
@@ -293,10 +296,16 @@ void	ft_render_minimap(t_vars *vars);
 		//***Mini_MAP****
 				//Minimap_MAKER
 int		ft_update_screen(t_vars *vars);
-				//MINI_MAP_INIT
-void	ft_init_color(t_cube *cube, t_vars *vars);
+				//INIT
+				//
+void	ft_game_null_init(t_vars *vars);
+void	ft_cube_null_init(t_cube *cube);
 void	ft_perso_init(t_vars *vars);
 int		ft_init_game(t_cube *cube, t_vars *vars);
+
+		// FREE
+void	ft_free_game(t_vars *vars);
+void	ft_free_cube(t_cube *cube);
 				//Player_Movement_algo
 int		ft_update_player(t_vars *vars);
 int		ft_update_move(int keycode, t_vars *vars);
@@ -341,6 +350,8 @@ int		ft_is_sprite(float x, float y, t_vars *vars);
 		//TMP_UTILS
 void	ft_print_tab(char **tab);
 void	print_ray_info(t_rays *ray);
+
+		
 
 	//Error msg
 int		ft_parsing_error_msg(int class, int error);
