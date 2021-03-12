@@ -14,7 +14,7 @@ ALL_LIBS	=  -L libft/ -lft -L minilibx-linux/ -lmlx -lm -lX11 -lXext
 
 %.o: %.c $(DEPS) 
 #	$(CC) $(CFLAGS) $(INCL) -c $< -o $@ -I /usr/Include -I mlx_linux 
-	$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o ${<:.c=.o} 
+	$(CC) $(CFLAGS) $(ALL_HEADER) -c $< -o $@ 
 
 all: $(NAME)
 
