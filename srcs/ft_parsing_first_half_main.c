@@ -74,23 +74,3 @@ int		ft_assign_resolution(t_cube *map_info, char *line)
 	map_info->info_nbr += 1; 
 	return (0);
 }
-
-int		ft_check_file_ext_name(char *filename, char *ext_name)
-{
-	unsigned int i;
-
-	i = 0;
-	while (filename[i] !='\0')
-	{
-		if (filename[i] == '.')
-		{
-			if (filename[i + 1] != '.' && filename[i + 1] != '/')
-				break;
-		}
-		i++;
-	}
-	if (ft_strcmp(&filename[i], ext_name) == 0)
-		return (0);
-	printf("Error: not valid file. Use '%s' file\n", ext_name);
-	return (1);
-}

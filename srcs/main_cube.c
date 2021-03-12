@@ -18,7 +18,7 @@ int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 	{
 		if (ft_strcmp(argv[2], "--save") != 0)
 		{
-			printf("Error-Format :./cube3D [map_name.cub] [--save]\n");
+			printf("Error: second argument must be \"--save\"\n");
 			return (1);
 		}
 		vars->bmp_save = 1;
@@ -31,18 +31,12 @@ int             main(int argc, char **argv)
 	t_vars		vars;
 	
 	if (ft_parsing_args(&vars, argc, argv))
-	{
-		printf("Error in command line:");
 		return (-1);
-	}
-	if (ft_parsing_main(argv[1], &vars.cube))
+	if (ft_parsing_main(argv[1], &vars.cube)
+			|| ft_init_game(&vars.cube, &vars))
 	{
 		// add free cube_struct
-		return (-1);
-	}
-	if (ft_init_game(&vars.cube, &vars))
-	{
-		printf("Error while intializing game: ");
+		// free init game
 		return (-1);
 	}
 	

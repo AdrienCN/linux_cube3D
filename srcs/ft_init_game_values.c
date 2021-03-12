@@ -40,7 +40,8 @@ void			ft_rays_init(t_vars *vars)
 	int i;
 
 	vars->rays = malloc(sizeof(t_rays) * vars->win_width);
-	vars->colorbuf = malloc(sizeof(int) * (vars->win_width * vars->win_height));
+	if (vars->rays == NULL)
+		return (1);
 	vars->ray_num = vars->win_width;
 
 	// Corriger cette valeur 
@@ -60,6 +61,7 @@ void			ft_rays_init(t_vars *vars)
 		vars->rays[i].rayisright = 0;
 		i++;
 	}
+	return (0);
 }
 void			ft_text_init(t_vars *vars, t_text *text)
 {
@@ -125,7 +127,7 @@ void	ft_set_sprite_val(t_sprite *sprite, int i, int j)
 }
 		
 
-void	ft_init_sprite_array(t_vars *vars, char **map)
+int		ft_init_sprite_array(t_vars *vars, char **map)
 {
 	int i;
 	int j;
@@ -133,6 +135,8 @@ void	ft_init_sprite_array(t_vars *vars, char **map)
 
 	vars->sprite_count = ft_count_sprites_in_map(map);
 	vars->sprite_tab = malloc(sizeof(t_sprite) * vars->sprite_count);
+	if (vars->sprite_tab == NULL)
+		return (1);
 	i = 0;
 	count = 0;
 	while (map[i] && count < vars->sprite_count)
@@ -149,6 +153,7 @@ void	ft_init_sprite_array(t_vars *vars, char **map)
 		}
 		i++;
 	}
+	return (0);
 }
 
 void			ft_resolution_init(t_vars *vars, t_cube *cube)
@@ -158,9 +163,7 @@ void			ft_resolution_init(t_vars *vars, t_cube *cube)
 
 	vars->win_width = cube->r_x;
 	vars->win_height = cube->r_y;
-	if (vars->bmp_save == 1)
-		return;
-	else
+	if (vars->bmp_save == 0)
 	{
 		mlx_get_screen_size(vars->mlx, &screen_width, &screen_height);
 		if (screen_height < cube->r_y)
@@ -168,29 +171,67 @@ void			ft_resolution_init(t_vars *vars, t_cube *cube)
 		if (screen_width < cube->r_x)
 			vars->win_width = screen_width;
 	}
+	printf("win_width = %d | win_height = %d \n", vars->win_width, 
+			vars->win_height);
 }
+
+int				ft_set_basic_vars_val(t_vars *vars, t_cube *cube)
+{
+	ft_resolution_init(vars,cube);
+	ft_init_color(cube, vars);
+	ft_perso_init(vars);
+	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
+	if (ft_rays_init(vars))
+		return (1);
+	if (ft_init_sprite_array(vars, vars->cube.map))
+	{
+		free(vars->rays);
+		return (1);
+	}
+	return (0);
+}
+
+void			ft_prepare_safe_free(vars)
+{
+	vars->mlx = NULL;
+	vars->img = NULL;
+	vars->addr = NULL;
+	vars->win = NULL;
+
+	vars->rays = NULL;
+	vars->sprite_tab = NULL;
+	ft_free_img(vars->text.north);
+	etc...
+}
+
 
 int				ft_init_game(t_cube * cube, t_vars *vars)
 {
+	ft_prepare_safe_free(vars);
 	vars->mlx = mlx_init();
-	ft_resolution_init(vars,cube);
-
-	printf("win_width = %d | win_height = %d \n", vars->win_width, vars->win_height);
+	if (vars->mlx == NULL)
+		return (1);
 	// init values
-	ft_init_color(cube, vars);
-	ft_perso_init(vars);
-	ft_rays_init(vars);
-	ft_init_sprite_array(vars, vars->cube.map);
-
-	printf("sprite_count = %d\n", vars->sprite_count);
+	if (ft_set_basic_vars_val(vars, cube))
+	{
+		free(vars->mlx);
+		return (1);
+	}
 	
-	//efface le player de la carte
-	cube->map[(int)cube->player_tmp.y][(int)cube->player_tmp.x] = '0';
-
-	// Init mlx_instances
 	vars->img = mlx_new_image(vars->mlx, vars->win_width, vars->win_height);
+	if (vars->img == NULL)
+	{
+		free(vars->mlx);
+		return (1);
+	}
+
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len,
                                &vars->endian);
+	if (vars->addr == NULL)
+	{
+		free(vars->mlx);
+		free(vars->img);
+	}
 	if (vars->bmp_save == 0)
 	{
 		vars->win = mlx_new_window(vars->mlx, vars->win_width, 

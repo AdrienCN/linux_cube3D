@@ -8,6 +8,7 @@ int		ft_rgb_val(t_rgb *ceiloor, char *line)
 	if (ceiloor->state == 1)
 		return (-5);
 	ceiloor->state = 1;
+	printf("line =%s\n", line);
 	while (count < 3)
 	{
 		while (*line == ' ' || *line == ',')
@@ -18,7 +19,8 @@ int		ft_rgb_val(t_rgb *ceiloor, char *line)
 			ceiloor->g = ft_atoi(line);
 		else if (count == 2)
 			ceiloor->b = ft_atoi(line);
-		line += 3;
+		while (ft_isdigit(*line))
+			line++;
 		count++;
 	}
 	return (0);

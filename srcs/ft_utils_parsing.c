@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing_utils.c                                 :+:      :+:    :+:   */
+/*   ft_utils_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:04:20 by calao             #+#    #+#             */
-/*   Updated: 2021/02/01 16:07:32 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/12 20:00:33 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,43 @@ int		ft_empty_line(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int		ft_check_file_ext_name(char *filename, char *ext_name)
+{
+	unsigned int i;
+
+	i = 0;
+	while (filename[i] !='\0')
+	{
+		if (filename[i] == '.')
+		{
+			if (filename[i + 1] != '.' && filename[i + 1] != '/')
+				break;
+		}
+		i++;
+	}
+	if (ft_strcmp(&filename[i], ext_name) == 0)
+		return (0);
+	printf("Error: not valid file. Use '%s' file\n", ext_name);
+	return (1);
+}
+
+int		ft_is_file_readable(char *file_path)
+{
+	int fd;
+	int ret;
+	char buf;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	ret = read(fd, &buf, 1);
+	if (ret < 0)
+		return (-2);
+	close(fd);
+	if (fd < 0)
+		return (-3);
+	return (0);
 }
 

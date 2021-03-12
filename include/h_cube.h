@@ -220,7 +220,6 @@ typedef		struct s_vars
 	// raycasting utils	
 	int			sprite_count;
 	int			ray_num;
-	int			*colorbuf;
 	int			player_color;
 	int			wall_color;
 	int			floor_color;
@@ -342,5 +341,8 @@ int		ft_is_sprite(float x, float y, t_vars *vars);
 		//TMP_UTILS
 void	ft_print_tab(char **tab);
 void	print_ray_info(t_rays *ray);
+
+	//Error msg
+int		ft_parsing_error_msg(int class, int error);
 
 #endif
