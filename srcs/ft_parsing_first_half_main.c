@@ -6,9 +6,10 @@ int		ft_first_parsing(int fd, t_cube *cube)
 	char	*line;
 	int		error;
 
-	while (get_next_line(fd, &line, &cube->gnl_leak_proof) > 0 
-			&& cube->info_nbr < 8)
+	while (cube->info_nbr < 8 
+		&& get_next_line(fd, &line, &cube->gnl_leak_proof) > 0) 
 	{
+		printf("prev line = [%s]\n", line);
 		if ((error = ft_try_assigning_value(line, cube)))
 		{
 			free(line);
@@ -16,7 +17,7 @@ int		ft_first_parsing(int fd, t_cube *cube)
 		}
 		free(line);
 	}
-	free(line);
+//	free(line);
 	if (cube->info_nbr < 8)
 		return (-6);
 	return (0);
@@ -28,8 +29,10 @@ int		ft_try_assigning_value(char *line, t_cube *cube)
 		 line++;
 	if (*line == '\0')
 		return (0);
+	printf("strncmp(\"R \", [%.2s]\n", line); 
 	if (ft_strncmp("R ", line, 2) == 0)
 		return (ft_assign_resolution(cube, line + 1));
+	printf("strncmp(\"NO \", [%.3s]\n", line); 
 	if (ft_strncmp("NO ", line, 3) == 0)
 		return (ft_text_assign(1, cube, line + 2));
 	if (ft_strncmp("EA ", line, 3) == 0)

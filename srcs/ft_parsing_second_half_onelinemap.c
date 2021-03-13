@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 12:08:43 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 12:41:59 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		ft_make_oneline_map(int fd, t_cube *cube)
 	while (get_next_line(fd, &cube->gnl_line, &cube->gnl_leak_proof) > 0)
 	{
 		line = cube->gnl_line;
+		printf("line = [%s]\n", line);
 		if (cube->map_start == TRUE && ft_empty_line(line) == FALSE)
 			cube->map_start = FALSE;
 		if (cube->map_start == FALSE && cube->map_end == FALSE)
@@ -38,6 +39,8 @@ int		ft_make_oneline_map(int fd, t_cube *cube)
 			return (-4);
 		free(line);
 	}
+	if (cube->player_tmp.cardinal == '0')
+		return (-9);
 	if (cube->max_col == 0 || cube->max_row == 0)
 		return (-5);
 	return (0);

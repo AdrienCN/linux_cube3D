@@ -5,6 +5,8 @@
 #define KEYRELEASE	1L << 1
 #define EXIT_GAME	1L << 17
 
+void ft_print_mapinfo(t_cube *element);
+
 int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 {
 	vars->bmp_save = 0;
@@ -52,17 +54,16 @@ int             main(int argc, char **argv)
 	if (ft_parsing_args(&vars, argc, argv)
 			|| ft_parsing_main(argv[1], &vars.cube))
 	{
+		ft_print_mapinfo(&vars.cube);
 		ft_free_game(&vars);
 		return (-1);
 	}
-
-
 	printf("parsing ok\n");
-	
 	if (ft_init_game(&vars.cube, &vars))
 	{
+		ft_free_game(&vars);
 		printf("Error while initializing game structures.\n");
-		return (1);
+		return (-1);
 	}
 	printf("Init ok\n");
 	ft_start_game(&vars);

@@ -7,6 +7,22 @@ static int		ft_zero_in_void_check(char **map, t_cube *cube);
 
 int		ft_check_fullmap_format(char **map, t_cube *cube)
 {
+	int i;
+	int j;
+	i = 0;
+	printf("\n");
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			printf("|%c|", map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+
 	if (ft_emptyline_vert_check(map))
 		return (-6);
 	if (ft_wall_closed_hze_check(map, cube->max_col) 

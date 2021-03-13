@@ -17,9 +17,10 @@ int		ft_text_assign(int arrow, t_cube *map_info, char *line)
 	
 	if (ft_text_check_format(line))
 		return (-4);
+	printf("texture _format ok\n");
 	path = ft_text_check_path(line);
 	if (path == NULL)
-		return (-4);
+		return (-8);
 	map_info->info_nbr += 1;
 	if (arrow == 1)
 		return(ft_text_give_val(&map_info->north, path));

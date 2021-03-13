@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:01:42 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 20:10:15 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 14:04:58 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_class_two_error(int error)
 		printf("missing information to create map.\n");
 	else if (error == -7)
 		printf("a line could not be assigned to any of the expected value.\n");
+	else if (error == -8)
+		printf("a texture file does not exit or is not readable.\n");
 	else
 		printf("well this error is unknown...awkward\n");
 
@@ -61,6 +63,8 @@ void	ft_class_three_error(int error)
 		printf("wall missing. Map border must '1' only.\n");	
 	else if (error == -8)
 		printf("0 in contact with void.\n");
+	else if (error == -9)
+		printf("missing player in map grid.\n");
 	else
 		printf("well this error is unknown...awkward\n");
 }
@@ -68,7 +72,8 @@ void	ft_class_three_error(int error)
 int		ft_parsing_error_msg(int class, int error)
 {
 	printf("class = %d |  error = %d\n", class, error);
-	printf("Parsing error: ");
+	printf("Error\n");
+	printf("Parsing: ");
 	if (class == 1)
 		ft_class_one_error(error);
 	if (class == 2)

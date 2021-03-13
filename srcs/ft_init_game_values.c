@@ -168,6 +168,8 @@ int				ft_set_basic_vars_val(t_vars *vars, t_cube *cube)
 	//verifier que la resolution rentre dans l'ecran
 	ft_resolution_init(vars,cube);
 	// Mettre vrai valeur pour MINIMAP
+	vars->tile_size = 0.5 * vars->win_height;
+	vars->move_speed = 0.2 * vars->tile_size;
 	vars->player_color = BLUE;
 	vars->wall_color = GREEN;
 	vars->sprite_color = ORANGE;

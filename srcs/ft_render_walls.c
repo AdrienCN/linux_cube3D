@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 16:47:22 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 14:16:09 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_render_walls(t_vars *vars, t_rays *ray)
 		pos_in_wall = 0;
 			while (y < ray[x].wall_start)
 			{
-				my_mlx_pixel_put(vars, x, y, BLUE);
+				my_mlx_pixel_put(vars, x, y, vars->ceil_color);
 				y++;
 			}
 			while (y >= ray[x].wall_start && y <= ray[x].wall_end)
@@ -83,7 +83,7 @@ void	ft_render_walls(t_vars *vars, t_rays *ray)
 			}
 			while (y < vars->win_height)
 			{
-				my_mlx_pixel_put(vars, x, y, GREEN);
+				my_mlx_pixel_put(vars, x, y, vars->floor_color);
 				y++;
 			}
 		x++;

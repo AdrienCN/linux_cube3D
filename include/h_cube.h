@@ -14,10 +14,7 @@
 
 # define MAP_CHAR		"012 WSNE"
 
-// True Blue
-//# define BLUE			0x000000FF
-// Green_BLUE
-# define BLUE			0x0000FF00	
+# define BLUE			0x000000FF
 # define GREEN			0x0000FF00	
 # define BLACK			0x00000000
 # define RED			0x00FF0000
@@ -26,11 +23,13 @@
 # define GREY			0x00D3D3D3
 
 # define MINIMAP_SCALE	0.3	
+
+// a supprimer ?
 # define STEP_LEN		5
-# define TILE_SIZE		200.0
+# define RAY_STEP		0.5	
+# define TILE_SIZE		2000.0
 
 # define FOV			66.0
-# define RAY_STEP		0.5	
 # define MOVE_SPEED		0.1 * TILE_SIZE
 # define ROT_SPEED		10 * (M_PI / 180)
 # define PI				M_PI
@@ -219,6 +218,8 @@ typedef		struct s_vars
 	//BMP
 	int			bmp_save;
 
+	float		move_speed;
+	float		tile_size;
 	// raycasting utils	
 	int			sprite_count;
 	int			ray_num;

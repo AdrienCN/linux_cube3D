@@ -1,22 +1,6 @@
-1) Proteger les Malloc et Mlx Init
-	-> Parsing
-	-> Game_loop
-
-1.bis) Free proprement
-	->Parsing
-	->game_loop
-
-2)Reparer Parsing:
-	-> READ : .cub, les textures path
-	->Probleme ci dessous
-
 3) Reparer la game init:
 	Check que la map parse, rentre dans la resolution donne
 	definir valeur TILE_SIZE en fonction de la res ou de la grille
-
-4) Autre
-	->Implementer exit croix rouge
-
 
 5) Rajouter Bonus ?
 	-> Minimap
@@ -28,39 +12,9 @@
 	->Sol et ciel texture?
 
 
-
-
-
-
-
-
--Gerer le potentiel leak de storage dans GNL
--Gerer les return 0 ou -1  en cas d'erreur dans le parsing.
--Creer messages d'erreur personnalise
--Verifier que READ de mes paths sont > 0
 -Utilite de la var 'found_wall' dans les calcul de vert et horz hit ?
 -Utiite d'initialiser l'arrray de ray[NUM_RAY] ?
 -Proteger contre le fait de trouver un espace ?
 
 -Supprimer le INT_MAX dans le calcul de ray_vert/horz_hit distance (ft_cast_allrays)
 -Supprimer tile_height et tile_width
-
-PROBLEME: demarre sans signaler faute -> absence de joueur.
-
-R 900 700
-NO ./texture/path_to_north_texture.xpm
-SO ./texture/path_to_south_texture.xpm
-WE ./texture/path_to_west_texture.xpm
-EA ./texture/path_to_east_texture.xpm
-
-S ./texture/path_to_sprite_texture.xpm
-
-F 220,100,0
-C 225,30,0
-
-111111111
-1000020001
-1000000001
-100020001
-111111111
-
