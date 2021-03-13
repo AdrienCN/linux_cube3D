@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 15:54:38 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 18:22:34 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 12:08:43 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@ static int	ft_make_oneline_map_two(char *gnl_line, t_cube *map);
 static char	*ft_cube_strjoin(char const *s1, char const *sep, char const *s2);
 static int	ft_line_char_check(char *line, char *base, t_cube *map_info);
 
-int		ft_make_oneline_map(int fd, t_cube *map_info)
+int		ft_make_oneline_map(int fd, t_cube *cube)
 {
 	char	*line;
 	int		error;
 
-	while (get_next_line(fd, &map_info->gnl_line) > 0)
+	while (get_next_line(fd, &cube->gnl_line, &cube->gnl_leak_proof) > 0)
 	{
-		line = map_info->gnl_line;
-		if (map_info->map_start == TRUE && ft_empty_line(line) == FALSE)
-			map_info->map_start = FALSE;
-		if (map_info->map_start == FALSE && map_info->map_end == FALSE)
+		line = cube->gnl_line;
+		if (cube->map_start == TRUE && ft_empty_line(line) == FALSE)
+			cube->map_start = FALSE;
+		if (cube->map_start == FALSE && cube->map_end == FALSE)
 		{
 			if (ft_empty_line(line) == TRUE)
-				map_info->map_end = TRUE;
-			else if ((error = ft_make_oneline_map_two(line, map_info)))
+				cube->map_end = TRUE;
+			else if ((error = ft_make_oneline_map_two(line, cube)))
 				return (error);
 		}
-		else if (map_info->map_end == TRUE && ft_empty_line(line) == FALSE)
+		else if (cube->map_end == TRUE && ft_empty_line(line) == FALSE)
 			return (-4);
 		free(line);
 	}
-	if (map_info->max_col == 0 || map_info->max_row == 0)
+	if (cube->max_col == 0 || cube->max_row == 0)
 		return (-5);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 22:27:02 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 23:57:54 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 12:07:16 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_free_doublearray(char **tab)
 
 void	ft_free_cube(t_cube *element)
 {
+	if (element->gnl_leak_proof)
+		free(element->gnl_leak_proof);
 	if (element->north != NULL)
 		free(element->north);
 	if (element->east != NULL)

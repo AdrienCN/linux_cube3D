@@ -74,7 +74,10 @@ char 	*ft_text_check_path(char *path)
 		return (NULL);
 	}
 	if (ft_is_file_readable(stock))
+	{
+		free(stock);
 		return (NULL);
+	}
 	return (stock);
 }
 

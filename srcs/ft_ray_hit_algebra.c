@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:05 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 10:00:15 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 10:26:28 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ void	ft_set_sprite_to_visible(t_vars *vars, float x, float y)
 				&& vars->sprite_tab[i].col == col)
 		{
 			vars->sprite_tab[i].is_visible = 1;
-			//Set ray_sprite_dist?
-			
-			//Set ray_sprite_angle?
-
-			//Set ray_sprite_height ?
 			return;
 		}
 		i++;

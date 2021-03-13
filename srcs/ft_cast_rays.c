@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 11:08:21 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 10:23:47 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ft_set_rayprojection_val(t_rays *ray, float screen_dist, t_vars *vars)
 		ray->wall_end = vars->win_height;
 }
 		
-
 void	ft_cast_all_rays(t_vars *vars)
 {
 	float ray_angle;

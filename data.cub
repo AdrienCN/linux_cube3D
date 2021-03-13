@@ -1,4 +1,4 @@
-R 900 900
+R 90u0 900
 
 NO ./texture/mountain.xpm
 EA ./texture/mountain.xpm
@@ -19,3 +19,5 @@ C 225,30,0
 10100S1001
 1200000021
  11111111
+
+

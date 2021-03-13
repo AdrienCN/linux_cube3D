@@ -1,8 +1,9 @@
 #include "h_cube.h"
 
 
-#define KEYPRESS	1L<<0
-#define KEYRELEASE	1L<<1
+#define KEYPRESS	1L << 0
+#define KEYRELEASE	1L << 1
+#define EXIT_GAME	1L << 17
 
 int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 {
@@ -23,6 +24,7 @@ int				ft_parsing_args(t_vars *vars, int argc, char **argv)
 	}
 	return (0);
 }
+
 void			ft_start_game(t_vars *vars)
 {
 	if (vars->bmp_save)
@@ -34,10 +36,10 @@ void			ft_start_game(t_vars *vars)
 	}
 	else
 	{
-		//implementer croix rouge
-		mlx_loop_hook(vars->mlx, ft_update_screen, vars);
+		mlx_hook(vars->win, 33, EXIT_GAME, &mlx_loop_end, vars->mlx);
 		mlx_hook(vars->win, 2, KEYPRESS, ft_update_move, vars);
 		mlx_hook(vars->win, 3, KEYRELEASE, ft_reset_player, vars);
+		mlx_loop_hook(vars->mlx, ft_update_screen, vars);
 		mlx_loop(vars->mlx);
 	}
 }
@@ -53,13 +55,15 @@ int             main(int argc, char **argv)
 		ft_free_game(&vars);
 		return (-1);
 	}
+
+
+	printf("parsing ok\n");
 	
 	if (ft_init_game(&vars.cube, &vars))
 	{
 		printf("Error while initializing game structures.\n");
 		return (1);
 	}
-		
 	printf("Init ok\n");
 	ft_start_game(&vars);
 	printf("before freeing the game\n");

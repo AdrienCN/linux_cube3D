@@ -118,6 +118,7 @@ typedef struct s_cube
 	char *west;
 	char *south;
 	char *sprite;
+	char *gnl_leak_proof;
 	t_rgb floor;
 	t_rgb ceil;
 	t_perso player_tmp;

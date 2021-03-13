@@ -6,7 +6,7 @@
 /*   By: adconsta <adconsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:43:32 by adconsta          #+#    #+#             */
-/*   Updated: 2021/01/28 19:17:55 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 12:00:37 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		read_file(char **storage, char **line, char *buf, int fd)
 	return (res);
 }
 
-int		get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line, char **security)
 {
 	static char *storage[256];
 	char		*buf;
@@ -98,5 +98,6 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	res = read_file(storage, line, buf, fd);
 	free(buf);
+	*security = storage[fd];
 	return (res);
 }

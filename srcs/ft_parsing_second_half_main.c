@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 22:41:28 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 12:09:21 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		ft_second_parsing(int fd, t_cube *cube)
 
 	if ((error = ft_make_oneline_map(fd, cube)))
 		return (error);
+	if (close(fd) < 0)
+		return (ft_parsing_error_msg(1, -3));
 	cube->map = ft_create_mapgrid(cube->m_line, cube->max_row, cube->max_col);
 	if (cube->map == NULL)
 		return (-3);
