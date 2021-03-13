@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:18:20 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 12:08:46 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 17:16:53 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,40 +31,6 @@ int		ft_parsing_main(char *map_file_name, t_cube *cube)
 	ft_print_mapinfo(cube);
 	printf("----------------------------------\n");
 	return (0);
-}
-
-void	ft_cube_null_init(t_cube *element)
-{
-	//Supprimer les int qui ne sont pas des BOL ? sauf sprite count?
-	element->sprite_count = 0;
-	element->r_bol = 0;
-	element->r_x = 0;
-	element->r_y = 0;
-	element->floor.state = 0;
-	element->floor.r = 0;
-	element->floor.g = 0;
-	element->floor.b = 0;
-	element->player_tmp.cardinal = '0';
-	element->player_tmp.x = 0;
-	element->player_tmp.y = 0;
-	element->ceil.state = 0;
-	element->ceil.r = 0;
-	element->ceil.g = 0;
-	element->ceil.b = 0;
-	element->map_start = TRUE;
-	element->map_end = FALSE;
-	element->max_row = 0;
-	element->max_col = 0;
-	element->gnl_leak_proof = NULL;
-	element->map = NULL;
-	element->gnl_line = NULL;
-	element->m_line = NULL;
-	element->north = NULL;
-	element->east = NULL;
-	element->south = NULL;
-	element->west = NULL;
-	element->sprite = NULL;
-	element->info_nbr = 0;
 }
 
 void ft_print_mapinfo(t_cube *element)
@@ -103,6 +69,5 @@ void ft_print_mapinfo(t_cube *element)
 			i++;
 		}
 		printf("\n____________________________:\n");
-		ft_print_tab(element->map);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:05 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 10:26:28 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 16:35:34 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 
 	x = vars->player.x;
 	y = vars->player.y;
-	// Trouver une parade a INT_MAX
 	vert->distance = INT_MAX;
-	vert->found_wall = -1;
 	vert->x_inter = ((int)(x / TILE_SIZE)) * TILE_SIZE ;
 	if (ray->rayisright)
 		vert->x_inter += TILE_SIZE;
@@ -67,9 +65,7 @@ void	ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray)
 
 	x = vars->player.x;
 	y = vars->player.y;
-	// Trouver une parade a INT_MAX
 	horz->distance = INT_MAX;
-	horz->found_wall = -1;
 	horz->y_inter = ((int)(y / TILE_SIZE)) * TILE_SIZE ;
 	if (ray->rayisdown)
 		horz->y_inter += TILE_SIZE;
@@ -106,7 +102,6 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 			horz->wallhitx = horz->next_x;
 			horz->wallhity = horz->next_y;
 			horz->distance = ft_get_distance(x1, y1, horz->next_x, horz->next_y);
-			horz->found_wall = 1;
 			return;
 		}
 		horz->next_x += horz->x_step;
@@ -134,7 +129,6 @@ void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 			vert->wallhitx = vert->next_x;
 			vert->wallhity = vert->next_y;
 			vert->distance = ft_get_distance(x1, y1, vert->next_x, vert->next_y);
-			vert->found_wall = 1;
 			return;
 		}
 		vert->next_x += vert->x_step;

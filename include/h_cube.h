@@ -22,16 +22,12 @@
 # define WHITE			0x00FFFFFF
 # define GREY			0x00D3D3D3
 
-# define MINIMAP_SCALE	0.3	
-
-// a supprimer ?
-# define STEP_LEN		5
-# define RAY_STEP		0.5	
-# define TILE_SIZE		2000.0
+# define MINIMAP_SCALE	0.2	
+# define TILE_SIZE		100.0
 
 # define FOV			66.0
-# define MOVE_SPEED		0.1 * TILE_SIZE
-# define ROT_SPEED		10 * (M_PI / 180)
+# define MOVE_SPEED		0.05 * TILE_SIZE
+# define ROT_SPEED		2 * (M_PI / 180)
 # define PI				M_PI
 # define TWO_PO			M_PI * 2
 # define INT_MAX		2147483647
@@ -63,7 +59,6 @@ typedef struct s_inter
 	float	y_inter;
 	float	next_x;
 	float	next_y;
-	int		found_wall;
 	float	wallhitx;
 	float	wallhity;
 	float	distance;
@@ -100,8 +95,8 @@ typedef struct s_perso
 	char cardinal;
 	float		x;
 	float		y;
-	int		vert_walk; // si w y + 1 | si  s  y - 1
-	int		hze_walk; // pareil avec x
+	int		vert_walk;
+	int		hze_walk;
 	int		turn;
 	int		exit;
 	float	angle;
@@ -207,31 +202,16 @@ typedef		struct s_vars
 	void		*mlx;
 	void		*win;
 	
-	// Img de l'instance mx soit du jeu globale
-	/*
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			line_len;
-	int			endian;
-*/
 	//BMP
 	int			bmp_save;
 
-	float		move_speed;
-	float		tile_size;
 	// raycasting utils	
 	int			sprite_count;
 	int			ray_num;
-	int			player_color;
-	int			wall_color;
 	int			floor_color;
 	int			ceil_color;
-	int			sprite_color;
-	int			void_color;
 	int			win_height;
 	int			win_width;
-	float		ray_increment;
 	float		tile_width;
 	float		tile_height;
 
@@ -320,8 +300,11 @@ int		ft_save_bmp(t_vars *d);
 		//*****UTILS************
 void	ft_print_tab(char **tab);
 int		ft_is_file_readable(char *file_path);
+void	ft_cube_null_init(t_cube *element);
+void	ft_set_sprite_val(t_sprite *sprite, int i, int j);
+int			ft_init_xpm_img(t_vars *vars, t_img *img, char *img_path);
+void			ft_game_null_init(t_vars *vars);
 
-		
 		//RESET VAL
 int			ft_reset_player(int keycode, t_vars *vars);
 void		ft_reset_sprites_visibility(t_vars *vars, int sprite_count);
@@ -340,8 +323,7 @@ int		ft_get_xpm_pixel_value(t_img *img, int x, int y);
 
 		//SHAPE_PRINT
 void	ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid, int color);
-void	ft_render_line_gpetit(float x, float y, t_vars *vars, float ray_angle);
-void	ft_render_line_dda(t_vars *vars, t_rays ray, float x1, float y1);
+void	ft_render_line_gpetit(t_vars *vars, float ray_angle, float x, float y);
 
 		// COLLISION_UTILS
 int		ft_map_content(float x, float y, t_vars *vars);

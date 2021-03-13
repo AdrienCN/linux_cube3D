@@ -86,7 +86,7 @@ int		ft_update_move(int keycode, t_vars *vars)
 		vars->player.turn = -1;
 	else if (c == ESCAPE)
 		vars->player.exit = 1;
-	printf("key_pressed = %d|\n", keycode);
+	//printf("key_pressed = %d|\n", keycode);
 	ft_update_player(vars);
 	return (1);
 }

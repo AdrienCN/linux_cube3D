@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:01:42 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 14:04:58 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 16:34:44 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_class_two_error(int error)
 		printf("a line could not be assigned to any of the expected value.\n");
 	else if (error == -8)
 		printf("a texture file does not exit or is not readable.\n");
+	else if (error == -9)
+		printf("resolution values are too low.Min height: 2, min width: 2.\n");
 	else
 		printf("well this error is unknown...awkward\n");
 

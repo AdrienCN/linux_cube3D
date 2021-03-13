@@ -1,6 +1,6 @@
 #include "h_cube.h"
 
-static	void	ft_set_sprite_val(t_vars *vars, t_sprite *sprite)
+static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 {
 	float	screen_dist;
 
@@ -111,7 +111,7 @@ void	ft_render_sprite(t_vars *vars)
 	while (i < vars->sprite_count)
 	{
 		if (vars->sprite_tab[i].is_visible)
-			ft_set_sprite_val(vars, &vars->sprite_tab[i]);
+			ft_get_sprite_val(vars, &vars->sprite_tab[i]);
 		i++;
 	}
 	ft_sort_sprite_by_dist(vars, vars->sprite_tab);

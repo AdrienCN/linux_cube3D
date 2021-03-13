@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 17:46:37 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 16:47:53 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static	int		ft_render_tile_color(float x, float y, char c, t_vars *vars)
 {
 	int test;
 	int	color;
+	(void)vars;
 
 	test = TILE_SIZE * MINIMAP_SCALE;
 	if ((int)y % test == 0)
@@ -23,17 +24,17 @@ static	int		ft_render_tile_color(float x, float y, char c, t_vars *vars)
 	else if ((int)x % test == 0)
 		color = BLACK;
 	else if (c == ' ')
-		color = vars->void_color;
+		color = WHITE;
 	else if (c == '0')
-		color = vars->floor_color;
+		color = WHITE;
 	else if (c == '1')
-		color = vars->wall_color;
+		color = GREEN;
 	else if (ft_isbase(c, "NESW"))
-		color = vars->player_color;
+		color = BLUE;
 	else if (c == '2')
-		color = vars->sprite_color;
+		color = RED;
 	else
-		color = vars->void_color;
+		color = GREY;
 	return (color);
 }
 
@@ -72,10 +73,10 @@ static	void			ft_render_player(t_vars *vars)
 	int square_w;
 	int start_y;
 	int start_x;
-	square_h = (TILE_SIZE / 2) * MINIMAP_SCALE;
-	square_w = (TILE_SIZE / 2) * MINIMAP_SCALE;
-	start_y = (vars->player.y - TILE_SIZE / 4) * MINIMAP_SCALE;
-	start_x = (vars->player.x - TILE_SIZE / 4) * MINIMAP_SCALE;
+	square_h = TILE_SIZE * MINIMAP_SCALE;
+	square_w = TILE_SIZE * MINIMAP_SCALE;
+	start_y = (vars->player.y - TILE_SIZE / 2) * MINIMAP_SCALE;
+	start_x = (vars->player.x - TILE_SIZE / 2) * MINIMAP_SCALE;
 	ft_draw_square(vars, start_y, start_x, square_h, square_w, BLUE);
 }
 
@@ -90,11 +91,7 @@ void	ft_render_all_rays(t_vars *vars)
 	y = vars->player.y;
 	while (i < vars->ray_num)
 	{
-		//SEUL qui fonctionne
-	//	ft_render_line_gpetit(x, y, vars, vars->rays[i].angle);
-	
-		// Fonctionne mais apparence etrange sur cadran sup et gauche	
-		ft_render_line_dda(vars, vars->rays[i], x, y);
+		ft_render_line_gpetit(vars, vars->rays[i].angle, x, y);
 		i++;
 	}
 }
@@ -105,6 +102,6 @@ void	ft_render_minimap(t_vars *vars)
 
 	map = vars->cube.map;
 	ft_render_grid(vars->cube, vars, map);
-	ft_render_all_rays(vars);
+//	ft_render_all_rays(vars);
 	ft_render_player(vars);
 }

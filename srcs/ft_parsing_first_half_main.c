@@ -17,9 +17,10 @@ int		ft_first_parsing(int fd, t_cube *cube)
 		}
 		free(line);
 	}
-//	free(line);
 	if (cube->info_nbr < 8)
 		return (-6);
+	if (cube->r_y < 2 || cube->r_x < 2)
+		return (-9);
 	return (0);
 }
 

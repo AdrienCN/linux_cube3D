@@ -1,9 +1,9 @@
-R 3000 3000
+R 500 500 
 
-NO ./texture/mountain.xpm
-EA ./texture/mountain.xpm
-SO ./texture/mountain.xpm
-WE ./texture/mountain.xpm
+NO ./texture/sky.xpm
+EA ./texture/sky.xpm
+SO ./texture/sky.xpm
+WE ./texture/sky.xpm
 
 S ./texture/chest.xpm
 

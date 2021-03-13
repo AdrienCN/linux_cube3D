@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 14:16:09 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 16:19:24 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,28 @@ static	t_img	*ft_what_is_texture(t_vars *vars, t_rays ray)
 static	float	ft_set_x_text(t_rays ray, t_img *w_text)
 {
 	float x_coord;
+	int tronc;
 
 	if (ray.hitisvertical)
-		x_coord = (((int)ray.wallhity % (int)TILE_SIZE) / TILE_SIZE) 
-			* w_text->width;
+	{
+		tronc = ray.wallhity / TILE_SIZE;
+		if (ray.rayisleft)
+			x_coord = (ray.wallhity - (TILE_SIZE * tronc)) 
+			* (w_text->width / TILE_SIZE);
+		else
+			x_coord = ((-ray.wallhity + (TILE_SIZE * (tronc + 1))) 
+			* (w_text->width / TILE_SIZE));
+	}
 	else
-		x_coord = (((int)ray.wallhitx % (int)TILE_SIZE) / TILE_SIZE) 
-			* w_text->width;
+	{
+		tronc = ray.wallhitx / TILE_SIZE;
+		if (ray.rayisdown)
+			x_coord = (ray.wallhitx - (TILE_SIZE * tronc))
+				* (w_text->width / TILE_SIZE);
+		else
+			x_coord = ((-ray.wallhitx + (TILE_SIZE * (tronc + 1)))
+				* (w_text->width / TILE_SIZE));
+	}
 	return (x_coord);
 }
 
