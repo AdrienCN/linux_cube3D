@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 16:30:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 17:26:47 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_set_ray_angle(t_rays *ray, float ray_angle)
 	ray->rayisdown = !ray->rayisup;
 	ray->rayisleft = !ray->rayisright;
 }
-	
+
 void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 {
 	t_inter	vert_hit;
@@ -54,18 +54,11 @@ void	ft_set_ray_wallhit(t_rays *ray, t_vars *vars)
 
 void	ft_set_rayprojection_val(t_rays *ray, float screen_dist, t_vars *vars)
 {
-	// corrige ray.distance	
 	ray->fixed_dist = ray->distance *
 		cos(ray->angle - vars->player.angle);
-
-	// hauteur du mur (conversion en int ?)
 	ray->wallheight = (TILE_SIZE / ray->fixed_dist) * screen_dist;
-	
-	// limite superieure du mur
 	ray->wall_start = (vars->win_height / 2) -
 		(ray->wallheight / 2);
-	
-	// limite inf du mur
 	ray->wall_end = (vars->win_height / 2) +
 		(ray->wallheight / 2);
 	if (ray->wall_start < 0)
@@ -73,18 +66,18 @@ void	ft_set_rayprojection_val(t_rays *ray, float screen_dist, t_vars *vars)
 	if (ray->wall_end > vars->win_height)
 		ray->wall_end = vars->win_height;
 }
-		
+
 void	ft_cast_all_rays(t_vars *vars)
 {
-	float ray_angle;
-	float screen_dist;
-	int i;
-	
-	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV/2)) ;	
+	float	ray_angle;
+	float	screen_dist;
+	int		i;
+
+	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV / 2));
 	i = 0;
-	while  (i < vars->ray_num)
+	while (i < vars->ray_num)
 	{
-		ray_angle = ft_within_twopi(vars->player.angle + 
+		ray_angle = ft_within_twopi(vars->player.angle +
 				atan(((vars->ray_num / 2) - i) / screen_dist));
 		ft_set_ray_angle(vars->rays + i, ray_angle);
 		ft_set_ray_wallhit(vars->rays + i, vars);
