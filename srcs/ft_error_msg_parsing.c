@@ -6,11 +6,12 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:01:42 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 16:34:44 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 17:32:13 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
+
 void	ft_class_one_error(int error)
 {
 	if (error == -1)
@@ -43,7 +44,6 @@ void	ft_class_two_error(int error)
 		printf("resolution values are too low.Min height: 2, min width: 2.\n");
 	else
 		printf("well this error is unknown...awkward\n");
-
 }
 
 void	ft_class_three_error(int error)
@@ -62,7 +62,7 @@ void	ft_class_three_error(int error)
 	else if (error == -6)
 		printf("empty line found vertically.\n");
 	else if (error == -7)
-		printf("wall missing. Map border must '1' only.\n");	
+		printf("wall missing. Map border must '1' only.\n");
 	else if (error == -8)
 		printf("0 in contact with void.\n");
 	else if (error == -9)

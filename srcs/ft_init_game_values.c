@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init_game_values.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 17:32:43 by calao             #+#    #+#             */
+/*   Updated: 2021/03/13 17:36:30 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
 void	ft_perso_init(t_vars *vars)
@@ -53,7 +65,7 @@ int		ft_init_sprite(t_vars *vars, char **map)
 	return (0);
 }
 
-void			ft_resolution_init(t_vars *vars, t_cube *cube)
+void	ft_resolution_init(t_vars *vars, t_cube *cube)
 {
 	int screen_height;
 	int screen_width;
@@ -72,7 +84,7 @@ void			ft_resolution_init(t_vars *vars, t_cube *cube)
 			vars->win_height);
 }
 
-int				ft_set_basic_vars_val(t_vars *vars, t_cube *cube)
+int		ft_set_basic_vars_val(t_vars *vars, t_cube *cube)
 {
 	ft_resolution_init(vars,cube);
 	vars->ceil_color = create_trgb(0, cube->ceil.r, cube->ceil.g, cube->ceil.b);
@@ -95,7 +107,7 @@ int				ft_set_basic_vars_val(t_vars *vars, t_cube *cube)
 	return (0);
 }
 
-int				ft_init_game(t_cube * cube, t_vars *vars)
+int		ft_init_game(t_cube * cube, t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
