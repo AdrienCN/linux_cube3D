@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing_first_half_rgb.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 21:45:47 by calao             #+#    #+#             */
+/*   Updated: 2021/03/13 21:45:49 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
 int		ft_rgb_val(t_rgb *ceiloor, char *line)
@@ -33,7 +45,7 @@ int		ft_rb_format(char *line)
 
 	count = 0;
 	number = 0;
-	while (*line  != '\0' && count < 2)
+	while (*line != '\0' && count < 2)
 	{
 		if (ft_isdigit(*line))
 		{
@@ -66,7 +78,7 @@ int		ft_b_format(char *line)
 	if (tmp < 0 || tmp > 255)
 		return (1);
 	while (ft_isdigit(*line))
-			line++;
+		line++;
 	while (*line != '\0')
 	{
 		if (*line != ' ')
@@ -100,8 +112,8 @@ int		ft_rgb_assign(int arrow, t_cube *map_info, char *line)
 		return (-5);
 	map_info->info_nbr += 1;
 	if (arrow == 1)
-		return(ft_rgb_val(&(map_info->floor), line));
+		return (ft_rgb_val(&(map_info->floor), line));
 	else if (arrow == 2)
-		return(ft_rgb_val(&(map_info->ceil), line));
+		return (ft_rgb_val(&(map_info->ceil), line));
 	return (-5);
 }

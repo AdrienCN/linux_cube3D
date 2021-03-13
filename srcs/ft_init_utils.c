@@ -6,13 +6,13 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 17:14:38 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 17:16:41 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/13 21:41:07 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-void			ft_game_null_init(t_vars *vars)
+void	ft_game_null_init(t_vars *vars)
 {
 	vars->mlx = NULL;
 	vars->win = NULL;
@@ -33,13 +33,13 @@ void			ft_game_null_init(t_vars *vars)
 	ft_cube_null_init(&vars->cube);
 }
 
-int			ft_init_xpm_img(t_vars *vars, t_img *img, char *img_path)
+int		ft_init_xpm_img(t_vars *vars, t_img *img, char *img_path)
 {
 	img->img = mlx_xpm_file_to_image(vars->mlx, img_path,
 				&img->width, &img->height);
 	if (img->img == NULL)
 		return (1);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, 
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
 			&img->line_len, &img->endian);
 	if (img->addr == NULL)
 		return (1);
@@ -48,18 +48,18 @@ int			ft_init_xpm_img(t_vars *vars, t_img *img, char *img_path)
 
 void	ft_set_sprite_val(t_sprite *sprite, int i, int j)
 {
-				sprite->id = 2;
-				sprite->is_visible = 0;
-				sprite->dist = -1;
-				sprite->row = i;
-				sprite->col = j;
-				sprite->x = j * TILE_SIZE + (TILE_SIZE / 2);
-				sprite->y = i * TILE_SIZE + (TILE_SIZE / 2);
+	sprite->id = 2;
+	sprite->is_visible = 0;
+	sprite->dist = -1;
+	sprite->row = i;
+	sprite->col = j;
+	sprite->x = j * TILE_SIZE + (TILE_SIZE / 2);
+	sprite->y = i * TILE_SIZE + (TILE_SIZE / 2);
 }
 
 void	ft_cube_null_init(t_cube *element)
 {
-	//Supprimer les int qui ne sont pas des BOL ? sauf sprite count?
+	//Supprimer des int?
 	element->sprite_count = 0;
 	element->r_bol = 0;
 	element->r_x = 0;
@@ -90,4 +90,3 @@ void	ft_cube_null_init(t_cube *element)
 	element->sprite = NULL;
 	element->info_nbr = 0;
 }
-

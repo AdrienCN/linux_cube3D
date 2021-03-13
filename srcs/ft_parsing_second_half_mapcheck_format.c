@@ -1,39 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing_second_half_mapcheck_format.c           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 21:58:55 by calao             #+#    #+#             */
+/*   Updated: 2021/03/13 21:59:44 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
-static int		ft_emptyline_vert_check(char **map);
-static int		ft_wall_closed_hze_check(char **map, int max_col);
-static int		ft_wall_closed_vert_check(char **map, int max_row);
-static int		ft_zero_in_void_check(char **map, t_cube *cube);
-
-int		ft_check_fullmap_format(char **map, t_cube *cube)
-{
-	int i;
-	int j;
-	i = 0;
-	printf("\n");
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			printf("|%c|", map[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-
-	if (ft_emptyline_vert_check(map))
-		return (-6);
-	if (ft_wall_closed_hze_check(map, cube->max_col) 
-			|| ft_wall_closed_vert_check(map, cube->max_row))
-		return (-7);
-	if (ft_zero_in_void_check(map, cube))
-		return (-8);
-	return (0);
-}
-
-static int		ft_emptyline_vert_check(char **map)
+static int	ft_emptyline_vert_check(char **map)
 {
 	int row;
 	int col;
@@ -57,7 +36,7 @@ static int		ft_emptyline_vert_check(char **map)
 	return (0);
 }
 
-static int		ft_wall_closed_hze_check(char **map, int max_col)
+static int	ft_wall_closed_hze_check(char **map, int max_col)
 {
 	int i;
 	int j;
@@ -81,7 +60,7 @@ static int		ft_wall_closed_hze_check(char **map, int max_col)
 	return (0);
 }
 
-static int		ft_wall_closed_vert_check(char **map, int max_row)
+static int	ft_wall_closed_vert_check(char **map, int max_row)
 {
 	int i;
 	int j;
@@ -105,7 +84,7 @@ static int		ft_wall_closed_vert_check(char **map, int max_row)
 	return (0);
 }
 
-static int		ft_zero_in_void_check(char **map, t_cube *cube)
+static int	ft_zero_in_void_check(char **map, t_cube *cube)
 {
 	int i;
 	int j;
@@ -129,5 +108,33 @@ static int		ft_zero_in_void_check(char **map, t_cube *cube)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int			ft_check_fullmap_format(char **map, t_cube *cube)
+{
+	int i;
+	int j;
+
+	i = 0;
+	printf("\n");
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			printf("|%c|", map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	if (ft_emptyline_vert_check(map))
+		return (-6);
+	if (ft_wall_closed_hze_check(map, cube->max_col)
+			|| ft_wall_closed_vert_check(map, cube->max_row))
+		return (-7);
+	if (ft_zero_in_void_check(map, cube))
+		return (-8);
 	return (0);
 }

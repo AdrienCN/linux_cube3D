@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing_first_half_texture.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 21:48:46 by calao             #+#    #+#             */
+/*   Updated: 2021/03/13 21:48:47 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
 int		ft_text_give_val(char **text, char *path)
@@ -14,7 +26,7 @@ int		ft_text_give_val(char **text, char *path)
 int		ft_text_assign(int arrow, t_cube *map_info, char *line)
 {
 	char	*path;
-	
+
 	if (ft_text_check_format(line))
 		return (-4);
 	printf("texture _format ok\n");
@@ -23,18 +35,17 @@ int		ft_text_assign(int arrow, t_cube *map_info, char *line)
 		return (-8);
 	map_info->info_nbr += 1;
 	if (arrow == 1)
-		return(ft_text_give_val(&map_info->north, path));
+		return (ft_text_give_val(&map_info->north, path));
 	else if (arrow == 2)
-		return(ft_text_give_val(&map_info->east, path));
+		return (ft_text_give_val(&map_info->east, path));
 	else if (arrow == 3)
-		return(ft_text_give_val(&map_info->south, path));
-	else if (arrow == 4 )
-		return(ft_text_give_val(&map_info->west, path));
+		return (ft_text_give_val(&map_info->south, path));
+	else if (arrow == 4)
+		return (ft_text_give_val(&map_info->west, path));
 	else if (arrow == 5)
-		return(ft_text_give_val(&map_info->sprite, path));
+		return (ft_text_give_val(&map_info->sprite, path));
 	return (-4);
 }
-
 
 int		ft_text_check_format(char *path)
 {
@@ -57,7 +68,7 @@ int		ft_text_check_format(char *path)
 	return (0);
 }
 
-char 	*ft_text_check_path(char *path)
+char	*ft_text_check_path(char *path)
 {
 	char	*stock;
 	int		i;
@@ -81,4 +92,3 @@ char 	*ft_text_check_path(char *path)
 	}
 	return (stock);
 }
-

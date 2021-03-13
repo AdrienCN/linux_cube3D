@@ -1,0 +1,278 @@
+Norme: ./ft_cast_rays.c
+Norme: ./ft_collision_utils.c
+Norme: ./ft_error_msg_parsing.c
+Norme: ./ft_init_game_values.c
+Error (line 15): declarations in ft_perso_init are bad aligned
+Error (line 15): declarations must be followed by one empty line in ft_perso_init
+Error (line 19): spaces at the end of line
+Error (line 21, col 10): bad spacing
+Error (line 32): spaces at the end of line
+Error (line 35, col 65): bad spacing
+Error (line 83): spaces at the end of line
+Error (line 89, col 24): bad character after ,
+Error (line 91): spaces at the end of line
+Error (line 97): missing newline after if
+Error (line 97): spaces at the end of line
+Error (line 100): bad indentation
+Error (line 110, col 25): space after pointer
+Error (line 122): must begin only by tabulations
+Error (line 127): spaces at the end of line
+Norme: ./ft_init_utils.c
+Error: global scope bad aligned
+Error: file must end with a single empty line
+Error (line 42): spaces at the end of line
+Error (line 51): bad indentation
+Error (line 52): bad indentation
+Error (line 53): bad indentation
+Error (line 54): bad indentation
+Error (line 55): bad indentation
+Error (line 56): bad indentation
+Error (line 57): bad indentation
+Error (line 60): function ft_cube_null_init has 30 lines
+Error (line 62): C++ comment
+Error (line 62): bad indentation
+Norme: ./ft_parsing_first_half_main.c
+Error: 42 header not at top of the file
+Error (line 3): multiple empty lines
+Error (line 4): bad spacing before ft_first_parsing
+Error (line 9): missing newline after while
+Error (line 9): spaces at the end of line
+Error (line 10): spaces at the end of line
+Error (line 30): must begin only by tabulations
+Error (line 33): spaces at the end of line
+Error (line 36): spaces at the end of line
+Error (line 51): must begin only by tabulations
+Error (line 79): spaces at the end of line
+Norme: ./ft_parsing_first_half_rgb.c
+Error: 42 header not at top of the file
+Error (line 36, col 13): bad spacing
+Error (line 69): bad indentation
+Error (line 103, col 2): missing space after return
+Error (line 105, col 2): missing space after return
+Norme: ./ft_parsing_first_half_texture.c
+Error: 42 header not at top of the file
+Error: file must end with a single empty line
+Error (line 14): bad spacing after ft_text_assign
+Error (line 14): declarations must be followed by one empty line in ft_text_assign
+Error (line 17): spaces at the end of line
+Error (line 26, col 2): missing space after return
+Error (line 28, col 2): missing space after return
+Error (line 30, col 2): missing space after return
+Error (line 31, col 21): space before )
+Error (line 32, col 2): missing space after return
+Error (line 34, col 2): missing space after return
+Error (line 38): multiple empty lines
+Error (line 39): bad spacing before ft_text_check_format
+Error (line 60): Space before function name
+Error (line 60, col 4): bad spacing
+Norme: ./ft_parsing_main.c
+Error: global scope bad aligned
+Error (line 36): Space before function name
+Error (line 36): function ft_print_mapinfo has 35 lines
+Error (line 41): spaces at the end of line
+Error (line 42): spaces at the end of line
+Error (line 48): line has 93 characters
+Error (line 50): line has 92 characters
+Error (line 53): line has 89 characters
+Error (line 53): must begin only by tabulations
+Norme: ./ft_parsing_second_half_main.c
+Error: global scope bad aligned
+Error (line 15): declaration of ft_malloc_the_map forbidden in .c
+Error (line 16): declaration of ft_create_mapgrid forbidden in .c
+Error (line 32, col 1): missing space after return
+Error (line 35): Space before function name
+Error (line 35): function ft_create_mapgrid has 28 lines
+Error (line 35): declarations in ft_create_mapgrid are bad aligned
+Error (line 35): declarations must be followed by one empty line in ft_create_mapgrid
+Error (line 41): spaces at the end of line
+Error (line 67): declarations in ft_malloc_the_map are bad aligned
+Norme: ./ft_parsing_second_half_mapcheck_format.c
+Error: 42 header not at top of the file
+Error: global scope bad aligned
+Error (line 3): declaration of ft_emptyline_vert_check forbidden in .c
+Error (line 4): declaration of ft_wall_closed_hze_check forbidden in .c
+Error (line 5): declaration of ft_wall_closed_vert_check forbidden in .c
+Error (line 6): declaration of ft_zero_in_void_check forbidden in .c
+Error (line 8): declarations must be followed by one empty line in ft_check_fullmap_format
+Error (line 25): Empty line
+Error (line 28): spaces at the end of line
+Norme: ./ft_parsing_second_half_onelinemap.c
+Error: global scope bad aligned
+Error (line 15): declaration of ft_set_row_col forbidden in .c
+Error (line 16): declaration of ft_make_oneline_map_two forbidden in .c
+Error (line 17): declaration of ft_cube_strjoin forbidden in .c
+Error (line 18): declaration of ft_line_char_check forbidden in .c
+Error (line 90): declarations must be followed by one empty line in ft_cube_strjoin
+Error (line 94): spaces at the end of line
+Error (line 95): missing newline after if
+Error (line 95): spaces at the end of line
+Error (line 109): declarations must be followed by one empty line in ft_set_row_col
+Error (line 112): spaces at the end of line
+Norme: ./ft_ray_hit_algebra.c
+Error (line 15): multiple empty lines
+Error (line 16): bad spacing before ft_set_vert_hit
+Error (line 24, col 52): space before ;
+Error (line 51): spaces at the end of line
+Error (line 55, col 3): missing space after return
+Error (line 69, col 52): space before ;
+Error (line 99): line has 82 characters
+Error (line 99): bad indentation
+Error (line 104): line has 82 characters
+Error (line 105, col 3): missing space after return
+Error (line 126): line has 82 characters
+Error (line 126): bad indentation
+Error (line 131): line has 82 characters
+Error (line 132, col 3): missing space after return
+Norme: ./ft_render_minimap.c
+Error: global scope bad aligned
+Error (line 15): declarations must be followed by one empty line in ft_render_tile_color
+Error (line 20): Empty line
+Error (line 70): declarations must be followed by one empty line in ft_render_player
+Error (line 83): declarations in ft_render_all_rays are bad aligned
+Error (line 105): C++ comment
+Norme: ./ft_render_shapes.c
+Error (line 15): line has 91 characters
+Error (line 15): ft_draw_square have 6 parameters
+Error (line 15, col 70): bad character after ,
+Error (line 29): must begin only by tabulations
+Norme: ./ft_render_sprite.c
+Error: 42 header not at top of the file
+Error: global scope bad aligned
+Error (line 7, col 14): bad spacing
+Error (line 10): must begin only by tabulations
+Error (line 13): must begin only by tabulations
+Error (line 27): line has 82 characters
+Error (line 39): function ft_draw_sprite has 38 lines
+Error (line 39): declarations must be followed by one empty line in ft_draw_sprite
+Error (line 39, col 7): ft_draw_sprite has 6 variables
+Error (line 47): spaces at the end of line
+Error (line 49): Empty line
+Norme: ./ft_render_walls.c
+Error: global scope bad aligned
+Error (line 33): declarations in ft_set_x_text are bad aligned
+Error (line 42): spaces at the end of line
+Error (line 45): spaces at the end of line
+Error (line 61): declarations in ft_xpm_wall_pixel_put are bad aligned
+Error (line 61): line has 95 characters
+Error (line 61): ft_xpm_wall_pixel_put have 5 parameters
+Error (line 71): spaces at the end of line
+Error (line 71, col 34): bad character after ;
+Error (line 77): function ft_render_walls has 27 lines
+Error (line 77): declarations in ft_render_walls are bad aligned
+Error (line 88): bad indentation
+Error (line 89): bad indentation
+Error (line 90): bad indentation
+Error (line 91): bad indentation
+Error (line 92): bad indentation
+Error (line 93): bad indentation
+Error (line 94): bad indentation
+Error (line 95): bad indentation
+Error (line 96): bad indentation
+Error (line 97): bad indentation
+Error (line 98): bad indentation
+Error (line 99): bad indentation
+Error (line 100): bad indentation
+Error (line 101): bad indentation
+Error (line 102): bad indentation
+Error (line 103): bad indentation
+Norme: ./ft_reset_game_values.c
+Error: global scope bad aligned
+Error: file must end with a single empty line
+Error (line 37): multiple empty lines
+Norme: ./ft_save_bmp.c
+Error: global scope bad aligned
+Error (line 15): declarations must be followed by one empty line in convert_trgb_bmp
+Error (line 19): spaces at the end of line
+Error (line 20): line has 82 characters
+Error (line 21): spaces at the end of line
+Error (line 25): Empty line
+Error (line 26, col 0): no empty line before block
+Norme: ./ft_update_player_move.c
+Error: 42 header not at top of the file
+Error: global scope bad aligned
+Error (line 10): Empty line
+Error (line 24): Space before function name
+Error (line 31): Empty line
+Error (line 62): bad indentation
+Error (line 65): C++ comment
+Error (line 66): C++ comment
+Error (line 89): C++ comment
+Error (line 89): bad indentation
+Norme: ./ft_utils_free.c
+Error: global scope bad aligned
+Norme: ./ft_utils_math.c
+Error: 42 header not at top of the file
+Error: global scope bad aligned
+Error (line 31): Empty line
+Norme: ./ft_utils_mlx.c
+Error: global scope bad aligned
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15): Space before function name
+Error (line 15, col 4): bad spacing
+Error (line 17): must begin only by tabulations
+Error (line 17): bad indentation
+Error (line 17, col 8): bad spacing
+Error (line 19): line has 82 characters
+Error (line 19): must begin only by tabulations
+Error (line 19): bad indentation
+Error (line 20): must begin only by tabulations
+Error (line 20): bad indentation
+Norme: ./ft_utils_parsing.c
+Error: file must end with a single empty line
+Error (line 48, col 20): missing space around !=
+Error (line 53, col 4): missing space after break
+Error (line 63): declarations in ft_is_file_readable are bad aligned
+Norme: ./ft_utils_render.c
+Error (line 15): multiple empty lines
+Error (line 16): bad spacing before ft_render_line_gpetit
+Error (line 16): declarations must be followed by one empty line in ft_render_line_gpetit
+Error (line 19): spaces at the end of line
+Error (line 22): bad indentation
+Error (line 23): bad indentation
+Error (line 24): must begin only by tabulations
+Error (line 25): bad indentation
+Error (line 26): bad indentation
+Error (line 27): bad indentation
+Error (line 28): bad indentation
+Norme: ./main_cube.c
+Error: 42 header not at top of the file
+Error: global scope bad aligned
+Error (line 3): multiple empty lines
+Error (line 4): define must be a constant value
+Error (line 5): define must be a constant value
+Error (line 6): define must be a constant value
+Error (line 8): declaration of ft_print_mapinfo forbidden in .c
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): Space before function name
+Error (line 49): declarations must be followed by one empty line in main
+Error (line 49, col 3): bad spacing
+Error (line 52): spaces at the end of line
+Error (line 53): spaces at the end of line
+Error (line 53, col 25): bad character after ;
+Error (line 79): spaces at the end of line
+Error (line 80): C++ comment
+Error (line 82): Empty line
+Error (line 84): spaces at the end of line
+Error (line 85): C++ comment
+Error (line 87): Empty line

@@ -1,15 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing_first_half_main.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/13 21:41:33 by calao             #+#    #+#             */
+/*   Updated: 2021/03/13 21:44:39 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
-
-int		ft_first_parsing(int fd, t_cube *cube)
+int	ft_first_parsing(int fd, t_cube *cube)
 {
 	char	*line;
 	int		error;
 
-	while (cube->info_nbr < 8 
-		&& get_next_line(fd, &line, &cube->gnl_leak_proof) > 0) 
+	while (cube->info_nbr < 8
+			&& get_next_line(fd, &line, &cube->gnl_leak_proof) > 0)
 	{
-		printf("prev line = [%s]\n", line);
 		if ((error = ft_try_assigning_value(line, cube)))
 		{
 			free(line);
@@ -24,16 +34,16 @@ int		ft_first_parsing(int fd, t_cube *cube)
 	return (0);
 }
 
-int		ft_try_assigning_value(char *line, t_cube *cube)
+int	ft_try_assigning_value(char *line, t_cube *cube)
 {
 	while (*line == ' ' && *line != '\0')
-		 line++;
+		line++;
 	if (*line == '\0')
 		return (0);
-	printf("strncmp(\"R \", [%.2s]\n", line); 
+	printf("strncmp(\"R \", [%.2s]\n", line);
 	if (ft_strncmp("R ", line, 2) == 0)
 		return (ft_assign_resolution(cube, line + 1));
-	printf("strncmp(\"NO \", [%.3s]\n", line); 
+	printf("strncmp(\"NO \", [%.3s]\n", line);
 	if (ft_strncmp("NO ", line, 3) == 0)
 		return (ft_text_assign(1, cube, line + 2));
 	if (ft_strncmp("EA ", line, 3) == 0)
@@ -48,10 +58,10 @@ int		ft_try_assigning_value(char *line, t_cube *cube)
 		return (ft_rgb_assign(1, cube, line + 1));
 	if (ft_strncmp("C ", line, 2) == 0)
 		return (ft_rgb_assign(2, cube, line + 1));
-	 return (-7);
+	return (-7);
 }
 
-int		ft_assign_resolution(t_cube *map_info, char *line)
+int	ft_assign_resolution(t_cube *map_info, char *line)
 {
 	if (map_info->r_bol == 1)
 		return (-3);
@@ -76,6 +86,6 @@ int		ft_assign_resolution(t_cube *map_info, char *line)
 			return (-3);
 		line++;
 	}
-	map_info->info_nbr += 1; 
+	map_info->info_nbr += 1;
 	return (0);
 }
