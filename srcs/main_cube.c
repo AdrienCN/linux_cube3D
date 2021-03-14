@@ -6,13 +6,53 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:29:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:32:55 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:57:06 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-//void ft_print_mapinfo(t_cube *element);
+void		ft_print_mapinfo(t_cube *element)
+{
+	int i;
+
+	printf("r_bol = %d\n", element->r_bol);
+	printf("r_x = %d | r_y = %d\n", element->r_x, element->r_y);
+	printf("no = %s \n", element->north);
+	printf("ea = %s \n", element->east);
+	printf("so = %s \n", element->south);
+	printf("we = %s \n", element->west);
+	printf("sprite = %s \n", element->sprite);
+	printf("floor.state = %d\n", element->floor.state);
+	printf("floor RGB [%d,%d,%d] \n", element->floor.r,
+			element->floor.g, element->floor.b);
+	printf("ceiling.state = %d\n", element->ceil.state);
+	printf("ceiling RGB [%d,%d,%d] \n", element->ceil.r,
+			element->ceil.g, element->ceil.b);
+	printf("_____Player___:\n");
+	printf("Orientation = %c | X = %f | Y = %f\n",
+			element->player_tmp.cardinal, element->player_tmp.x,
+			element->player_tmp.y);
+	printf("max_row = %d\n", element->max_row);
+	printf("max_col = %d\n", element->max_col);
+	printf("m_line = {%s}\n", element->m_line);
+	printf("gnl_line = [%s]\n", element->gnl_line);
+	printf("sprite_count = %d\n", element->sprite_count);
+	if (element->map == NULL)
+		printf("element->map = (null)\n");
+	else
+	{
+		printf("______________MAP_______________:\n");
+		i = 0;
+		printf("col:--|");
+		while (i < element->max_col)
+		{
+			printf("%d|", i);
+			i++;
+		}
+		printf("\n____________________________:\n");
+	}
+}
 
 int			ft_parsing_args(t_vars *vars, int argc, char **argv)
 {
@@ -39,7 +79,7 @@ void		ft_start_game(t_vars *vars)
 	if (vars->bmp_save)
 	{
 		ft_cast_all_rays(vars);
-		ft_render_walls(vars, vars->rays);
+		//ft_render_walls(vars, vars->rays);
 		ft_render_sprite(vars);
 		ft_save_bmp(vars);
 	}
@@ -65,6 +105,7 @@ int			main(int argc, char **argv)
 		ft_free_game(&vars);
 		return (-1);
 	}
+	ft_print_mapinfo(&vars.cube);
 	printf("parsing ok\n");
 	if (ft_init_game(&vars.cube, &vars))
 	{
@@ -83,9 +124,9 @@ int			main(int argc, char **argv)
 int			ft_update_screen(t_vars *vars)
 {
 	ft_cast_all_rays(vars);
-	ft_render_walls(vars, vars->rays);
+	//ft_render_walls(vars, vars->rays);
 	ft_render_sprite(vars);
-	ft_render_minimap(vars);
+	//ft_render_minimap(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->game.img, 0, 0);
 	ft_reset_sprites_visibility(vars, vars->sprite_count);
 	return (0);

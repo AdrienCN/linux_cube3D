@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 17:26:47 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:55:30 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_cast_all_rays(t_vars *vars)
 		ft_set_ray_angle(vars->rays + i, ray_angle);
 		ft_set_ray_wallhit(vars->rays + i, vars);
 		ft_set_rayprojection_val(vars->rays + i, screen_dist, vars);
+		ft_render_walls(vars, vars->rays[i], i);
 		i++;
 	}
 }

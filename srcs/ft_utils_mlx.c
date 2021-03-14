@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:53:00 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:13:08 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:37:10 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
-    char	*dst;
+	char *dst;
 
-    dst = vars->game.addr + (y * vars->game.line_len 
-							+ x * (vars->game.bpp / 8));
-    *(unsigned int*)dst = color;
+	dst = vars->game.addr + (y * vars->game.line_len +
+			x * (vars->game.bpp / 8));
+	*(unsigned int*)dst = color;
 }
 
 int		ft_get_xpm_pixel_value(t_img *img, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 17:14:38 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 21:41:07 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:42:36 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,13 @@ void	ft_set_sprite_val(t_sprite *sprite, int i, int j)
 
 void	ft_cube_null_init(t_cube *element)
 {
-	//Supprimer des int?
 	element->sprite_count = 0;
 	element->r_bol = 0;
-	element->r_x = 0;
-	element->r_y = 0;
 	element->floor.state = 0;
-	element->floor.r = 0;
-	element->floor.g = 0;
-	element->floor.b = 0;
 	element->player_tmp.cardinal = '0';
 	element->player_tmp.x = 0;
 	element->player_tmp.y = 0;
 	element->ceil.state = 0;
-	element->ceil.r = 0;
-	element->ceil.g = 0;
-	element->ceil.b = 0;
 	element->map_start = TRUE;
 	element->map_end = FALSE;
 	element->max_row = 0;

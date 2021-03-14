@@ -6,12 +6,11 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:04:58 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:15:16 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:38:05 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
-
 
 void	ft_render_line_gpetit(t_vars *vars, float ray_angle, float x, float y)
 {

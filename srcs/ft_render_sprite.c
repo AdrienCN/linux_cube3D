@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_render_sprite.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
+/*   Updated: 2021/03/14 02:11:56 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
 static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
@@ -12,7 +24,7 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->dist = ft_get_distance(vars->player.x, vars->player.y,
 			sprite->x, sprite->y);
 	sprite->height = (TILE_SIZE / sprite->dist) * screen_dist;
-			sprite->width = sprite->height;
+	sprite->width = sprite->height;
 	sprite->start_y = (vars->win_height / 2) - (sprite->height / 2);
 	if (sprite->start_y < 0)
 		sprite->start_y = 0;
@@ -22,6 +34,31 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->left_x = (vars->win_width / 2) + tan(sprite->angle) * screen_dist;
 	sprite->left_x -= sprite->width / 2;
 	sprite->right_x = sprite->left_x + sprite->width;
+}
+
+static	void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
+{
+	int			i;
+	int			j;
+	t_sprite	tmp;
+
+	i = 0;
+	while (i < vars->sprite_count - 1)
+	{
+		j = i;
+		while (j < vars->sprite_count)
+		{
+			if (sprite[i].dist < sprite[j].dist)
+			{
+				tmp = sprite[j];
+				sprite[j] = sprite[i];
+				sprite[i] = tmp;
+				i = 0;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 static	int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite,
@@ -45,7 +82,7 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	int y_sprite;
 	int sprite_color;
 	int hide_color;
-	
+
 	x = 0;
 	x_sprite = 0;
 	if (sprite->left_x < 0)
@@ -75,31 +112,6 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 		if (y_sprite)
 			x_sprite++;
 		x++;
-	}
-}
-
-static	void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
-{
-	int			i;
-	int			j;
-	t_sprite	tmp;
-
-	i = 0;
-	while (i < vars->sprite_count - 1)
-	{
-		j = i;
-		while (j < vars->sprite_count)
-		{
-			if (sprite[i].dist < sprite[j].dist)
-			{
-				tmp = sprite[j];
-				sprite[j] = sprite[i];
-				sprite[i] = tmp;
-				i = 0;
-			}
-			j++;
-		}
-		i++;
 	}
 }
 

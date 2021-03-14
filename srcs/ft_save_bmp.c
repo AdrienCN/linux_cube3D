@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 11:10:21 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:09:09 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:38:25 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		convert_trgb_bmp(t_bmp_color *pixel, t_vars *vars, int x, int y)
 	int			color;
 	char		*dst;
 
-	dst = vars->game.addr + (y * vars->game.line_len 
+	dst = vars->game.addr + (y * vars->game.line_len
 								+ x * (vars->game.bpp / 8));
 	color = *(unsigned int*)dst;
 	pixel->r = (color & 0xFFFF00) >> 16;

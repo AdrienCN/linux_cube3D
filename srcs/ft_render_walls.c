@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:06:32 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 02:07:35 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,56 @@ static	float	ft_set_x_text(t_rays ray, t_img *w_text)
 }
 
 static	void	ft_xpm_wall_pixel_put(t_vars *vars, t_rays ray,
-										int x, int y, int pos_in_wall)
+										int x, int *y)
 {
 	float			x_text;
 	float			y_text;
 	t_img			*text;
 	unsigned int	color;
+	int				pos_in_wall;
 
+	pos_in_wall = 0;
 	if (ray.wallheight > vars->win_height)
 		pos_in_wall += (ray.wallheight - vars->win_height) / 2;
 	text = ft_what_is_texture(vars, ray);
 	x_text = ft_set_x_text(ray, text);
-	y_text = (((int)pos_in_wall) / ray.wallheight) * text->height;
-	color = ft_get_xpm_pixel_value(text, x_text, y_text);
-	my_mlx_pixel_put(vars, x, y, color);
+	while (*y >= ray.wall_start && *y <= ray.wall_end)
+	{
+		y_text = (((int)pos_in_wall) / ray.wallheight) * text->height;
+		color = ft_get_xpm_pixel_value(text, x_text, y_text);
+		my_mlx_pixel_put(vars, x, *y, color);
+		*y += 1;
+		pos_in_wall++;
+	}
 }
 
+void			ft_render_walls(t_vars *vars, t_rays ray, int x)
+{
+	int		y;
+
+	y = 0;
+	while (y < ray.wall_start)
+	{
+		my_mlx_pixel_put(vars, x, y, vars->ceil_color);
+		y++;
+	}
+	ft_xpm_wall_pixel_put(vars, ray, x, &y);
+	/*
+	while (y >= ray.wall_start && y <= ray.wall_end)
+	{
+		ft_xpm_wall_pixel_put(vars, ray, x, y, pos_in_wall);
+		y++;
+		pos_in_wall++;
+	}
+	*/
+	while (y < vars->win_height)
+	{
+		my_mlx_pixel_put(vars, x, y, vars->floor_color);
+		y++;
+	}
+}
+
+/*
 void			ft_render_walls(t_vars *vars, t_rays *ray)
 {
 	int		y;
@@ -105,3 +139,4 @@ void			ft_render_walls(t_vars *vars, t_rays *ray)
 		x++;
 	}
 }
+*/
