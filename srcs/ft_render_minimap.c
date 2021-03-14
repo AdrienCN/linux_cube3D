@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 00:59:29 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 12:32:31 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,25 @@ static	void		ft_render_grid(t_cube cube, t_vars *vars, char **map)
 
 static	void		ft_render_player(t_vars *vars)
 {
-	int square_h;
-	int square_w;
-	int start_y;
-	int start_x;
+	float	y;
+	float	x;
+	int		i;
+	int		j;
 
-	square_h = TILE_SIZE * MINIMAP_SCALE;
-	square_w = TILE_SIZE * MINIMAP_SCALE;
-	start_y = (vars->player.y - TILE_SIZE / 2) * MINIMAP_SCALE;
-	start_x = (vars->player.x - TILE_SIZE / 2) * MINIMAP_SCALE;
-	ft_draw_square(vars, start_y, start_x, square_h, square_w, BLUE);
+	y = (vars->player.y - TILE_SIZE / 2) * MINIMAP_SCALE;
+	x = (vars->player.x - TILE_SIZE / 2) * MINIMAP_SCALE;
+	i = 0;
+	while (i < TILE_SIZE)
+	{
+		j = 0;
+		while (j < TILE_SIZE)
+		{
+			my_mlx_pixel_put(vars, x + j * MINIMAP_SCALE,
+					y + i * MINIMAP_SCALE, BLUE);
+			j++;
+		}
+		i++;
+	}
 }
 
 void				ft_render_all_rays(t_vars *vars)

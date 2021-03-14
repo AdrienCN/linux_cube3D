@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:29:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:57:06 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 12:11:37 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int			ft_update_screen(t_vars *vars)
 	ft_cast_all_rays(vars);
 	//ft_render_walls(vars, vars->rays);
 	ft_render_sprite(vars);
-	//ft_render_minimap(vars);
+	ft_render_minimap(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->game.img, 0, 0);
 	ft_reset_sprites_visibility(vars, vars->sprite_count);
 	return (0);

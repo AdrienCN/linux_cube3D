@@ -23,7 +23,7 @@
 # define GREY			0x00D3D3D3
 
 # define MINIMAP_SCALE	0.2	
-# define TILE_SIZE		100.0
+# define TILE_SIZE		50.0
 
 # define FOV			66.0
 # define MOVE_SPEED		0.1 * TILE_SIZE
@@ -322,7 +322,7 @@ int		ft_get_xpm_pixel_value(t_img *img, int x, int y);
 		//PRINT_UTILS	
 
 		//SHAPE_PRINT
-void	ft_draw_square(t_vars *vars, int p_y, int p_x, int hei, int wid, int color);
+void	ft_draw_square(t_vars *vars, float p_y, float p_x, float hei, float wid);
 void	ft_render_line_gpetit(t_vars *vars, float ray_angle, float x, float y);
 
 		// COLLISION_UTILS

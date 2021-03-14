@@ -1,4 +1,4 @@
-R 1500 1000 
+R 1000 1000 
 
 NO ./texture/sky.xpm
 EA ./texture/sky.xpm
