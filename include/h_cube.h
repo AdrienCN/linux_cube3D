@@ -22,8 +22,8 @@
 # define WHITE			0x00FFFFFF
 # define GREY			0x00D3D3D3
 
-# define MINIMAP_SCALE	0.2	
-# define TILE_SIZE		50.0
+# define MINIMAP_SCALE	0.3	
+# define TILE_SIZE		1000.0
 
 # define FOV			66.0
 # define MOVE_SPEED		0.1 * TILE_SIZE
