@@ -26,8 +26,8 @@
 # define TILE_SIZE		100.0
 
 # define FOV			66.0
-# define MOVE_SPEED		0.05 * TILE_SIZE
-# define ROT_SPEED		2 * (M_PI / 180)
+# define MOVE_SPEED		0.1 * TILE_SIZE
+# define ROT_SPEED		5 * (M_PI / 180)
 # define PI				M_PI
 # define TWO_PO			M_PI * 2
 # define INT_MAX		2147483647
