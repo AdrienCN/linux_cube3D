@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 11:10:21 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 12:09:03 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:09:09 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void		convert_trgb_bmp(t_bmp_color *pixel, t_vars *vars, int x, int y)
 {
 	int			color;
 	char		*dst;
-	
-	dst = vars->game.addr + (y * vars->game.line_len + x * (vars->game.bpp / 8));
-	color = *(unsigned int*)dst; 
+
+	dst = vars->game.addr + (y * vars->game.line_len 
+								+ x * (vars->game.bpp / 8));
+	color = *(unsigned int*)dst;
 	pixel->r = (color & 0xFFFF00) >> 16;
 	pixel->g = (color & 0xFF00) >> 8;
 	pixel->b = (color & 0xFF);
-
 }
 
 int			get_byte_correction(int win_width)
@@ -40,7 +40,7 @@ int			get_byte_correction(int win_width)
 	return (correction_byte);
 }
 
-int		fill_file_header(t_vars *d, t_file_header *fh)
+int			fill_file_header(t_vars *d, t_file_header *fh)
 {
 	int		img_calcul;
 
@@ -61,7 +61,7 @@ int		fill_file_header(t_vars *d, t_file_header *fh)
 	return (1);
 }
 
-void	fill_img_header(t_vars *vars, t_file_header *fh, int fd, int x)
+void		fill_img_header(t_vars *vars, t_file_header *fh, int fd, int x)
 {
 	t_bmp_color		pixel;
 	unsigned char	pixel_color[3];
@@ -90,7 +90,7 @@ void	fill_img_header(t_vars *vars, t_file_header *fh, int fd, int x)
 	}
 }
 
-int		ft_save_bmp(t_vars *vars)
+int			ft_save_bmp(t_vars *vars)
 {
 	int				fd;
 	t_file_header	fh;

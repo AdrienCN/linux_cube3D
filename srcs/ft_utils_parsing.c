@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:04:20 by calao             #+#    #+#             */
-/*   Updated: 2021/03/12 20:00:33 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:14:11 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int		ft_check_file_ext_name(char *filename, char *ext_name)
 	unsigned int i;
 
 	i = 0;
-	while (filename[i] !='\0')
+	while (filename[i] != '\0')
 	{
 		if (filename[i] == '.')
 		{
 			if (filename[i + 1] != '.' && filename[i + 1] != '/')
-				break;
+				break ;
 		}
 		i++;
 	}
@@ -62,9 +62,9 @@ int		ft_check_file_ext_name(char *filename, char *ext_name)
 
 int		ft_is_file_readable(char *file_path)
 {
-	int fd;
-	int ret;
-	char buf;
+	int		fd;
+	int		ret;
+	char	buf;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
@@ -77,4 +77,3 @@ int		ft_is_file_readable(char *file_path)
 		return (-3);
 	return (0);
 }
-

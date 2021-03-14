@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_update_player_move.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/14 01:11:10 by calao             #+#    #+#             */
+/*   Updated: 2021/03/14 01:11:12 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
 float	ft_calculate_new_x(float x, t_vars *vars)
@@ -7,7 +19,6 @@ float	ft_calculate_new_x(float x, t_vars *vars)
 
 	x_ref = vars->player.x;
 	angle = vars->player.angle;
-
 	if (vars->player.vert_walk == 1)
 		x = x_ref + cos(angle) * MOVE_SPEED;
 	else if (vars->player.vert_walk == -1)
@@ -21,14 +32,13 @@ float	ft_calculate_new_x(float x, t_vars *vars)
 	return (x);
 }
 
-float ft_calculate_new_y(float y, t_vars *vars)
+float	ft_calculate_new_y(float y, t_vars *vars)
 {
 	float y_ref;
 	float angle;
 
 	y_ref = vars->player.y;
 	angle = vars->player.angle;
-
 	if (vars->player.vert_walk == 1)
 		y = y_ref - sin(angle) * MOVE_SPEED;
 	else if (vars->player.vert_walk == -1)
@@ -59,11 +69,9 @@ int		ft_update_player(t_vars *vars)
 	x = ft_calculate_new_x(x, vars);
 	y = ft_calculate_new_y(y, vars);
 	if (ft_is_maplimit(x, y, vars) || ft_map_content(x, y, vars))
-			return (1);
+		return (1);
 	vars->player.x = x;
 	vars->player.y = y;
-	//printf("x = %f | y = %f* | ", x, y);
-	//printf("player_angle = %f\n", vars->player.angle);
 	return (0);
 }
 
@@ -86,7 +94,6 @@ int		ft_update_move(int keycode, t_vars *vars)
 		vars->player.turn = -1;
 	else if (c == ESCAPE)
 		vars->player.exit = 1;
-	//printf("key_pressed = %d|\n", keycode);
 	ft_update_player(vars);
 	return (1);
 }

@@ -6,17 +6,16 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 16:47:53 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 00:59:29 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-static	int		ft_render_tile_color(float x, float y, char c, t_vars *vars)
+static	int			ft_render_tile_color(float x, float y, char c)
 {
-	int test;
-	int	color;
-	(void)vars;
+	int		test;
+	int		color;
 
 	test = TILE_SIZE * MINIMAP_SCALE;
 	if ((int)y % test == 0)
@@ -38,7 +37,7 @@ static	int		ft_render_tile_color(float x, float y, char c, t_vars *vars)
 	return (color);
 }
 
-static	void			ft_render_grid(t_cube cube, t_vars *vars, char **map)
+static	void		ft_render_grid(t_cube cube, t_vars *vars, char **map)
 {
 	float	x;
 	float	y;
@@ -57,7 +56,7 @@ static	void			ft_render_grid(t_cube cube, t_vars *vars, char **map)
 		{
 			color = ft_render_tile_color(x * MINIMAP_SCALE,
 					y * MINIMAP_SCALE,
-					(map[(int)map_row][(int)map_col]), vars);
+					(map[(int)map_row][(int)map_col]));
 			my_mlx_pixel_put(vars, x * MINIMAP_SCALE, y * MINIMAP_SCALE, color);
 			map_col = x / TILE_SIZE;
 			x++;
@@ -67,12 +66,13 @@ static	void			ft_render_grid(t_cube cube, t_vars *vars, char **map)
 	}
 }
 
-static	void			ft_render_player(t_vars *vars)
+static	void		ft_render_player(t_vars *vars)
 {
 	int square_h;
 	int square_w;
 	int start_y;
 	int start_x;
+
 	square_h = TILE_SIZE * MINIMAP_SCALE;
 	square_w = TILE_SIZE * MINIMAP_SCALE;
 	start_y = (vars->player.y - TILE_SIZE / 2) * MINIMAP_SCALE;
@@ -80,11 +80,11 @@ static	void			ft_render_player(t_vars *vars)
 	ft_draw_square(vars, start_y, start_x, square_h, square_w, BLUE);
 }
 
-void	ft_render_all_rays(t_vars *vars)
+void				ft_render_all_rays(t_vars *vars)
 {
-	int i;
-	float x;
-	float y;
+	int		i;
+	float	x;
+	float	y;
 
 	i = 0;
 	x = vars->player.x;
@@ -96,7 +96,7 @@ void	ft_render_all_rays(t_vars *vars)
 	}
 }
 
-void	ft_render_minimap(t_vars *vars)
+void				ft_render_minimap(t_vars *vars)
 {
 	char	**map;
 

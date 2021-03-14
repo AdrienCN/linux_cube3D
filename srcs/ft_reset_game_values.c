@@ -6,13 +6,13 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:30:49 by calao             #+#    #+#             */
-/*   Updated: 2021/03/09 17:09:45 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:07:47 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
-int				ft_reset_player(int keycode, t_vars *vars)
+int		ft_reset_player(int keycode, t_vars *vars)
 {
 	(void)keycode;
 	vars->player.hze_walk = 0;
@@ -21,7 +21,7 @@ int				ft_reset_player(int keycode, t_vars *vars)
 	return (0);
 }
 
-void		ft_reset_sprites_visibility(t_vars *vars, int sprite_count)
+void	ft_reset_sprites_visibility(t_vars *vars, int sprite_count)
 {
 	int i;
 
@@ -33,5 +33,3 @@ void		ft_reset_sprites_visibility(t_vars *vars, int sprite_count)
 		i++;
 	}
 }
-
-

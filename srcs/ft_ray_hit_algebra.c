@@ -6,12 +6,11 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:27:05 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 16:35:34 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 00:55:01 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
-
 
 void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 {
@@ -21,7 +20,7 @@ void	ft_set_vert_hit(t_inter *vert, t_vars *vars, t_rays *ray)
 	x = vars->player.x;
 	y = vars->player.y;
 	vert->distance = INT_MAX;
-	vert->x_inter = ((int)(x / TILE_SIZE)) * TILE_SIZE ;
+	vert->x_inter = ((int)(x / TILE_SIZE)) * TILE_SIZE;
 	if (ray->rayisright)
 		vert->x_inter += TILE_SIZE;
 	vert->y_inter = y - (vert->x_inter - x) * tan(ray->angle);
@@ -48,11 +47,11 @@ void	ft_set_sprite_to_visible(t_vars *vars, float x, float y)
 	col = x / TILE_SIZE;
 	while (i < vars->sprite_count)
 	{
-		if (vars->sprite_tab[i].row == row 
+		if (vars->sprite_tab[i].row == row
 				&& vars->sprite_tab[i].col == col)
 		{
 			vars->sprite_tab[i].is_visible = 1;
-			return;
+			return ;
 		}
 		i++;
 	}
@@ -66,7 +65,7 @@ void	ft_set_horz_hit(t_inter *horz, t_vars *vars, t_rays *ray)
 	x = vars->player.x;
 	y = vars->player.y;
 	horz->distance = INT_MAX;
-	horz->y_inter = ((int)(y / TILE_SIZE)) * TILE_SIZE ;
+	horz->y_inter = ((int)(y / TILE_SIZE)) * TILE_SIZE;
 	if (ray->rayisdown)
 		horz->y_inter += TILE_SIZE;
 	horz->x_inter = x - (horz->y_inter - y) / tan(ray->angle);
@@ -96,13 +95,14 @@ void	ft_find_horz_wallhit(t_vars *vars, t_rays *ray, t_inter *horz)
 	while (!ft_is_maplimit(horz->next_x, horz->next_y + tmp, vars))
 	{
 		if (ft_is_sprite(horz->next_x, horz->next_y + tmp, vars))
-				ft_set_sprite_to_visible(vars, horz->next_x, horz->next_y + tmp);
+			ft_set_sprite_to_visible(vars, horz->next_x, horz->next_y + tmp);
 		if (ft_is_wall(horz->next_x, horz->next_y + tmp, vars))
 		{
 			horz->wallhitx = horz->next_x;
 			horz->wallhity = horz->next_y;
-			horz->distance = ft_get_distance(x1, y1, horz->next_x, horz->next_y);
-			return;
+			horz->distance = ft_get_distance(x1, y1,
+					horz->next_x, horz->next_y);
+			return ;
 		}
 		horz->next_x += horz->x_step;
 		horz->next_y += horz->y_step;
@@ -123,13 +123,14 @@ void	ft_find_vert_wallhit(t_vars *vars, t_rays *ray, t_inter *vert)
 	while (!ft_is_maplimit(vert->next_x + tmp, vert->next_y, vars))
 	{
 		if (ft_is_sprite(vert->next_x + tmp, vert->next_y, vars))
-				ft_set_sprite_to_visible(vars, vert->next_x + tmp, vert->next_y);
+			ft_set_sprite_to_visible(vars, vert->next_x + tmp, vert->next_y);
 		if (ft_is_wall(vert->next_x + tmp, vert->next_y, vars))
 		{
 			vert->wallhitx = vert->next_x;
 			vert->wallhity = vert->next_y;
-			vert->distance = ft_get_distance(x1, y1, vert->next_x, vert->next_y);
-			return;
+			vert->distance = ft_get_distance(x1, y1, vert->next_x,
+					vert->next_y);
+			return ;
 		}
 		vert->next_x += vert->x_step;
 		vert->next_y += vert->y_step;

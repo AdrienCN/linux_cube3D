@@ -4,15 +4,15 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 {
 	float	screen_dist;
 
-	screen_dist =  (vars->win_width / 2) / tan(ft_radconvert(FOV / 2));
+	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV / 2));
 	sprite->angle = vars->player.angle;
 	sprite->angle += atan2(sprite->y - vars->player.y,
-		   sprite->x - vars->player.x);
+			sprite->x - vars->player.x);
 	sprite->angle = ft_within_twopi(sprite->angle);
 	sprite->dist = ft_get_distance(vars->player.x, vars->player.y,
-		   sprite->x, sprite->y);
+			sprite->x, sprite->y);
 	sprite->height = (TILE_SIZE / sprite->dist) * screen_dist;
-	sprite->width = sprite->height;
+			sprite->width = sprite->height;
 	sprite->start_y = (vars->win_height / 2) - (sprite->height / 2);
 	if (sprite->start_y < 0)
 		sprite->start_y = 0;
@@ -24,7 +24,8 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->right_x = sprite->left_x + sprite->width;
 }
 
-static	int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite, int x, int y)
+static	int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite,
+									int x, int y)
 {
 	int x_xpm;
 	int y_xpm;
@@ -46,7 +47,6 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	int hide_color;
 	
 	x = 0;
-
 	x_sprite = 0;
 	if (sprite->left_x < 0)
 		x_sprite += -sprite->left_x;
@@ -103,7 +103,7 @@ static	void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
 	}
 }
 
-void	ft_render_sprite(t_vars *vars)
+void			ft_render_sprite(t_vars *vars)
 {
 	int i;
 

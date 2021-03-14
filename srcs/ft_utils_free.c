@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 22:27:02 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 12:07:16 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:11:29 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_free_cube(t_cube *element)
 		free(element->m_line);
 }
 
-void			ft_free_game(t_vars *vars)
+void	ft_free_game(t_vars *vars)
 {
 	if (vars->game.img)
 		mlx_destroy_image(vars->mlx, vars->game.img);

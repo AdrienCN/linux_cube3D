@@ -6,11 +6,32 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 16:40:47 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 21:56:27 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 01:33:57 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
+
+static char			**ft_malloc_the_map(int max_row, int max_col)
+{
+	int		i;
+	char	**tab;
+
+	tab = malloc(sizeof(*tab) * (max_row + 1));
+	if (tab == NULL)
+		return (NULL);
+	tab[max_row] = NULL;
+	i = 0;
+	while (i < max_row)
+	{
+		tab[i] = malloc(sizeof(**tab) * (max_col + 1));
+		if (tab[i] == NULL)
+			return (NULL);
+		tab[i][max_col] = '\0';
+		i++;
+	}
+	return (tab);
+}
 
 static char			**ft_create_mapgrid(char *line, int max_row, int max_col)
 {
@@ -38,27 +59,6 @@ static char			**ft_create_mapgrid(char *line, int max_row, int max_col)
 		row++;
 	}
 	return (map);
-}
-
-static char			**ft_malloc_the_map(int max_row, int max_col)
-{
-	int		i;
-	char	**tab;
-
-	tab = malloc(sizeof(*tab) * (max_row + 1));
-	if (tab == NULL)
-		return (NULL);
-	tab[max_row] = NULL;
-	i = 0;
-	while (i < max_row)
-	{
-		tab[i] = malloc(sizeof(**tab) * (max_col + 1));
-		if (tab[i] == NULL)
-			return (NULL);
-		tab[i][max_col] = '\0';
-		i++;
-	}
-	return (tab);
 }
 
 int					ft_second_parsing(int fd, t_cube *cube)

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils_math.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/14 01:11:39 by calao             #+#    #+#             */
+/*   Updated: 2021/03/14 01:12:01 by calao            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "h_cube.h"
 
-float		ft_within_twopi(float rad)
+float	ft_within_twopi(float rad)
 {
 	float rad2;
 
@@ -28,7 +40,6 @@ float	ft_get_distance(float x1, float y1, float x2, float y2)
 
 	x = (x2 - x1) * (x2 - x1);
 	y = (y2 - y1) * (y2 - y1);
-
 	result = sqrt(x + y);
 	return ((float)result);
 }
