@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 02:11:56 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 22:34:28 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 {
 	float	screen_dist;
+	float	ortho_dist;
 
 	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV / 2));
 	sprite->angle = vars->player.angle;
@@ -23,11 +24,10 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->angle = ft_within_twopi(sprite->angle);
 	sprite->dist = ft_get_distance(vars->player.x, vars->player.y,
 			sprite->x, sprite->y);
-	sprite->height = (TILE_SIZE / sprite->dist) * screen_dist;
+	ortho_dist = sprite->dist * cos(sprite->angle);
+	sprite->height = (TILE_SIZE / ortho_dist) * screen_dist;	
 	sprite->width = sprite->height;
 	sprite->start_y = (vars->win_height / 2) - (sprite->height / 2);
-	if (sprite->start_y < 0)
-		sprite->start_y = 0;
 	sprite->end_y = (vars->win_height / 2) + (sprite->height / 2);
 	if (sprite->end_y > vars->win_height)
 		sprite->end_y = vars->win_height;
@@ -78,39 +78,42 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 {
 	int x;
 	int y;
-	int x_sprite;
 	int y_sprite;
+	int x_sprite;
 	int sprite_color;
 	int hide_color;
 
-	x = 0;
+	x = sprite->left_x;
 	x_sprite = 0;
-	if (sprite->left_x < 0)
-		x_sprite += -sprite->left_x;
+	while (x < 0)
+	{
+		x++;
+		x_sprite++;
+	}
 	sprite_color = RED;
 	hide_color = ft_get_xpm_pixel_value(&vars->text.sprite, 0, 0);
-	while (x < vars->win_width)
+	while (x < sprite->right_x && x < vars->win_width)
 	{
 		y_sprite = 0;
-		y = 0;
-		while (y < vars->win_height)
+		y = sprite->start_y;
+		while (y < 0)
 		{
-			if ((y >= sprite->start_y && y <= sprite->end_y)
-					&& (x >= sprite->left_x && x <= sprite->right_x))
+			y++;
+			y_sprite++;
+		}
+		while (y < sprite->end_y && y < vars->win_height)
+		{
+			if (sprite->dist < vars->rays[x].distance)
 			{
-				if (sprite->dist < vars->rays[x].distance)
-				{
-					sprite_color = ft_get_sprite_color(vars, sprite,
-							x_sprite, y_sprite);
-					if (sprite_color != hide_color)
-						my_mlx_pixel_put(vars, x, y, sprite_color);
-				}
-				y_sprite++;
+				sprite_color = ft_get_sprite_color(vars, sprite,
+					x_sprite, y_sprite);
+				if (sprite_color != hide_color)
+					my_mlx_pixel_put(vars, x, y, sprite_color);
 			}
+			y_sprite++;
 			y++;
 		}
-		if (y_sprite)
-			x_sprite++;
+		x_sprite++;
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:29:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 12:11:37 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 21:19:46 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void		ft_start_game(t_vars *vars)
 	if (vars->bmp_save)
 	{
 		ft_cast_all_rays(vars);
-		//ft_render_walls(vars, vars->rays);
 		ft_render_sprite(vars);
 		ft_save_bmp(vars);
 	}
@@ -124,7 +123,6 @@ int			main(int argc, char **argv)
 int			ft_update_screen(t_vars *vars)
 {
 	ft_cast_all_rays(vars);
-	//ft_render_walls(vars, vars->rays);
 	ft_render_sprite(vars);
 	ft_render_minimap(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->game.img, 0, 0);

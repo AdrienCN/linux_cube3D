@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:13:14 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 02:07:35 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 22:38:57 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	float	ft_set_x_text(t_rays ray, t_img *w_text)
 	if (ray.hitisvertical)
 	{
 		tronc = ray.wallhity / TILE_SIZE;
-		if (ray.rayisleft)
+		if (ray.rayisright)
 			x_coord = (ray.wallhity - (TILE_SIZE * tronc))
 			* (w_text->width / TILE_SIZE);
 		else
@@ -48,7 +48,7 @@ static	float	ft_set_x_text(t_rays ray, t_img *w_text)
 	else
 	{
 		tronc = ray.wallhitx / TILE_SIZE;
-		if (ray.rayisdown)
+		if (ray.rayisup)
 			x_coord = (ray.wallhitx - (TILE_SIZE * tronc))
 				* (w_text->width / TILE_SIZE);
 		else
@@ -93,50 +93,9 @@ void			ft_render_walls(t_vars *vars, t_rays ray, int x)
 		y++;
 	}
 	ft_xpm_wall_pixel_put(vars, ray, x, &y);
-	/*
-	while (y >= ray.wall_start && y <= ray.wall_end)
-	{
-		ft_xpm_wall_pixel_put(vars, ray, x, y, pos_in_wall);
-		y++;
-		pos_in_wall++;
-	}
-	*/
 	while (y < vars->win_height)
 	{
 		my_mlx_pixel_put(vars, x, y, vars->floor_color);
 		y++;
 	}
 }
-
-/*
-void			ft_render_walls(t_vars *vars, t_rays *ray)
-{
-	int		y;
-	int		x;
-	float	pos_in_wall;
-
-	x = 0;
-	while (x < vars->ray_num)
-	{
-		y = 0;
-		pos_in_wall = 0;
-		while (y < ray[x].wall_start)
-		{
-			my_mlx_pixel_put(vars, x, y, vars->ceil_color);
-			y++;
-		}
-		while (y >= ray[x].wall_start && y <= ray[x].wall_end)
-		{
-			ft_xpm_wall_pixel_put(vars, ray[x], x, y, pos_in_wall);
-			y++;
-			pos_in_wall++;
-		}
-		while (y < vars->win_height)
-		{
-			my_mlx_pixel_put(vars, x, y, vars->floor_color);
-			y++;
-		}
-		x++;
-	}
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 18:11:38 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/14 21:34:27 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static	void		ft_render_player(t_vars *vars, int map_tile)
 	float	x;
 	int		i;
 	int		j;
-	float	ratio;		
-	
+	float	ratio;
+
 	ratio = map_tile / TILE_SIZE;
 	y = (vars->player.y * ratio - map_tile / 2);
 	x = (vars->player.x * ratio - map_tile / 2);
@@ -56,14 +56,15 @@ static	void		ft_render_player(t_vars *vars, int map_tile)
 	}
 }
 
-static	void		ft_render_grid(t_cube cube, t_vars *vars, char **map, int map_tile)
+static	void		ft_render_grid(t_cube cube, t_vars *vars,
+						char **map, int map_tile)
 {
 	float	x;
 	float	y;
 	float	col_count;
 	float	row_count;
 	int		color;
-	
+
 	y = 0;
 	row_count = 0;
 	while (row_count < cube.max_row && y < map_tile * cube.max_row)
@@ -83,18 +84,35 @@ static	void		ft_render_grid(t_cube cube, t_vars *vars, char **map, int map_tile)
 	ft_render_player(vars, map_tile);
 }
 
-void				ft_render_all_rays(t_vars *vars)
+static	void	ft_render_line_gpetit(t_vars *vars, float ray_angle, float x, float y,
+				int ratio)
+{
+	float r;
+
+	r = 0;
+	while (!ft_is_maplimit(x, y, vars) && ft_map_content(x, y, vars) != 1)
+	{
+		my_mlx_pixel_put(vars, x * ratio, y * ratio, ORANGE);
+		x = vars->player.x + cos(ray_angle) * r;
+		y = vars->player.y - sin(ray_angle) * r;
+		r += 0.5;
+	}
+}
+
+void				ft_render_all_rays(t_vars *vars, int map_tile)
 {
 	int		i;
 	float	x;
 	float	y;
+	int		ratio;
 
 	i = 0;
+	ratio = map_tile / TILE_SIZE;
 	x = vars->player.x;
 	y = vars->player.y;
 	while (i < vars->ray_num)
 	{
-		ft_render_line_gpetit(vars, vars->rays[i].angle, x, y);
+		ft_render_line_gpetit(vars, vars->rays[i].angle, x, y, ratio);
 		i++;
 	}
 }
@@ -114,5 +132,5 @@ void				ft_render_minimap(t_vars *vars)
 		map_tile = tile_x;
 	map = vars->cube.map;
 	ft_render_grid(vars->cube, vars, map, map_tile);
-	//ft_render_all_rays(vars);
+	//ft_render_all_rays(vars, map_tile);
 }

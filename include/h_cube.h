@@ -25,7 +25,7 @@
 # define MINIMAP_SCALE	0.3	
 # define TILE_SIZE		1000.0
 
-# define FOV			66.0
+# define FOV			80.0
 # define MOVE_SPEED		0.1 * TILE_SIZE
 # define ROT_SPEED		5 * (M_PI / 180)
 # define PI				M_PI
@@ -323,7 +323,6 @@ int		ft_get_xpm_pixel_value(t_img *img, int x, int y);
 
 		//SHAPE_PRINT
 void	ft_draw_square(t_vars *vars, float p_y, float p_x, float hei, float wid);
-void	ft_render_line_gpetit(t_vars *vars, float ray_angle, float x, float y);
 
 		// COLLISION_UTILS
 int		ft_map_content(float x, float y, t_vars *vars);
