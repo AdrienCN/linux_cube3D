@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 08:43:34 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 12:05:42 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->height = (TILE_SIZE / ortho_dist) * screen_dist;	
 	sprite->width = sprite->height;
 	sprite->start_y = (vars->win_height / 2) - (sprite->height / 2);
-	sprite->end_y = (vars->win_height / 2) + (sprite->height / 2);
-	if (sprite->end_y > vars->win_height)
-		sprite->end_y = vars->win_height;
+	sprite->end_y = (vars->win_height / 2) + (sprite->height / 2) - 1;
 	sprite->left_x = (vars->win_width / 2) + tan(sprite->angle) * screen_dist;
 	sprite->left_x -= sprite->width / 2;
-	sprite->right_x = sprite->left_x + sprite->width;
+	sprite->right_x = sprite->left_x + sprite->width - 1;
 }
 
 static	void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
@@ -85,11 +83,11 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite,
 
 	x = sprite->left_x + x_offset;
 	x_sprite = 0 + x_offset;
-	while (x < sprite->right_x && x < vars->win_width)
+	while (x <= sprite->right_x && x < vars->win_width)
 	{
 		y_sprite = 0 + y_offset;
 		y = sprite->start_y + y_offset;
-		while (y < sprite->end_y && y < vars->win_height)
+		while (y <= sprite->end_y && y < vars->win_height)
 		{
 			sprite_color = ft_s_color(vars, sprite, x_sprite, y_sprite);
 			if (sprite->dist < vars->rays[x].distance 
