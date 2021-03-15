@@ -1,14 +1,14 @@
-R 3000 3000
+R 1000 1000
 
-SO ./texture/tile_1bis.xpm
+SO ./texture/tile_1.xpm
 EA ./texture/tile_2.xpm
 NO ./texture/tile_3.xpm
 WE ./texture/tile_4.xpm
 
 S ./texture/ghost.xpm
 
-F 220,255,0
-C 225,30,0
+F 82, 21, 21
+C 48, 171, 231
 
 111111111111111111
 1012000002000000011
