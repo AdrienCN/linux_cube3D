@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 13:34:49 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:57:40 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,14 @@ void			ft_render_sprite(t_vars *vars)
 	{
 		y_offset = 0;
 		x_offset = 0;
-		while (vars->sprite_tab[i].left_x + x_offset < 0)
-			x_offset++;
-		while (vars->sprite_tab[i].start_y + y_offset < 0)
-			y_offset++;
 		if (vars->sprite_tab[i].is_visible)
+		{
+			while (vars->sprite_tab[i].left_x + x_offset < 0)
+				x_offset++;
+			while (vars->sprite_tab[i].start_y + y_offset < 0)
+				y_offset++;
 			ft_draw_sprite(vars, &vars->sprite_tab[i], x_offset, y_offset);
-		i++;
+		}
+				i++;
 	}
 }

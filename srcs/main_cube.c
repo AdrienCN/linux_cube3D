@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:29:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 13:15:20 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:59:06 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void		ft_start_game(t_vars *vars)
 	if (vars->bmp_save)
 	{
 		ft_cast_all_rays(vars);
+		ft_render_minimap(vars);
 		ft_render_sprite(vars);
 		ft_save_bmp(vars);
 	}
