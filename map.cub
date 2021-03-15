@@ -1,11 +1,11 @@
 R 1000 1000
 
-NO ./texture/mountain.xpm
-EA ./texture/sad_forest.xpm
-SO ./texture/chihiro_train.xpm
-WE ./texture/city.xpm
+SO ./texture/tile_1.xpm
+EA ./texture/tile_2.xpm
+NO ./texture/tile_3.xpm
+WE ./texture/tile_4.xpm
 
-S ./texture/portal.xpm
+S ./texture/chest.xpm
 
 F 220,255,0
 C 225,30,0

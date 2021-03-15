@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 14:45:17 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 17:26:14 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite,
 		{
 			sprite_color = ft_s_color(vars, sprite, x_sprite, y_sprite);
 			if (sprite->dist < vars->rays[x].distance
-					&& sprite_color != sprite->hide_color
-					&& sprite_color != 0x00000000)
+					&& sprite_color != sprite->hide_color)
 				my_mlx_pixel_put(vars, x, y, sprite_color);
 			y_sprite++;
 			y++;
