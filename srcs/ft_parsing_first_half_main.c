@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:41:33 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 21:44:39 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:09:38 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ int	ft_try_assigning_value(char *line, t_cube *cube)
 		line++;
 	if (*line == '\0')
 		return (0);
-	printf("strncmp(\"R \", [%.2s]\n", line);
 	if (ft_strncmp("R ", line, 2) == 0)
 		return (ft_assign_resolution(cube, line + 1));
-	printf("strncmp(\"NO \", [%.3s]\n", line);
 	if (ft_strncmp("NO ", line, 3) == 0)
 		return (ft_text_assign(1, cube, line + 2));
 	if (ft_strncmp("EA ", line, 3) == 0)

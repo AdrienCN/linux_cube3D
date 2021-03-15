@@ -6,7 +6,7 @@
 /*   By: adconsta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 14:36:23 by adconsta          #+#    #+#             */
-/*   Updated: 2021/01/29 09:28:41 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:17:44 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
-
 
 char			**ft_split(char const *str, char sep);
 char			*ft_itoa(int n);
@@ -53,7 +52,8 @@ size_t			ft_strlcat(char *dest, const char *src, size_t size);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 size_t			ft_strlen(const char *s);
 t_list			*ft_lstlast(t_list *lst);
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
+							void (*del)(void *));
 t_list			*ft_lstnew(void *data);
 void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memccpy(void *dest, const void *src, int c, size_t n);

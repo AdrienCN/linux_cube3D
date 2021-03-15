@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 17:54:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 21:34:27 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:33:56 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static	int			ft_render_tile_color(char c)
 	int		color;
 
 	if (c == ' ')
-		color = GREEN;
+		color = 0x0000FF00;
 	else if (c == '0')
-		color = WHITE;
+		color = 0x00FFFFFF;
 	else if (c == '1')
-		color = GREEN;
+		color = 0x0000FF00;
 	else if (ft_isbase(c, "NESW"))
-		color = BLUE;
+		color = 0x000000FF;
 	else if (c == '2')
-		color = RED;
+		color = 0x00FF0000;
 	else
-		color = GREY;
+		color = 0x00000000;
 	return (color);
 }
 
@@ -49,7 +49,7 @@ static	void		ft_render_player(t_vars *vars, int map_tile)
 		while (j < map_tile)
 		{
 			my_mlx_pixel_put(vars, x + j,
-					y + i, BLUE);
+					y + i, 0x000000FF);
 			j++;
 		}
 		i++;
@@ -84,39 +84,6 @@ static	void		ft_render_grid(t_cube cube, t_vars *vars,
 	ft_render_player(vars, map_tile);
 }
 
-static	void	ft_render_line_gpetit(t_vars *vars, float ray_angle, float x, float y,
-				int ratio)
-{
-	float r;
-
-	r = 0;
-	while (!ft_is_maplimit(x, y, vars) && ft_map_content(x, y, vars) != 1)
-	{
-		my_mlx_pixel_put(vars, x * ratio, y * ratio, ORANGE);
-		x = vars->player.x + cos(ray_angle) * r;
-		y = vars->player.y - sin(ray_angle) * r;
-		r += 0.5;
-	}
-}
-
-void				ft_render_all_rays(t_vars *vars, int map_tile)
-{
-	int		i;
-	float	x;
-	float	y;
-	int		ratio;
-
-	i = 0;
-	ratio = map_tile / TILE_SIZE;
-	x = vars->player.x;
-	y = vars->player.y;
-	while (i < vars->ray_num)
-	{
-		ft_render_line_gpetit(vars, vars->rays[i].angle, x, y, ratio);
-		i++;
-	}
-}
-
 void				ft_render_minimap(t_vars *vars)
 {
 	char	**map;
@@ -132,5 +99,4 @@ void				ft_render_minimap(t_vars *vars)
 		map_tile = tile_x;
 	map = vars->cube.map;
 	ft_render_grid(vars->cube, vars, map, map_tile);
-	//ft_render_all_rays(vars, map_tile);
 }

@@ -6,12 +6,14 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:29:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 21:19:46 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:15:20 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "h_cube.h"
 
+/*
+ *
 void		ft_print_mapinfo(t_cube *element)
 {
 	int i;
@@ -53,6 +55,8 @@ void		ft_print_mapinfo(t_cube *element)
 		printf("\n____________________________:\n");
 	}
 }
+
+*/
 
 int			ft_parsing_args(t_vars *vars, int argc, char **argv)
 {
@@ -100,21 +104,16 @@ int			main(int argc, char **argv)
 	if (ft_parsing_args(&vars, argc, argv)
 			|| ft_parsing_main(argv[1], &vars.cube))
 	{
-		ft_print_mapinfo(&vars.cube);
 		ft_free_game(&vars);
 		return (-1);
 	}
-	ft_print_mapinfo(&vars.cube);
-	printf("parsing ok\n");
 	if (ft_init_game(&vars.cube, &vars))
 	{
 		ft_free_game(&vars);
 		printf("Error while initializing game structures.\n");
 		return (-1);
 	}
-	printf("Init ok\n");
 	ft_start_game(&vars);
-	printf("before freeing the game\n");
 	ft_free_game(&vars);
 	printf("\nmain --> return (0);\n");
 	return (0);

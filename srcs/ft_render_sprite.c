@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 12:05:42 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:34:49 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	sprite->dist = ft_get_distance(vars->player.x, vars->player.y,
 			sprite->x, sprite->y);
 	ortho_dist = sprite->dist * cos(sprite->angle);
-	sprite->height = (TILE_SIZE / ortho_dist) * screen_dist;	
+	sprite->height = (TILE_SIZE / ortho_dist) * screen_dist;
 	sprite->width = sprite->height;
 	sprite->start_y = (vars->win_height / 2) - (sprite->height / 2);
 	sprite->end_y = (vars->win_height / 2) + (sprite->height / 2) - 1;
@@ -90,9 +90,10 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite,
 		while (y <= sprite->end_y && y < vars->win_height)
 		{
 			sprite_color = ft_s_color(vars, sprite, x_sprite, y_sprite);
-			if (sprite->dist < vars->rays[x].distance 
-					&& sprite_color != sprite->hide_color)
-					my_mlx_pixel_put(vars, x, y, sprite_color);
+			if (sprite->dist < vars->rays[x].distance
+					&& sprite_color != sprite->hide_color
+					&& sprite_color != 0x00000000)
+				my_mlx_pixel_put(vars, x, y, sprite_color);
 			y_sprite++;
 			y++;
 		}

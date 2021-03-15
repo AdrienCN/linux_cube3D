@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:27:19 by calao             #+#    #+#             */
-/*   Updated: 2021/01/28 16:36:04 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:16:27 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_strncpy(char *dest, const char *src, size_t n)
 	size_t i;
 
 	i = 0;
-
 	while (src[i] != '\0' && i < n)
 	{
 		dest[i] = src[i];
@@ -25,7 +24,7 @@ char	*ft_strncpy(char *dest, const char *src, size_t n)
 	}
 	while (i < n)
 	{
-		dest[i] =! '\0';
+		dest[i] = '\0';
 		i++;
 	}
 	return (dest);

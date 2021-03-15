@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 13:15:04 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:55:30 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:34:27 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	ft_set_ray_angle(t_rays *ray, float ray_angle)
 {
 	ray->angle = ray_angle;
-	if (ray_angle > 0 && ray_angle < PI)
+	if (ray_angle > 0 && ray_angle < M_PI)
 		ray->rayisup = TRUE;
 	else
 		ray->rayisup = FALSE;
-	if (ray_angle < PI / 2 || ray_angle > (3 * PI) / 2)
+	if (ray_angle < M_PI / 2 || ray_angle > (3 * M_PI) / 2)
 		ray->rayisright = TRUE;
 	else
 		ray->rayisright = FALSE;

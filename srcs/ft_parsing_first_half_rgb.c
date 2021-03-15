@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:45:47 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 21:45:49 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:09:45 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int		ft_rgb_val(t_rgb *ceiloor, char *line)
 	if (ceiloor->state == 1)
 		return (-5);
 	ceiloor->state = 1;
-	printf("line =%s\n", line);
 	while (count < 3)
 	{
 		while (*line == ' ' || *line == ',')

@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:48:46 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 21:48:47 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:09:53 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		ft_text_assign(int arrow, t_cube *map_info, char *line)
 
 	if (ft_text_check_format(line))
 		return (-4);
-	printf("texture _format ok\n");
 	path = ft_text_check_path(line);
 	if (path == NULL)
 		return (-8);

@@ -6,12 +6,12 @@
 /*   By: adconsta <adconsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:51:20 by adconsta          #+#    #+#             */
-/*   Updated: 2021/03/13 12:00:43 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:17:03 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <unistd.h>
 # include <stdlib.h>

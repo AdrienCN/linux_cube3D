@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:32:11 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 21:38:27 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:36:12 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@ void	ft_perso_init(t_vars *vars)
 	vars->player.turn = 0;
 	vars->player.exit = 0;
 	if (compass == 'N')
-		angle = M_PI / 2;
+		angle = M_PI / 2 + 0.0;
 	else if (compass == 'W')
-		angle = M_PI;
+		angle = M_PI + 0.0;
 	else if (compass == 'S')
-		angle = (3 * M_PI) / 2;
+		angle = (3 * M_PI) / 2 + 0.0;
 	else
 		angle = 0.0;
-	vars->player.angle = angle;
+	vars->player.angle = angle + 0.01;
 	vars->player.x = TILE_SIZE * vars->cube.player_tmp.x + TILE_SIZE / 2;
 	vars->player.y = TILE_SIZE * vars->cube.player_tmp.y + TILE_SIZE / 2;
+	vars->move_speed = 0.05 * TILE_SIZE;
+	vars->rot_speed = 5 * (M_PI / 180);
 }
 
 int		ft_init_sprite(t_vars *vars, char **map)

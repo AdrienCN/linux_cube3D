@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 16:04:20 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:14:11 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 13:10:59 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		ft_check_file_ext_name(char *filename, char *ext_name)
 	}
 	if (ft_strcmp(&filename[i], ext_name) == 0)
 		return (0);
-	printf("Error: not valid file. Use '%s' file\n", ext_name);
 	return (1);
 }
 

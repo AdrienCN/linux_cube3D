@@ -20,15 +20,15 @@ float	ft_calculate_new_x(float x, t_vars *vars)
 	x_ref = vars->player.x;
 	angle = vars->player.angle;
 	if (vars->player.vert_walk == 1)
-		x = x_ref + cos(angle) * MOVE_SPEED;
+		x = x_ref + cos(angle) * vars->move_speed;
 	else if (vars->player.vert_walk == -1)
-		x = x_ref - cos(angle) * MOVE_SPEED;
+		x = x_ref - cos(angle) * vars->move_speed;
 	else if (vars->player.hze_walk == 1)
 		x = x_ref + cos(ft_within_twopi(angle + (M_PI / 2)))
-			* MOVE_SPEED;
+			* vars->move_speed;
 	else if (vars->player.hze_walk == -1)
 		x = x_ref - cos(ft_within_twopi(angle + (M_PI / 2)))
-			* MOVE_SPEED;
+			* vars->move_speed;
 	return (x);
 }
 
@@ -40,15 +40,15 @@ float	ft_calculate_new_y(float y, t_vars *vars)
 	y_ref = vars->player.y;
 	angle = vars->player.angle;
 	if (vars->player.vert_walk == 1)
-		y = y_ref - sin(angle) * MOVE_SPEED;
+		y = y_ref - sin(angle) * vars->move_speed;
 	else if (vars->player.vert_walk == -1)
-		y = y_ref + sin(angle) * MOVE_SPEED;
+		y = y_ref + sin(angle) * vars->move_speed;
 	else if (vars->player.hze_walk == 1)
 		y = y_ref - sin(ft_within_twopi(angle + (M_PI / 2)))
-			* MOVE_SPEED;
+			* vars->move_speed;
 	else if (vars->player.hze_walk == -1)
 		y = y_ref + sin(ft_within_twopi(angle + (M_PI / 2)))
-			* MOVE_SPEED;
+			* vars->move_speed;
 	return (y);
 }
 
@@ -65,7 +65,7 @@ int		ft_update_player(t_vars *vars)
 		return (0);
 	}
 	vars->player.angle = ft_within_twopi(vars->player.angle
-			+ vars->player.turn * ROT_SPEED);
+			+ vars->player.turn * vars->rot_speed);
 	x = ft_calculate_new_x(x, vars);
 	y = ft_calculate_new_y(y, vars);
 	if (ft_is_maplimit(x, y, vars) || ft_map_content(x, y, vars))
