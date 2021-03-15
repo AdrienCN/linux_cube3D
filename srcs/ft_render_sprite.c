@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 13:57:40 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 14:45:17 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	float	screen_dist;
 	float	ortho_dist;
 
+	if (sprite->is_visible == 0)
+		return ;
 	sprite->hide_color = ft_get_xpm_pixel_value(&vars->text.sprite, 0, 0);
 	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV / 2));
 	sprite->angle = vars->player.angle;
@@ -110,11 +112,7 @@ void			ft_render_sprite(t_vars *vars)
 
 	i = 0;
 	while (i < vars->sprite_count)
-	{
-		if (vars->sprite_tab[i].is_visible)
-			ft_get_sprite_val(vars, &vars->sprite_tab[i]);
-		i++;
-	}
+		ft_get_sprite_val(vars, &vars->sprite_tab[i++]);
 	ft_sort_sprite_by_dist(vars, vars->sprite_tab);
 	i = 0;
 	while (i < vars->sprite_count)
@@ -129,6 +127,6 @@ void			ft_render_sprite(t_vars *vars)
 				y_offset++;
 			ft_draw_sprite(vars, &vars->sprite_tab[i], x_offset, y_offset);
 		}
-				i++;
+		i++;
 	}
 }

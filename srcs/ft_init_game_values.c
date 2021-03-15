@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 21:32:11 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 13:36:12 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 14:57:48 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_perso_init(t_vars *vars)
 	vars->player.x = TILE_SIZE * vars->cube.player_tmp.x + TILE_SIZE / 2;
 	vars->player.y = TILE_SIZE * vars->cube.player_tmp.y + TILE_SIZE / 2;
 	vars->move_speed = 0.05 * TILE_SIZE;
-	vars->rot_speed = 5 * (M_PI / 180);
+	vars->rot_speed = 2.5 * (M_PI / 180);
 }
 
 int		ft_init_sprite(t_vars *vars, char **map)

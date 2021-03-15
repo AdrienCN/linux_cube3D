@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 09:30:49 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:07:47 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 14:56:59 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 int		ft_reset_player(int keycode, t_vars *vars)
 {
 	(void)keycode;
-	vars->player.hze_walk = 0;
-	vars->player.vert_walk = 0;
-	vars->player.turn = 0;
+	if (keycode == A || keycode == D)
+		vars->player.hze_walk = 0;
+	else if (keycode == W || keycode == S)
+		vars->player.vert_walk = 0;
+	else if (keycode == LEFT_ARROW || keycode == RIGHT_ARROW)
+		vars->player.turn = 0;
 	return (0);
 }
 

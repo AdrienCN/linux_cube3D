@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:01:42 by calao             #+#    #+#             */
-/*   Updated: 2021/03/13 17:32:13 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 14:47:43 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	ft_class_two_error(int error)
 
 void	ft_class_three_error(int error)
 {
-	printf("map grid : ");
 	if (error == -1)
 		printf("non authorized character in map grid.\n");
 	else if (error == -2)
@@ -73,7 +72,6 @@ void	ft_class_three_error(int error)
 
 int		ft_parsing_error_msg(int class, int error)
 {
-	printf("class = %d |  error = %d\n", class, error);
 	printf("Error\n");
 	printf("Parsing: ");
 	if (class == 1)

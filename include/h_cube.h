@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 13:20:31 by calao             #+#    #+#             */
-/*   Updated: 2021/03/15 13:47:42 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 14:37:32 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define FALSE			0
 # define MAP_CHAR		"012 WSNE"
 # define MINIMAP_SCALE	0.3
-# define TILE_SIZE		100.0
+# define TILE_SIZE		10.0
 # define FOV			60.0
 # define INT_MAX		2147483647
 

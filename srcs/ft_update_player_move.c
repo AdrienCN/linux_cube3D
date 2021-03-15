@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:11:10 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 01:11:12 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 14:59:08 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ int		ft_update_move(int keycode, t_vars *vars)
 		vars->player.turn = -1;
 	else if (c == ESCAPE)
 		vars->player.exit = 1;
-	ft_update_player(vars);
 	return (1);
 }
