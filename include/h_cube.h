@@ -150,6 +150,7 @@ typedef		struct s_text
 typedef		struct s_sprite
 {
 	int		id;
+	int		hide_color;
 	int		is_visible;
 	int		row;
 	int		col;

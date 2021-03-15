@@ -6,7 +6,7 @@
 /*   By: calao <adconsta@student.42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 01:39:51 by calao             #+#    #+#             */
-/*   Updated: 2021/03/14 22:44:10 by calao            ###   ########.fr       */
+/*   Updated: 2021/03/15 08:43:34 by calao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static	void	ft_get_sprite_val(t_vars *vars, t_sprite *sprite)
 	float	screen_dist;
 	float	ortho_dist;
 
+	sprite->hide_color = ft_get_xpm_pixel_value(&vars->text.sprite, 0, 0);
 	screen_dist = (vars->win_width / 2) / tan(ft_radconvert(FOV / 2));
 	sprite->angle = vars->player.angle;
 	sprite->angle += atan2(sprite->y - vars->player.y,
@@ -61,8 +62,7 @@ static	void	ft_sort_sprite_by_dist(t_vars *vars, t_sprite *sprite)
 	}
 }
 
-static	int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite,
-									int x, int y)
+static	int		ft_s_color(t_vars *vars, t_sprite *sprite, int x, int y)
 {
 	int x_xpm;
 	int y_xpm;
@@ -74,7 +74,8 @@ static	int		ft_get_sprite_color(t_vars *vars, t_sprite *sprite,
 	return (color);
 }
 
-static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
+static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite,
+		int x_offset, int y_offset)
 {
 	int x;
 	int y;
@@ -82,32 +83,18 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 	int x_sprite;
 	int sprite_color;
 
-	x = sprite->left_x;
-	x_sprite = 0;
-	while (x < 0)
-	{
-		x++;
-		x_sprite++;
-	}
-	hide_color = ft_get_xpm_pixel_value(&vars->text.sprite, 0, 0);
+	x = sprite->left_x + x_offset;
+	x_sprite = 0 + x_offset;
 	while (x < sprite->right_x && x < vars->win_width)
 	{
-		y_sprite = 0;
-		y = sprite->start_y;
-		while (y < 0)
-		{
-			y++;
-			y_sprite++;
-		}
+		y_sprite = 0 + y_offset;
+		y = sprite->start_y + y_offset;
 		while (y < sprite->end_y && y < vars->win_height)
 		{
-			if (sprite->dist < vars->rays[x].distance)
-			{
-				sprite_color = ft_get_sprite_color(vars, sprite,
-						x_sprite, y_sprite);
-				if (sprite_color != hide_color)
+			sprite_color = ft_s_color(vars, sprite, x_sprite, y_sprite);
+			if (sprite->dist < vars->rays[x].distance 
+					&& sprite_color != sprite->hide_color)
 					my_mlx_pixel_put(vars, x, y, sprite_color);
-			}
 			y_sprite++;
 			y++;
 		}
@@ -119,6 +106,8 @@ static	void	ft_draw_sprite(t_vars *vars, t_sprite *sprite)
 void			ft_render_sprite(t_vars *vars)
 {
 	int i;
+	int x_offset;
+	int y_offset;
 
 	i = 0;
 	while (i < vars->sprite_count)
@@ -131,8 +120,14 @@ void			ft_render_sprite(t_vars *vars)
 	i = 0;
 	while (i < vars->sprite_count)
 	{
+		y_offset = 0;
+		x_offset = 0;
+		while (vars->sprite_tab[i].left_x + x_offset < 0)
+			x_offset++;
+		while (vars->sprite_tab[i].start_y + y_offset < 0)
+			y_offset++;
 		if (vars->sprite_tab[i].is_visible)
-			ft_draw_sprite(vars, &vars->sprite_tab[i]);
+			ft_draw_sprite(vars, &vars->sprite_tab[i], x_offset, y_offset);
 		i++;
 	}
 }
